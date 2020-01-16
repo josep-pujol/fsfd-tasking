@@ -26,9 +26,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.getenv('DEVELOPMENT') == 'true':
     DEBUG = True
-    SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 else:
     DEBUG = False
+    SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 
 ALLOWED_HOSTS = [
