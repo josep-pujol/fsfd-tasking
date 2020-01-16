@@ -149,5 +149,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # Email Configuration with SendGrid API
+# https://github.com/sklarsa/django-sendgrid-v5
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
