@@ -23,23 +23,19 @@ def login(request):
     if request.user.is_authenticated:
         return redirect(reverse('index'))
     if request.method == 'POST':
-        print('\nrequest.POST', request.POST)
         login_form = UserLoginForm(request.POST)
-        print('\nLogin form', login_form)
         if login_form.is_valid():
-            print('before user')
             user = auth.authenticate(
                 request=request,
                 username=request.POST['username_or_email'],
                 password=request.POST['password']
             )
-            print('after user', user)
             if user:
                 auth.login(user=user, request=request)
                 messages.success(request, 'You are logged in!')
                 return redirect(reverse(('index')))
             else:
-                login_form.add_error(None, 'Incorrect Username or password')
+                login_form.add_error(None, 'Incorrect login details')
     else:
         login_form = UserLoginForm()
 
@@ -54,10 +50,8 @@ def registration(request):
 
     if request.method == 'POST':
         registration_form = UserRegistrationForm(request.POST)
-        print('\nregistration_form', registration_form)
         if registration_form.is_valid():
             registration_form.save()
-            print('\n\n Saved registration form', request.POST)
             user = auth.authenticate(
                 request=request,
                 username=request.POST['username'],
@@ -79,10 +73,8 @@ def registration(request):
     else:
         registration_form = UserRegistrationForm()
 
-    return render(request,
-                  'registration.html',
-                  {'registration_form': registration_form}
-                  )
+    return render(request, 'registration.html',
+                  {'registration_form': registration_form})
 
 
 @login_required

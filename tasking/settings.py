@@ -26,6 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.getenv('DEVELOPMENT') == 'true':
     DEBUG = True
+    SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 else:
     DEBUG = False
 
@@ -149,5 +150,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Email Configuration with SendGrid API
 # https://github.com/sklarsa/django-sendgrid-v5
+DEFAULT_FROM_EMAIL = 'easytasking@gmail.com'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')

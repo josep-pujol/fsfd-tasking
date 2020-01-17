@@ -8,7 +8,6 @@ class UserLoginForm(forms.Form):
     """Form to log users in"""
 
     username_or_email = forms.CharField()
-    print('username or email form', str(username_or_email))
     password = forms.CharField(widget=forms.PasswordInput)
 
 
@@ -28,7 +27,7 @@ class UserRegistrationForm(UserCreationForm):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
         if User.objects.filter(email=email).exclude(username=username):
-            raise forms.ValidationError(u'Email address must be unique')
+            raise forms.ValidationError(u'This email address is already in use')
         return email
 
     def clean_password2(self):
