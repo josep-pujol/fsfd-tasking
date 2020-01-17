@@ -28,7 +28,6 @@ if os.getenv('DEVELOPMENT') == 'true':
     DEBUG = True
 else:
     DEBUG = False
-    SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 
 ALLOWED_HOSTS = [
