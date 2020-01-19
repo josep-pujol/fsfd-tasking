@@ -9,10 +9,10 @@
 <div class="row">
     <div class="col s3"></div>
     <div class="col s6">
-        <h2>Sign-Up!</h2>
         <div class="card">
-            <p>Already on Tasking? <a href="{% url 'login' %}">Sign in</a></p>
             <form method="POST">
+                <h2>Sign-Up!</h2>
+                <p>Already on Tasking? <a href="{% url 'login' %}">Sign in</a></p>
                 {% csrf_token %}
                 {{ registration_form | materializecss }}
                 <button class="btn btn-secondary" type="submit">Join Now</button>

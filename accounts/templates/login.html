@@ -8,8 +8,8 @@
 <div class="row">
     <div class="col s3"></div>
     <div class="col s6">
-        <h2>Log in</h2>
         <div class="card">
+            <h2>Log in</h2>
             <form method="POST">
                 {% csrf_token %}
                 {{ login_form | materializecss }}
