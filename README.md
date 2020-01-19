@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/josep-pujol/fsfd-tasking.svg?branch=master)](https://fsfd-tasking.herokuapp.com/)
 
-This repo contains a solution code for the milestone project of the *Data Centric Development* module at Code Institute.
+This repo contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
 
-Consists on a "Tasks List" application in which users can store and manage tasks. This is the first part of a bigger project which will use this app for multiple users, groups of users etc. and that will be the final project at Code Institute.
+Consists on a "Tasks List" application in which users can store and manage tasks. Allow multiple users, groups of users etc.
 
-A demo of the app can be viewed [HERE](https://dcd-task-list.herokuapp.com//)
+A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
 
 
