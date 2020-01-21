@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User
 
 from accounts.forms import UserLoginForm, UserRegistrationForm
 
@@ -14,7 +14,7 @@ def index(request):
 def logout(request):
     """Logout user"""
     auth.logout(request)
-    messages.success(request, 'You are logged out!')
+    messages.success(request, 'You are logged out!')  # TODO
     return redirect(reverse('index'))
 
 
@@ -32,7 +32,6 @@ def login(request):
             )
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, 'You are logged in!')
                 return redirect(reverse(('index')))
             else:
                 login_form.add_error(None, 'Incorrect login details')
@@ -57,15 +56,8 @@ def registration(request):
                 username=request.POST['username'],
                 password=request.POST['password1']
             )
-            print('\n Before if user', user)
             if user:
-                print('\n Add group')
                 auth.login(user=user, request=request)
-
-                # Add user to free_account permissions group
-                free_account_group = Group.objects.get(name='free_account')
-                free_account_group.user_set.add(user)
-
                 messages.success(request, 'You are registered')
                 return redirect(reverse('index'))
             else:
@@ -76,7 +68,7 @@ def registration(request):
     return render(request, 'registration.html',
                   {'registration_form': registration_form})
 
-
+# TODO
 @login_required
 def user_profile(request):
     """User's profile Page"""
