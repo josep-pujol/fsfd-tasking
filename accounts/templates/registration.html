@@ -7,18 +7,16 @@
 
 {% block content %}
 <div class="row">
-    <div class="col s3"></div>
-    <div class="col s6">
-        <div class="card">
+    <div class="col s12 m8 offset-m2">
+        <div class="card-panel">
             <form method="POST">
-                <h2>Sign-Up!</h2>
+                <h2 class="section-title">Sign-Up!</h2>
                 <p>Already on Tasking? <a href="{% url 'login' %}">Sign in</a></p>
                 {% csrf_token %}
                 {{ registration_form | materializecss }}
                 <button class="btn btn-secondary" type="submit">Join Now</button>
-            </form>
+            </form> 
         </div>
     </div>
-    <div class="col s3"></div>
 </div>
 {% endblock%}
