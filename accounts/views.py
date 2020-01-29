@@ -14,7 +14,6 @@ def index(request):
 def logout(request):
     """Logout user"""
     auth.logout(request)
-    messages.success(request, 'You are logged out!')  # TODO
     return redirect(reverse('index'))
 
 
