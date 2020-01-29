@@ -6,9 +6,6 @@
 <div class="row">
     <div class="col s12 m8 offset-m2">
         <div class="card-panel">
-        {% if user.is_authenticated %}
-            
-        {% else %}
             <h6 class="yellow-text text-darken-4" style="font-weight: 800;">THE EASYIEST WAY TO</h6>
             <h2 class="section-title">Organise yourself!</h2>
             <p style="font-weight: 500;"><em>With Tasking you can now organise your To-Do list in a simple way.</em></p>
@@ -18,9 +15,7 @@
                 <li> &bull; Use Tasking from any device</li>
             </ul>
             <br>
-            <a class="waves-effect waves-light btn-large" style="border-radius:5px; font-weight: 500;" href="{% url 'login' %}">
-            Try it for Free!</a>
-        {% endif %}
+            <a class="waves-effect waves-light btn-large" style="border-radius:5px; font-weight: 500;" href="{% url 'login' %}">Try it for Free!</a>
         </div>
     </div>
 </div>

@@ -8,7 +8,10 @@ from accounts.forms import UserLoginForm, UserRegistrationForm
 
 def index(request):
     """Return the index.html file"""
-    return render(request, 'accounts/index.html')
+    if request.user.is_authenticated:
+        return redirect(reverse('task_list'))
+    else:
+        return render(request, 'accounts/index.html')
 
 
 def logout(request):

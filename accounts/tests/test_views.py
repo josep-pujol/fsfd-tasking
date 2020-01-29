@@ -25,7 +25,7 @@ class LoginViewTest(TestCase):
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'login.html')
+        self.assertTemplateUsed(response, 'accounts/login.html')
 
     def test_unkwnow_user_unable_to_login(self):
         # Trying to Login unkwnow user
@@ -52,16 +52,16 @@ class LoginViewTest(TestCase):
         self.assertEqual(int(self.client.session['_auth_user_id']), 
                          user[0].id)
 
-    def test_redirect_to_index_if_logged_in(self):
+    def test_redirect_to_tasklist_if_logged_in(self):
         # Login user
         login = self.client.login(
             username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
         # Requesting the login page should redirect to index
         response = self.client.get('/accounts/login/', follow=True)
-        index_response = self.client.get(reverse('index'))
-        self.assertRedirects(response, '/')
-        self.assertEqual(response.content, index_response.content)
+        task_list_response = self.client.get(reverse('task_list'))
+        self.assertRedirects(response, '/tasks/')
+        self.assertEqual(response.content, task_list_response.content)
 
 
 class LogoutViewTest(TestCase):
@@ -95,14 +95,13 @@ class LogoutViewTest(TestCase):
         response = self.client.get(reverse('logout'), follow=False)
         self.assertEqual(response.status_code, 302)
 
-    # TODO
-    # def test_view_uses_correct_template(self):
-    #     login = self.client.login(
-    #         username='user2test', password='XISRUkwtuK')
-    #     self.assertTrue(login)
-    #     response = self.client.get(reverse('logout'))
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'logout.html')
+    def test_view_uses_correct_template(self):
+        login = self.client.login(
+            username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        response = self.client.get(reverse('logout'), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/index.html')
 
     def test_redirect_to_index_when_logging_out(self):
         # Login user
@@ -115,4 +114,3 @@ class LogoutViewTest(TestCase):
         index_response = self.client.get(reverse('index'))
         self.assertRedirects(response, '/')
         self.assertEqual(response.content, index_response.content)
-
