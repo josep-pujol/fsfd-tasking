@@ -1,6 +1,6 @@
 import os
 
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, reverse
 from django.contrib.auth.decorators import login_required
 
 from .models import PremiumUser
@@ -10,11 +10,11 @@ import stripe
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 
-# @login_required
+@login_required
 def checkout(request):
     try:
         if request.user.premiumuser:
-            return redirect('base')
+            return redirect(reverse('index'))
     except PremiumUser.DoesNotExist:
         pass
     except AttributeError:
@@ -34,7 +34,7 @@ def checkout(request):
         premiumuser.stripe_subscription_id = subscription.id
         premiumuser.save()
 
-        return redirect('base')
+        return redirect('index')
     else:
         price = 9900
         final_euro = 99
