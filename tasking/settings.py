@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'materializecssform',
     'accounts.apps.AccountsConfig',
+    'subscriptions.apps.SubscriptionsConfig',
     'tasks.apps.TasksConfig',
 ]
 
@@ -151,17 +152,15 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-# Automatic Configuration
-# https://devcenter.heroku.com/articles/django-app-configuration
-
-# django_heroku.settings(locals(), databases=False)
-
-
-# Alerts and error messages
-# MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
-
 # Email Configuration with SendGrid API
 # https://github.com/sklarsa/django-sendgrid-v5
+
 DEFAULT_FROM_EMAIL = 'easytasking@gmail.com'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+
+
+# Stripe Keys for processing payments in test mode
+# use card 4242 4242 4242 4242
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
