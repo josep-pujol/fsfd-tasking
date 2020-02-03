@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from accounts.views import index
+from subscriptions.views import checkout
 
 
 urlpatterns = [
@@ -23,5 +24,6 @@ urlpatterns = [
     path('', index, name='index'),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('subscriptions/', checkout, name='checkout'),
     path('tasks/', include('tasks.urls')),
 ]

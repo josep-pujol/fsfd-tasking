@@ -7,10 +7,12 @@ from accounts.forms import UserLoginForm, UserRegistrationForm
 
 
 def index(request):
-    """Return the index.html file"""
+    """Return landing page"""
+    # TODO premium user
     if request.user.is_authenticated:
         return redirect(reverse('task_list'))
     else:
+    # TODO not premium, render page to become premium
         return render(request, 'accounts/index.html')
 
 
