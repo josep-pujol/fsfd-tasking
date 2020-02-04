@@ -17,6 +17,7 @@ def index(request):
 def logout(request):
     """Logout user"""
     auth.logout(request)
+    messages.success(request, 'Logged out.  See you soon!')
     return redirect(reverse('index'))
 
 
@@ -34,6 +35,8 @@ def login(request):
             )
             if user:
                 auth.login(user=user, request=request)
+                messages.success(
+                    request, f'Logged in.  Welcome { user.username.title() }!')
                 return redirect(reverse(('index')))
             else:
                 login_form.add_error(None, 'Incorrect login details')
@@ -60,10 +63,13 @@ def registration(request):
             )
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, 'You are registered')
+                messages.success(request, 'You are registered!')
+                messages.success(
+                    request, f'Welcome to Tasking  { user.username.title() }!')
                 return redirect(reverse('index'))
             else:
-                messages.error(request, 'Unable to register at this time')
+                messages.error(
+                    request, 'Unable to register at this time. Please try again')
     else:
         registration_form = UserRegistrationForm()
 

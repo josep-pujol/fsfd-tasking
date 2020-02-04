@@ -151,14 +151,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-# Automatic Configuration
-# https://devcenter.heroku.com/articles/django-app-configuration
-
-# django_heroku.settings(locals(), databases=False)
-
-
 # Alerts and error messages
-# MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 
 # Email Configuration with SendGrid API
 # https://github.com/sklarsa/django-sendgrid-v5
