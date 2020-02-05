@@ -1,0 +1,111 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <!--Add Task card-->
+            <div class="card-panel">
+                <div class="row">
+                    <form class="formValidate col s12" id="formValidate" method="POST" action="{% url 'update_task' task.pk %}">
+                        {% csrf_token %}
+                        <div class="row col s12">
+                            <h3 class="section-title">Edit Task</h3>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">assignment</i>
+                                <input id="tsk_name" name="tsk_name" type="text" class="validate" required value="{{ task.tsk_name }}">
+                                <label for="tsk_name">Task Name</label>
+                                <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">list</i>
+                                <select id="tsk_category" name="tsk_category">
+                                <option value="" disabled>Choose Category</option>
+                                {% for cat in categories %}
+                                    {% if cat.cat_name == task.tsk_category %}
+                                        <option value="{{ cat.pk }}" selected>{{ cat.cat_name }}</option>
+                                    {% else %}
+                                        <option value="{{ cat.pk }}">{{ cat.cat_name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                                <label>Task Category</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">assignment_turned_in</i>
+                                <select id="tsk_status" name="tsk_status">
+                                <option value="" disabled>Choose Status</option>
+                                {% for sta in status %}
+                                    {% if sta.sta_name == task.tsk_status %}
+                                        <option value="{{ sta.pk }}" selected>{{ sta.sta_name }}</option>
+                                    {% else %}
+                                        <option value="{{ sta.pk }}">{{ sta.sta_name }}</option>               
+                                    {% endif %}                                  
+                                {% endfor %}
+                                </select>
+                                <label>Status</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">comment</i>
+                                <textarea id="tsk_description" name="tsk_description" class="materialize-textarea">{{ task.tsk_description }}</textarea>
+                                <label for="tsk_description">Description</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">today</i>
+                                <input id="tsk_due_date" name="tsk_due_date" type="text" class="datepicker" value="{{ task.tsk_due_date|date:'M d, Y' }}">
+                                <label for="tsk_due_date">Due Date</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">bookmarks</i>
+                                <select id="tsk_importance" name="tsk_importance">
+                                <option value="" disabled>Choose Importance</option>
+                                {% for imp in importances %}
+                                    {% if imp.imp_name == task.tsk_importance %}
+                                        <option value="{{ imp.pk }}" selected>{{ imp.imp_name }}</option>
+                                    {% else %}
+                                        <option value="{{ imp.pk }}">{{ imp.imp_name }}</option>
+                                    {% endif %}                                
+                                {% endfor %}
+                                </select>
+                                <label>Importance</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">Update Task<i class="material-icons right">update</i></button>
+                            <a class="btn-flat waves-effect waves-light right" href="{% url 'tasks_table' %}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+{% block js %}
+
+    <!--Datepicker Initialization-->
+    <script>
+        const options_dp = {showDaysInNextAndPreviousMonths: true,
+                            yearRange: 15,
+                            firstDay: 1,
+                            showClearBtn: true,
+                            };
+        $(document).ready(function() {
+            $("select").formSelect();
+            $(".datepicker").datepicker(options_dp);
+        });
+    </script>
+{% endblock %}

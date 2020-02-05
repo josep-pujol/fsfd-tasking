@@ -10,7 +10,7 @@ def index(request):
     """Return landing page"""
     # TODO premium user
     if request.user.is_authenticated:
-        return redirect(reverse('task_list'))
+        return redirect(reverse('tasks_table'))
     else:
     # TODO not premium, render page to become premium
         return render(request, 'accounts/index.html')

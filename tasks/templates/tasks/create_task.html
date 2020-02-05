@@ -1,0 +1,100 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <!--Create Task card-->
+            <div class="card-panel">
+                <div class="row">
+                    <form class="col s12" id="formValidate" method="POST" action="{% url 'create_task' %}">
+                        {% csrf_token %}
+                        <div class="row col s12">
+                            <h3 class="section-title">Create Task</h3>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">assignment</i>
+                                <input id="tsk_name" name="tsk_name" type="text" class="validate" required>
+                                <label for="tsk_name">Task Name</label>
+                                <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">list</i>
+                                <select id="tsk_category" name="tsk_category">
+                                <option value="3" selected>Choose Category</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.pk }}">{{ cat.cat_name }}</option>
+                                {% endfor %}
+                                </select>
+                                <label>Task Category</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">assignment_turned_in</i>
+                                <select id="tsk_status" name="tsk_status">
+                                <option value="1" selected>Choose Status</option>
+                                {% for sta in status %}
+                                    <option value="{{ sta.pk }}">{{ sta.sta_name }}</option>
+                                {% endfor %}
+                                </select>
+                                <label>Status</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">comment</i>
+                                <textarea id="tsk_description" name="tsk_description" class="materialize-textarea"></textarea>
+                                <label for="tsk_description">Description</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">today</i>
+                                <input id="tsk_due_date" name="tsk_due_date" type="text" class="datepicker validate" required>
+                                <label for="tsk_due_date">Due Date</label>
+                                <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">bookmarks</i>
+                                <select id="tsk_importance" name="tsk_importance">
+                                <option value="3" selected disabled>Choose Importance</option>
+                                {% for imp in importances  %}
+                                    <option value="{{ imp.pk }}">{{ imp.imp_name }}</option>
+                                {% endfor %}
+                                </select>
+                                <label>Importance</label>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">Create Task<i class="material-icons right">playlist_add</i></button>
+                            <a class="btn-flat waves-effect waves-light right" href="{% url 'tasks_table' %}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+    <!--Datepicker Initialization-->
+    <script>
+        const options_dp = {showDaysInNextAndPreviousMonths: true,
+                            yearRange: 10,
+                            firstDay: 1,
+                            showClearBtn: true,
+                            };
+        $(document).ready(function() {
+            $("select").formSelect();
+            $(".datepicker").datepicker(options_dp);
+        });
+    </script>
+{% endblock %}
