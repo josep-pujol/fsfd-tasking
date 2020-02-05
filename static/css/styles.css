@@ -131,6 +131,13 @@ body
 }
 
 
+/* Toasts */
+
+.toast
+{
+    font-weight: 500;
+}
+
 
 /* Drop down menu in each row */
 
@@ -139,7 +146,7 @@ body
     color: black;
 }
 
-.dropdown-content li>span>a 
+.dropdown-content li>a 
 {
     color: black; 
 }
