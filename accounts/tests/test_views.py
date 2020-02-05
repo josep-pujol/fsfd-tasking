@@ -111,6 +111,4 @@ class LogoutViewTest(TestCase):
 
         # Logout url should logout user and redirect to index
         response = self.client.get('/accounts/logout/', follow=True)
-        index_response = self.client.get(reverse('index'))
         self.assertRedirects(response, '/')
-        self.assertEqual(response.content, index_response.content)
