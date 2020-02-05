@@ -1,22 +1,45 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
-{% block page_title %}Home{% endblock %}
+{% load staticfiles %}
+
+{% block page_title %}Tasking{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col s12 m8 offset-m2">
-        <div class="card-panel">
-            <h6 class="yellow-text text-darken-4" style="font-weight: 800;">THE EASYIEST WAY TO</h6>
-            <h2 class="section-title">Organise yourself!</h2>
-            <p style="font-weight: 500;"><em>With Tasking you can now organise your To-Do list in a simple way.</em></p>
+
+<div class="parallax-container">
+    <div class="parallax"><img src="{% static 'media/parallax_top.jpg' %}"></div>
+</div>
+<div class="section white">
+    <div class="row container">
+        <div class="col s12 m8 offset-m2">
+            <br>
+            <h5 class="yellow-text text-darken-4" style="font-weight: 800;">THE EASYIEST WAY TO</h5>
+            <h1 class="section-title">Organise yourself!</h1>
+            <br>
+            <h6 style="font-weight: 500;"><em>With Tasking you can now organise your To-Do list in a simple way.</em></h6>
             <ul>
-                <li> &bull; Keep everything in a single place</li>
-                <li> &bull; Quickly sort your tasks by importance, category or due date</li>
-                <li> &bull; Use Tasking from any device</li>
+                <li style="font-weight: 500;"> &bull; Keep everything in a single place</li>
+                <li style="font-weight: 500;"> &bull; Quickly sort your tasks by importance, category or due date</li>
+                <li style="font-weight: 500;"> &bull; And you can use Tasking from any device!</li>
             </ul>
             <br>
-            <a class="waves-effect waves-light btn-large" style="border-radius:5px; font-weight: 500;" href="{% url 'registration' %}">Try it for Free!</a>
+            <a class="waves-effect waves-light btn-large" style="border-radius:5px; font-weight: 500;" href="">Try it for Free!</a>
         </div>
     </div>
 </div>
-{% endblock%}
+<div class="parallax-container">
+    <div class="parallax"><img src="{% static 'media/parallax_bottom.jpg' %}"></div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+    <!--Parallax Initialization-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('.parallax');
+          var instances = M.Parallax.init(elems);
+        });
+    </script>
+{% endblock %}
