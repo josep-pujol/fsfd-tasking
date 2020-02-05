@@ -1,11 +1,11 @@
 import os
 
+from django.contrib import messages
 from django.shortcuts import redirect, render, reverse
 from django.contrib.auth.decorators import login_required
 
-from .models import PremiumUser
+from subscriptions.models import PremiumUser
 import stripe
-
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
@@ -33,7 +33,10 @@ def checkout(request):
         premiumuser.stripe_id = stripe_customer.id
         premiumuser.stripe_subscription_id = subscription.id
         premiumuser.save()
-
+        messages.success(request, 'Payment processed succesfully')
+        messages.success(
+            request, 
+            f'You are now a Premium user { request.user.username.title() }!')
         return redirect('index')
     else:
         price = 9900
