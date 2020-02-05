@@ -12,13 +12,13 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 @login_required
 def checkout(request):
-    try:
-        if request.user.premiumuser:
-            return redirect(reverse('index'))
-    except PremiumUser.DoesNotExist:
-        pass
-    except AttributeError:
-        pass
+    # try:
+    #     if request.user.premiumuser:
+    #         return redirect(reverse('index'))
+    # except PremiumUser.DoesNotExist:
+    #     pass
+    # except AttributeError:
+    #     pass
 
     plan_id = 'plan_Gcb3Ira0nEPtnk'
     if request.method == 'POST':

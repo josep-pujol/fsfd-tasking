@@ -14,7 +14,7 @@
                     <p>Already on Tasking? <a href="{% url 'login' %}">Sign in</a></p>
                     {% csrf_token %}
                     {{ registration_form | materializecss }}
-                    <button class="btn btn-secondary" type="submit">Join Now</button>
+                    <button class="btn btn-secondary" type="submit">Join Now<i class="material-icons right">send</i></button>
                 </form> 
             </div>
         </div>
