@@ -42,7 +42,6 @@ class Status(models.Model):
 class Team(models.Model):
     tem_name = models.CharField(max_length=200)
     tem_description = models.TextField()
-
     tem_owner = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
