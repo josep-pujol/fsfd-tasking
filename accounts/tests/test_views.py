@@ -59,9 +59,7 @@ class LoginViewTest(TestCase):
         self.assertTrue(login)
         # Requesting the login page should redirect to index
         response = self.client.get('/accounts/login/', follow=True)
-        task_list_response = self.client.get(reverse('task_list'))
         self.assertRedirects(response, '/tasks/')
-        self.assertEqual(response.content, task_list_response.content)
 
 
 class LogoutViewTest(TestCase):
