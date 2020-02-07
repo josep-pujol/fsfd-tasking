@@ -24,7 +24,7 @@
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">list</i>
                                 <select id="tsk_category" name="tsk_category">
-                                <option value="3" selected>Choose Category</option>
+                                <option value="1" selected>Choose Category</option>
                                 {% for cat in categories %}
                                     <option value="{{ cat.pk }}">{{ cat.cat_name }}</option>
                                 {% endfor %}
@@ -63,7 +63,7 @@
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">bookmarks</i>
                                 <select id="tsk_importance" name="tsk_importance">
-                                <option value="3" selected disabled>Choose Importance</option>
+                                <option value="1" selected disabled>Choose Importance</option>
                                 {% for imp in importances  %}
                                     <option value="{{ imp.pk }}">{{ imp.imp_name }}</option>
                                 {% endfor %}
