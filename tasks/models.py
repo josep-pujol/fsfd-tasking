@@ -39,25 +39,25 @@ class Status(models.Model):
         return self.sta_name
 
 
-class Group(models.Model):
-    grp_name = models.CharField(max_length=200)
-    grp_description = models.TextField()
+class Team(models.Model):
+    tem_name = models.CharField(max_length=200)
+    tem_description = models.TextField()
 
-    grp_owner = models.OneToOneField(
+    tem_owner = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        related_name='group_owner',
+        related_name='team_owner',
     )
 
     def __str__(self):
-        return self.grp_name
+        return self.tem_name
 
 
 class Task(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
-    tsk_grp = models.ForeignKey(
-        Group, on_delete=models.CASCADE, blank=True, null=True)
+    tsk_team = models.ForeignKey(
+        Team, on_delete=models.CASCADE, blank=True, null=True)
     tsk_category = models.ForeignKey(
         Category, on_delete=models.CASCADE, default=1)  # default Undefined
     tsk_status = models.ForeignKey(
@@ -83,18 +83,19 @@ class Task(models.Model):
         return str((self.pk, self.tsk_name))
 
 
-class UserGroup(models.Model):
-    ug_user = models.ForeignKey(
+class UserTeam(models.Model):
+    ut_user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
-    ug_group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, blank=True, null=True)
+    ut_team = models.ForeignKey(
+        Team, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['ug_user', 'ug_group'],
-                name='user_group')
+                fields=['ut_user', 'ut_team', ],
+                name='user_team'
+            )
         ]
 
     def __str__(self):
-        return str((self.ug_group, self.ug_user))
+        return str((self.ut_team, self.ut_user))
