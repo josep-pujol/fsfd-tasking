@@ -58,11 +58,11 @@ class UpdateTaskViewTest(TestCase):
         cat2test3.save()
 
         # Create Importances
-        imp2test1 = Importance.objects.create(imp_name='High', imp_order=1)
+        imp2test1 = Importance.objects.create(imp_name='High', imp_order=3)
         imp2test1.save()
         imp2test2 = Importance.objects.create(imp_name='Medium', imp_order=2)
         imp2test2.save()
-        imp2test3 = Importance.objects.create(imp_name='Low', imp_order=3)
+        imp2test3 = Importance.objects.create(imp_name='Low', imp_order=1)
         imp2test3.save()
 
         # Create Status

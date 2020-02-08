@@ -35,7 +35,7 @@ def checkout(request):
         premiumuser.save()
         messages.success(request, 'Payment processed succesfully')
         messages.success(
-            request, 
+            request,
             f'You are now a Premium user { request.user.username.title() }!')
         return redirect('index')
     else:

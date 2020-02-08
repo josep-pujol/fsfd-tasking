@@ -56,7 +56,7 @@ class Task(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
     tsk_team = models.ForeignKey(
-        Team, on_delete=models.CASCADE, blank=True, null=True)
+        Team, on_delete=models.CASCADE, blank=True, null=True, default=1)
     tsk_category = models.ForeignKey(
         Category, on_delete=models.CASCADE, default=1)  # default Undefined
     tsk_status = models.ForeignKey(

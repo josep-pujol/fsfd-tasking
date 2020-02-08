@@ -9,7 +9,7 @@ from django.db.models.signals import post_migrate
 
 def reset_sequences(sender, **kwargs):
     """ reset the sql sequences """
-    print('reset_sequences')
+    print('  Reseting database sequences')
 
     # list of apps to reset 
     app_names = ['tasks', ]
