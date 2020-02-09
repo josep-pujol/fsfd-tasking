@@ -3,19 +3,23 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-
 from accounts.forms import UserLoginForm, UserRegistrationForm
+from tasks.models import Team, UserTeam
 from subscriptions.models import PremiumUser
+
+
+def is_premium(user):
+    try:
+        return user.premiumuser
+    except PremiumUser.DoesNotExist:
+        return False
+    except AttributeError:
+        return False
 
 
 def index(request):
     """Return landing page"""
-    try:
-        is_premium_user = request.user.premiumuser
-    except PremiumUser.DoesNotExist:
-        is_premium_user = False
-    except AttributeError:
-        is_premium_user = False
+    is_premium_user = is_premium(request.user)
 
     if is_premium_user:
         return redirect(reverse('tasks_table'))
@@ -23,7 +27,7 @@ def index(request):
         # User registerd but not premium
         return redirect(reverse('subscribe'))
     else:
-        # Not registered user
+        # Unknown user
         return render(request, 'accounts/index.html')
 
 
@@ -76,6 +80,12 @@ def registration(request):
             )
             if user:
                 auth.login(user=user, request=request)
+
+                # Add user to default UserTeam
+                default_team = Team.objects.get(pk=1)
+                user_team = UserTeam.objects.create(ut_user=user, ut_team=default_team)
+                user_team.save()
+
                 messages.success(request, 'You are registered!')
                 messages.success(
                     request, f'Welcome to Tasking  { user.username.title() }!')
