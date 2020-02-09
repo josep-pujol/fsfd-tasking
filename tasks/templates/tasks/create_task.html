@@ -23,19 +23,24 @@
                             </div>
                         </div>
 
-                        {% if is_premium_user %}
+                        {% if is_team_owner %}
                         <div class="row col s12">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">person</i>
-                                <input id="tsk_user" name="tsk_name" type="text" class="validate" required>
+                                <select id="tsk_user" name="tsk_user">
+                                <option value="{{ user.pk }}" selected>Assign to</option>
+                                {% for usr in team_users %}
+                                    <option value="{{ usr.pk }}">{{ usr.username }}</option>
+                                {% endfor %}
+                                </select>
                                 <label for="tsk_user">User Assigned</label>
-                                <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
                             </div>
                         </div>
                         {% else %}
-                        <input type="hidden" id="tsk_user" name="tsk_user" value="{{ user.pk }}">
-                        <input type="hidden" id="tsk_team" name="tsk_team" value="{{ team.pk }}">
+                        <input id="tsk_user" name="tsk_user" type="hidden" value="{{ user.pk }}">
                         {% endif %}
+                        
+                        <input id="tsk_team" name="tsk_team" type="hidden" value="{{ team.pk }}">
 
                         <div class="row col s12">
                             <div class="input-field col s12">

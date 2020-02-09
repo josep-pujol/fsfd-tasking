@@ -5,16 +5,7 @@ from django.urls import reverse, reverse_lazy
 
 from subscriptions.models import PremiumUser
 from tasks.forms import EditStatusForm, TasksForm
-from tasks.models import Category, Importance, Status, Task, Team
-
-
-def is_premium(user):
-    try:
-        return user.premiumuser
-    except PremiumUser.DoesNotExist:
-        return False
-    except AttributeError:
-        return False
+from tasks.models import Category, Importance, Status, Task, Team, UserTeam
 
 
 def tasks_table(request):
@@ -28,8 +19,9 @@ def tasks_table(request):
 
 
 def create_task(request):
-    print(request.user)
-    is_premium_user = is_premium(request.user)
+    user = request.user
+    print(user)
+    is_team_owner = hasattr(user, 'team_owner')
 
     if request.method == 'POST':
         # TODO toast message
@@ -49,23 +41,25 @@ def create_task(request):
         else:
             messages.error(request, 'Unable to create task. Please try again.')
 
-    user = request.user
-    team = Team.objects.get(pk=1)
+    team = Team.objects.get(pk=1)  # Default team
     categories = Category.objects.all()
     importances = Importance.objects.all()
     status = Status.objects.all()
     context = {
         'user': user,
-        'is_premium_user': is_premium_user,
+        'is_team_owner': is_team_owner,
         'team': team,
         'categories': categories,
         'importances': importances,
         'status': status,
     }
-    if is_premium_user:
-        # context['team']
-        pass
-    print(vars(request.GET))
+    if is_team_owner:
+        user_team = UserTeam.objects.filter(ut_team=user.team_owner.pk)
+        # Get only users and sort them alphabetically
+        team_users = sorted((itm.ut_user for itm in user_team),
+                            key=lambda k: k.username)
+        context['team_users'] = team_users
+    print(context)
 
     return render(request, 'tasks/create_task.html', context=context)
 

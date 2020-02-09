@@ -89,6 +89,7 @@ class UserTeam(models.Model):
         Team, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
+        ordering = ['ut_team', ]
         constraints = [
             models.UniqueConstraint(
                 fields=['ut_user', 'ut_team', ],
