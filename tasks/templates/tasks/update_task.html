@@ -22,6 +22,28 @@
                                 <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
                             </div>
                         </div>
+
+                        {% if is_team_owner %}
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">person</i>
+                                <select id="tsk_user" name="tsk_user">
+                                <option value="" disabled>Assign to</option>
+                                {% for usr in team_users %}
+                                    {% if usr == task.tsk_user %}
+                                        <option value="{{ usr.pk }}" selected>{{ usr.username }}</option>
+                                    {% else %}
+                                        <option value="{{ usr.pk }}">{{ usr.username }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                                <label for="tsk_user">User Assigned</label>
+                            </div>
+                        </div>
+                        {% else %}
+                        <input id="tsk_user" name="tsk_user" type="hidden" value="{{ task.tsk_user.pk }}">
+                        {% endif %}
+
                         <div class="row col s12">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">list</i>

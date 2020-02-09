@@ -8,6 +8,12 @@ from tasks.forms import EditStatusForm, TasksForm
 from tasks.models import Category, Importance, Status, Task, Team, UserTeam
 
 
+def get_users_in_team(team):
+    user_team = UserTeam.objects.filter(ut_team=team.pk)
+    # Get only users, from users and teams, and sort them alphabetically
+    return sorted((itm.ut_user for itm in user_team), key=lambda k: k.username)
+
+
 def tasks_table(request):
     tasks = Task.objects.all()
     status = Status.objects.all()
@@ -41,6 +47,7 @@ def create_task(request):
                 task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
             task.save()
             messages.success(request, 'Task created!')
+
             return redirect(reverse('tasks_table'))
         else:
             messages.error(request, 'Unable to create task. Please try again.')
@@ -56,18 +63,14 @@ def create_task(request):
         'status': status,
     }
     if is_team_owner:
-        user_team = UserTeam.objects.filter(ut_team=user.team_owner.pk)
-        # Get only users, from users and teams, and sort them alphabetically
-        team_users = sorted((itm.ut_user for itm in user_team),
-                            key=lambda k: k.username)
-        context['team_users'] = team_users
+        context['team_users'] = get_users_in_team(user.team_owner)
 
     return render(request, 'tasks/create_task.html', context=context)
 
 
 def update_task(request, pk):
+    user = request.user
     if request.method == 'POST':
-        # TODO user & toast message
         task = get_object_or_404(Task, pk=pk)
         task_form = TasksForm(request.POST)
         if task_form.is_valid():
@@ -78,23 +81,34 @@ def update_task(request, pk):
             task.tsk_category = task_form.cleaned_data['tsk_category']
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
+            
+            # Select task team in function of user assigned to task
+            if int(task.tsk_user.pk) == int(user.pk):
+                task.tsk_team = Team.objects.get(pk=1)  # Default Team
+            else:
+                task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
             task.save()
-
             messages.success(request, 'Task updated')
+            
             return redirect(reverse('tasks_table'))
         else:
             messages.error(request, 'Unable to update. Please try again.')
-    # TODO user
+
     task = get_object_or_404(Task, pk=pk)
+    is_team_owner = hasattr(user, 'team_owner')
     categories = Category.objects.all()
     importances = Importance.objects.all()
     status = Status.objects.all()
     context = {
         'task': task,
+        'is_team_owner': is_team_owner,
         'categories': categories,
         'importances': importances,
         'status': status,
     }
+    if is_team_owner:
+        context['team_users'] = get_users_in_team(user.team_owner)
+
     return render(request, 'tasks/update_task.html', context=context)
 
 
@@ -108,4 +122,5 @@ def update_status(request):
         messages.success(request, 'Status updated')
     else:
         messages.error(request, "Unable to update Status. Please try again.")
+    
     return redirect(reverse('tasks_table'))
