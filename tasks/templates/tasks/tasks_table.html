@@ -2,6 +2,8 @@
 
 {% load staticfiles %}
 
+{% block page_title %}Tasks{% endblock %}
+
 {% block css %}
 <!--DataTables CSS-->
 <link rel="stylesheet" type="text/css" href="{% static 'css/material.min.css' %}">
@@ -101,7 +103,7 @@
     </div>
     <!--Floating Button to Add Tasks-->
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large tooltipped gradient-45deg-light-blue-cyan gradient-shadow" data-position="left" data-tooltip="Click to add Tasks"  href="{% url 'create_task' %}">
+        <a class="btn-floating btn-large tooltipped gradient-45deg-light-blue-cyan gradient-shadow" data-position="left" data-tooltip="Click to add a Task"  href="{% url 'create_task' %}">
             <i class="material-icons">add</i>
         </a>
     </div>

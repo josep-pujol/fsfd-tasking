@@ -28,7 +28,7 @@
                     <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul id="main-nav" class="right hide-on-med-and-down">
                         {% if user.is_authenticated %}                        
-                            <li><a href="">Tasks</a></li>
+                            <li><a href="{% url 'tasks_table' %}">Tasks</a></li>
                             <li><a href="">Completed Tasks</a></li>
                             <li><a class="dropdown-trigger" href="" data-target="dropdown-profile">{{ user.username|title }}<i class="material-icons right">arrow_drop_down</i></a></li>                           
                         {% else %}

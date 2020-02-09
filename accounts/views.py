@@ -3,16 +3,27 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+
 from accounts.forms import UserLoginForm, UserRegistrationForm
+from subscriptions.models import PremiumUser
 
 
 def index(request):
     """Return landing page"""
-    # TODO premium user
-    if request.user.is_authenticated:
+    try:
+        is_premium_user = request.user.premiumuser
+    except PremiumUser.DoesNotExist:
+        is_premium_user = False
+    except AttributeError:
+        is_premium_user = False
+
+    if is_premium_user:
         return redirect(reverse('tasks_table'))
+    elif request.user.is_authenticated:
+        # User registerd but not premium
+        return redirect(reverse('subscribe'))
     else:
-    # TODO not premium, render page to become premium
+        # Not registered user
         return render(request, 'accounts/index.html')
 
 

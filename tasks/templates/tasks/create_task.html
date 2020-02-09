@@ -1,5 +1,7 @@
 {% extends 'base.html' %} 
 
+{% block page_title %}Create Task{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="row">
@@ -10,7 +12,7 @@
                     <form class="col s12" id="formValidate" method="POST" action="{% url 'create_task' %}">
                         {% csrf_token %}
                         <div class="row col s12">
-                            <h3 class="section-title">Create Task</h3>
+                            <h3 class="section-title">Create a Task</h3>
                         </div>
                         <div class="row col s12">
                             <div class="input-field col s12">
@@ -20,6 +22,20 @@
                                 <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
                             </div>
                         </div>
+
+                        {% if is_premium_user %}
+                        <div class="row col s12">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">person</i>
+                                <input id="tsk_user" name="tsk_name" type="text" class="validate" required>
+                                <label for="tsk_user">User Assigned</label>
+                                <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
+                            </div>
+                        </div>
+                        {% else %}
+                        <input type="hidden" id="tsk_user" name="tsk_user" value="3487">
+                        {% endif %}
+                        
                         <div class="row col s12">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">list</i>

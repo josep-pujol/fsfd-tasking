@@ -3,8 +3,18 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 
+from subscriptions.models import PremiumUser
 from tasks.forms import EditStatusForm, TasksForm
 from tasks.models import Category, Importance, Status, Task
+
+
+def is_premium(user):
+    try:
+        return user.premiumuser
+    except PremiumUser.DoesNotExist:
+        return False
+    except AttributeError:
+        return False
 
 
 def tasks_table(request):
@@ -18,6 +28,9 @@ def tasks_table(request):
 
 
 def create_task(request):
+    print(request.user)
+    is_premium_user = is_premium(request.user)
+
     if request.method == 'POST':
         # TODO toast message
         task_form = TasksForm(request.POST)
@@ -40,10 +53,15 @@ def create_task(request):
     importances = Importance.objects.all()
     status = Status.objects.all()
     context = {
+        'is_premium_user': is_premium_user,
         'categories': categories,
         'importances': importances,
         'status': status,
     }
+    if is_premium_user:
+        context['users_team']
+    print(vars(request.GET))
+
     return render(request, 'tasks/create_task.html', context=context)
 
 
