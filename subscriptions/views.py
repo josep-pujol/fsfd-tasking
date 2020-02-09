@@ -14,13 +14,8 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 @login_required
 def subscribe(request):
-    try:
-        if request.user.premiumuser:
-            return redirect(reverse('index'))
-    except PremiumUser.DoesNotExist:
-        pass
-    except AttributeError:
-        pass
+    if hasattr(request.user, 'premiumuser'):
+        return redirect(reverse('index'))
 
     plan_id = 'plan_Gcb3Ira0nEPtnk'
     if request.method == 'POST':

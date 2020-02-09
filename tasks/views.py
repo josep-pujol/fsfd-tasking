@@ -57,7 +57,7 @@ def create_task(request):
     }
     if is_team_owner:
         user_team = UserTeam.objects.filter(ut_team=user.team_owner.pk)
-        # Get only users and sort them alphabetically
+        # Get only users, from users and teams, and sort them alphabetically
         team_users = sorted((itm.ut_user for itm in user_team),
                             key=lambda k: k.username)
         context['team_users'] = team_users
@@ -72,13 +72,14 @@ def update_task(request, pk):
         task_form = TasksForm(request.POST)
         if task_form.is_valid():
             task.tsk_name = task_form.cleaned_data['tsk_name']
+            task.tsk_user = task_form.cleaned_data['tsk_user']
             task.tsk_due_date = task_form.cleaned_data['tsk_due_date']
             task.tsk_description = task_form.cleaned_data['tsk_description']
             task.tsk_category = task_form.cleaned_data['tsk_category']
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
             task.save()
-            print(messages.get_level(request))
+
             messages.success(request, 'Task updated')
             return redirect(reverse('tasks_table'))
         else:
@@ -104,7 +105,7 @@ def update_status(request):
     if edit_status_form.is_valid():
         task.tsk_status = edit_status_form.cleaned_data['tsk_status']
         task.save()
+        messages.success(request, 'Status updated')
+    else:
+        messages.error(request, "Unable to update Status. Please try again.")
     return redirect(reverse('tasks_table'))
-    # TODO toast message to confirm or reject?
-    # else:
-    #     messages.error(request, "unable to log you in at this time!")

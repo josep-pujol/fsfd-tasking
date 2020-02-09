@@ -49,7 +49,7 @@ class LoginViewTest(TestCase):
             username='user2test', password='XISRUkwtuK')
         user = User.objects.filter(username='user2test')
         self.assertTrue(login)
-        self.assertEqual(int(self.client.session['_auth_user_id']), 
+        self.assertEqual(int(self.client.session['_auth_user_id']),
                          user[0].id)
 
     def test_redirect_to_subscription_if_logged_in_and_not_premium(self):
