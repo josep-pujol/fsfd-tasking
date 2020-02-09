@@ -28,9 +28,9 @@
                     <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul id="main-nav" class="right hide-on-med-and-down">
                         {% if user.is_authenticated %}                        
-                            <li><a href="{% url 'tasks_table' %}">Tasks</a></li>
+                            <li><a class="dropdown-trigger" href="" data-target="dropdown-tasks">Tasks<i class="material-icons right">arrow_drop_down</i></a></li>
                             <li><a href="">Completed Tasks</a></li>
-                            <li><a class="dropdown-trigger" href="" data-target="dropdown-profile">{{ user.username|title }}<i class="material-icons right">arrow_drop_down</i></a></li>                           
+                            <li><a class="dropdown-trigger" href="" data-target="dropdown-profile">{{ user.username|title }}<i class="material-icons right">arrow_drop_down</i></a></li>  
                         {% else %}
                             <li><a href="{% url 'login' %}">Sign in</a></li>
                             <li><a href="{% url 'registration' %}">Sign up</a></li>                            
@@ -38,7 +38,11 @@
                     </ul>
                 </div>
             </nav>
-            <!-- Dropdown Structure -->
+            <!-- Dropdowns Structure -->
+            <ul id="dropdown-tasks" class="dropdown-content">
+                <li><a href="{% url 'user_tasks_table' %}">Your Tasks</a></li>
+                <li><a href="{% url 'assigned_tasks_table' %}">Assigned Tasks</a></li>
+            </ul>
             <ul id="dropdown-profile" class="dropdown-content">
                 <li><a href="{% url 'profile' %}"><i class="material-icons">person_outline</i>Profile</a></li>
                 <li><a href="{% url 'logout' %}"><i class="material-icons">keyboard_tab</i>Logout</a></li>
