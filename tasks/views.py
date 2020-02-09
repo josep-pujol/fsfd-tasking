@@ -20,35 +20,37 @@ def tasks_table(request):
 
 def create_task(request):
     user = request.user
-    print(user)
     is_team_owner = hasattr(user, 'team_owner')
 
     if request.method == 'POST':
-        # TODO toast message
         task_form = TasksForm(request.POST)
-        print(request.POST)
         if task_form.is_valid():
             task = Task()
             task.tsk_name = task_form.cleaned_data['tsk_name']
+            task.tsk_user = task_form.cleaned_data['tsk_user']
             task.tsk_due_date = task_form.cleaned_data['tsk_due_date']
             task.tsk_description = task_form.cleaned_data['tsk_description']
             task.tsk_category = task_form.cleaned_data['tsk_category']
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
+
+            # Select task team in function of user assigned to task
+            if int(task.tsk_user.pk) == int(user.pk):
+                task.tsk_team = Team.objects.get(pk=1)  # Default Team
+            else:
+                task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
             task.save()
             messages.success(request, 'Task created!')
             return redirect(reverse('tasks_table'))
         else:
             messages.error(request, 'Unable to create task. Please try again.')
 
-    team = Team.objects.get(pk=1)  # Default team
     categories = Category.objects.all()
     importances = Importance.objects.all()
     status = Status.objects.all()
     context = {
         'user': user,
         'is_team_owner': is_team_owner,
-        'team': team,
         'categories': categories,
         'importances': importances,
         'status': status,
@@ -59,7 +61,6 @@ def create_task(request):
         team_users = sorted((itm.ut_user for itm in user_team),
                             key=lambda k: k.username)
         context['team_users'] = team_users
-    print(context)
 
     return render(request, 'tasks/create_task.html', context=context)
 
