@@ -19,7 +19,7 @@
             <!--Table inside a card-->
             <div class="card-panel">
                 <div class="row col s12">
-                    <h2 class="section-title">Tasks</h2>
+                    <h2 class="section-title">{{ section_title }}</h2>
                 </div>
                 <!-- TABLE -->
                 <div class="dataTables_wrapper">
@@ -145,7 +145,7 @@
         // https://stackoverflow.com/questions/16119693/jquery-data-table-not-working-from-second-page
         $("#tasksTable").DataTable({
             "language": {
-                "emptyTable": "Create Tasks to see them here."
+                "emptyTable": "Tasks will appear as soon as they are added."
             },
             "lengthMenu": [ 
                 [ 10, 25, 50, -1 ], 

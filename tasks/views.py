@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 
@@ -14,15 +15,29 @@ def get_users_in_team(team):
     return sorted((itm.ut_user for itm in user_team), key=lambda k: k.username)
 
 
-def tasks_table(request):
-    tasks = Task.objects.all()
+# def tasks_table(request):
+#     tasks = Task.objects.all()
+#     status = Status.objects.all()
+#     context = {
+#         'tasks': tasks,
+#         'status': status,
+#     }
+#     return render(request, 'tasks/tasks_table.html', context=context)
+
+
+def user_tasks_table(request):
+    tasks = Task.objects.filter(tsk_user_id=request.user.pk, tsk_team_id=1)
     status = Status.objects.all()
     context = {
+        'section_title': 'Your Tasks',
         'tasks': tasks,
         'status': status,
     }
     return render(request, 'tasks/tasks_table.html', context=context)
 
+
+def assigned_tasks_table(request):
+    pass
 
 def create_task(request):
     user = request.user
@@ -48,7 +63,7 @@ def create_task(request):
             task.save()
             messages.success(request, 'Task created!')
 
-            return redirect(reverse('tasks_table'))
+            return redirect(reverse('user_tasks_table'))
         else:
             messages.error(request, 'Unable to create task. Please try again.')
 
@@ -70,6 +85,7 @@ def create_task(request):
 
 def update_task(request, pk):
     user = request.user
+    prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')
     if request.method == 'POST':
         task = get_object_or_404(Task, pk=pk)
         task_form = TasksForm(request.POST)
@@ -81,7 +97,7 @@ def update_task(request, pk):
             task.tsk_category = task_form.cleaned_data['tsk_category']
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
-            
+
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
                 task.tsk_team = Team.objects.get(pk=1)  # Default Team
@@ -89,8 +105,8 @@ def update_task(request, pk):
                 task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
             task.save()
             messages.success(request, 'Task updated')
-            
-            return redirect(reverse('tasks_table'))
+
+            return redirect(request.POST.get('prev_url', '/'))
         else:
             messages.error(request, 'Unable to update. Please try again.')
 
@@ -105,6 +121,7 @@ def update_task(request, pk):
         'categories': categories,
         'importances': importances,
         'status': status,
+        'prev_url': prev_url.url,
     }
     if is_team_owner:
         context['team_users'] = get_users_in_team(user.team_owner)
@@ -123,4 +140,6 @@ def update_status(request):
     else:
         messages.error(request, "Unable to update Status. Please try again.")
     
-    return redirect(reverse('tasks_table'))
+    prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')
+
+    return redirect(request.POST.get('prev_url', '/'))

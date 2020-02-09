@@ -105,10 +105,12 @@
                                 </select>
                                 <label>Importance</label>
                             </div>
+                            <input id="prev_url" name="prev_url" type="hidden" value="{{ prev_url }}">
                         </div>
                         <div class="row col s12">
                             <button class="btn waves-effect waves-light right" type="submit" name="action">Update Task<i class="material-icons right">update</i></button>
-                            <a class="btn-flat waves-effect waves-light right" href="{% url 'tasks_table' %}">Cancel</a>
+                            <!-- <a class="btn-flat waves-effect waves-light right" href="{% url 'user_tasks_table' %}">Cancel</a> -->
+                            <a class="btn-flat waves-effect waves-light right" href="{{ prev_url }}">Cancel</a>
                         </div>
                     </form>
                 </div>
