@@ -33,9 +33,10 @@
                             </div>
                         </div>
                         {% else %}
-                        <input type="hidden" id="tsk_user" name="tsk_user" value="3487">
+                        <input type="hidden" id="tsk_user" name="tsk_user" value="{{ user.pk }}">
+                        <input type="hidden" id="tsk_team" name="tsk_team" value="{{ team.pk }}">
                         {% endif %}
-                        
+
                         <div class="row col s12">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">list</i>
@@ -79,7 +80,7 @@
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">bookmarks</i>
                                 <select id="tsk_importance" name="tsk_importance">
-                                <option value="1" selected disabled>Choose Importance</option>
+                                <option value="1" selected>Choose Importance</option>
                                 {% for imp in importances  %}
                                     <option value="{{ imp.pk }}">{{ imp.imp_name }}</option>
                                 {% endfor %}

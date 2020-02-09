@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 
 from subscriptions.models import PremiumUser
 from tasks.forms import EditStatusForm, TasksForm
-from tasks.models import Category, Importance, Status, Task
+from tasks.models import Category, Importance, Status, Task, Team
 
 
 def is_premium(user):
@@ -49,17 +49,21 @@ def create_task(request):
         else:
             messages.error(request, 'Unable to create task. Please try again.')
 
+    user = request.user
+    team = Team.objects.get(pk=1)
     categories = Category.objects.all()
     importances = Importance.objects.all()
     status = Status.objects.all()
     context = {
+        'user': user,
         'is_premium_user': is_premium_user,
+        'team': team,
         'categories': categories,
         'importances': importances,
         'status': status,
     }
     if is_premium_user:
-        # context['users_team']
+        # context['team']
         pass
     print(vars(request.GET))
 
