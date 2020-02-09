@@ -52,14 +52,14 @@ class LoginViewTest(TestCase):
         self.assertEqual(int(self.client.session['_auth_user_id']), 
                          user[0].id)
 
-    def test_redirect_to_tasklist_if_logged_in(self):
+    def test_redirect_to_subscription_if_logged_in_and_not_premium(self):
         # Login user
         login = self.client.login(
             username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
         # Requesting the login page should redirect to index
         response = self.client.get('/accounts/login/', follow=True)
-        self.assertRedirects(response, '/tasks/')
+        self.assertRedirects(response, '/subscriptions/')
 
 
 class LogoutViewTest(TestCase):

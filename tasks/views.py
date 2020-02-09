@@ -59,7 +59,8 @@ def create_task(request):
         'status': status,
     }
     if is_premium_user:
-        context['users_team']
+        # context['users_team']
+        pass
     print(vars(request.GET))
 
     return render(request, 'tasks/create_task.html', context=context)

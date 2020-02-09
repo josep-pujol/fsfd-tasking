@@ -40,6 +40,7 @@ class CreateTaskViewTest(TestCase):
 
 
 class UpdateTaskViewTest(TestCase):
+    
     @classmethod
     def setUp(self):
         # Create new user
@@ -75,7 +76,7 @@ class UpdateTaskViewTest(TestCase):
 
         # Create a Task
         self.task2test = Task.objects.create(
-            user=user2test,
+            tsk_user=user2test,
             tsk_category=cat2test1,
             tsk_importance=imp2test2,
             tsk_status=sta2test3,
