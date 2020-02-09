@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -25,6 +26,7 @@ def get_users_in_team(team):
 #     return render(request, 'tasks/tasks_table.html', context=context)
 
 
+@login_required
 def user_tasks_table(request):
     tasks = Task.objects.filter(tsk_user_id=request.user.pk, tsk_team_id=1)
     status = Status.objects.all()
@@ -36,9 +38,19 @@ def user_tasks_table(request):
     return render(request, 'tasks/tasks_table.html', context=context)
 
 
+@login_required
 def assigned_tasks_table(request):
-    pass
+    tasks = Task.objects.filter(tsk_user_id=request.user.pk).exclude(tsk_team_id=1)
+    status = Status.objects.all()
+    context = {
+        'section_title': 'Assigned Tasks',
+        'tasks': tasks,
+        'status': status,
+    }
+    return render(request, 'tasks/tasks_table.html', context=context)
 
+
+@login_required
 def create_task(request):
     user = request.user
     is_team_owner = hasattr(user, 'team_owner')
@@ -83,6 +95,7 @@ def create_task(request):
     return render(request, 'tasks/create_task.html', context=context)
 
 
+@login_required
 def update_task(request, pk):
     user = request.user
     prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')
@@ -129,6 +142,7 @@ def update_task(request, pk):
     return render(request, 'tasks/update_task.html', context=context)
 
 
+@login_required
 def update_status(request):
     task_id = request.POST['taskId']
     task = get_object_or_404(Task, pk=task_id)
@@ -139,7 +153,6 @@ def update_status(request):
         messages.success(request, 'Status updated')
     else:
         messages.error(request, "Unable to update Status. Please try again.")
-    
-    prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')
+    # prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')
 
     return redirect(request.POST.get('prev_url', '/'))

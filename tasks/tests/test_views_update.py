@@ -7,40 +7,8 @@ from django.urls import reverse
 from tasks.models import Category, Importance, Status, Task
 
 
-class TasksTableViewTest(TestCase):
-
-    def test_tasks_table_url_exists(self):
-        response = self.client.get('/tasks/')
-        self.assertEqual(response.status_code, 200)
-
-    def test_tasks_table_accessible_by_name(self):
-        response = self.client.get(reverse('tasks_table'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_view_uses_correct_template(self):
-        response = self.client.get(reverse('tasks_table'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'tasks/tasks_table.html')
-
-
-class CreateTaskViewTest(TestCase):
-
-    def test_create_task_url_exists(self):
-        response = self.client.get('/tasks/create/', follow=True)
-        self.assertEqual(response.status_code, 200)
-
-    def test_create_task_accessible_by_name(self):
-        response = self.client.get(reverse('create_task'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_view_uses_correct_template(self):
-        response = self.client.get(reverse('create_task'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'tasks/create_task.html')
-
-
 class UpdateTaskViewTest(TestCase):
-    
+
     @classmethod
     def setUp(self):
         # Create new user
@@ -86,29 +54,52 @@ class UpdateTaskViewTest(TestCase):
         )
 
     def test_update_task_url_exists(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+
         response = self.client.get(f'/tasks/update/task/{self.task2test.pk}/')
+        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_update_task_accessible_by_name(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+
         response = self.client.get(reverse('update_task',
                                            kwargs={'pk': self.task2test.pk}))
+        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+
         response = self.client.get(reverse('update_task',
                                            kwargs={'pk': self.task2test.pk}))
+        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/update_task.html')
 
     def test_view_returns_404_when_no_task_object(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        response = self.client.get('/tasks/')
+        self.assertEqual(str(response.context['user']), 'user2test')
+
         # GET
         response = self.client.get(reverse('update_task',
                                            kwargs={'pk': 999999}))
         self.assertEqual(response.status_code, 404)
+
         # POST
         response = self.client.post(reverse('update_task',
                                             kwargs={'pk': 999999}))
         self.assertEqual(response.status_code, 404)
+
 
     # def test_updates_category(self):
     #     response = self.client.get(f'/tasks/update/task/{self.task2test.pk}/')
