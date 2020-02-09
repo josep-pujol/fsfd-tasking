@@ -5,23 +5,11 @@ from django.contrib.auth.models import User
 
 from accounts.forms import UserLoginForm, UserRegistrationForm
 from tasks.models import Team, UserTeam
-from subscriptions.models import PremiumUser
-
-
-def is_premium(user):
-    try:
-        return user.premiumuser
-    except PremiumUser.DoesNotExist:
-        return False
-    except AttributeError:
-        return False
 
 
 def index(request):
     """Return landing page"""
-    is_premium_user = is_premium(request.user)
-
-    if is_premium_user:
+    if hasattr(request.user, 'premiumuser'):
         return redirect(reverse('tasks_table'))
     elif request.user.is_authenticated:
         # User registerd but not premium
@@ -83,7 +71,8 @@ def registration(request):
 
                 # Add user to default UserTeam
                 default_team = Team.objects.get(pk=1)
-                user_team = UserTeam.objects.create(ut_user=user, ut_team=default_team)
+                user_team = UserTeam.objects.create(
+                    ut_user=user, ut_team=default_team)
                 user_team.save()
 
                 messages.success(request, 'You are registered!')
