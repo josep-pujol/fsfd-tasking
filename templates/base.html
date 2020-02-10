@@ -29,7 +29,6 @@
                     <ul id="main-nav" class="right hide-on-med-and-down">
                         {% if user.is_authenticated %}                        
                             <li><a class="dropdown-trigger" href="" data-target="dropdown-tasks">Tasks<i class="material-icons right">arrow_drop_down</i></a></li>
-                            <li><a href="">Completed Tasks</a></li>
                             <li><a class="dropdown-trigger" href="" data-target="dropdown-profile">{{ user.username|title }}<i class="material-icons right">arrow_drop_down</i></a></li>  
                         {% else %}
                             <li><a href="{% url 'login' %}">Sign in</a></li>
@@ -45,6 +44,7 @@
                 {% if is_premium_user %}
                     <li><a href="{% url 'team_tasks_table' %}">Your Team Tasks</a></li>
                 {% endif %}
+                <li><a href="">Completed Tasks</a></li>
             </ul>
             <ul id="dropdown-profile" class="dropdown-content">
                 <li><a href="{% url 'profile' %}"><i class="material-icons">person_outline</i>Profile</a></li>
