@@ -1,7 +1,7 @@
 # Task List
 
 [![Build Status](https://travis-ci.org/josep-pujol/fsfd-tasking.svg?branch=master)](https://fsfd-tasking.herokuapp.com/)
-
+[![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
 This repo contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
 
 Consists on a "Tasks List" application in which users can store and manage tasks. Allow multiple users, groups of users etc.
