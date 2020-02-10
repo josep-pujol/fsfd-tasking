@@ -76,9 +76,9 @@
                                     <h4>Select Status</h4>
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="{% url 'update_status' %}" method="POST">
+                                    <form method="POST" action="{% url 'update_status' %}">
                                         {% csrf_token %}
-                                        <input type="hidden" name="taskId" id="taskId" value="" /> 
+                                        <input type="hidden" name="taskId" id="taskId" value=""> 
                                         <div class="col s6">
                                             <select class="browser-default" id="tsk_status" name="tsk_status" value="">
                                             <option value="" disabled selected>Choose Status</option>

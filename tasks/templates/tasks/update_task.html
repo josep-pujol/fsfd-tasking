@@ -9,7 +9,7 @@
             <!--Add Task card-->
             <div class="card-panel">
                 <div class="row">
-                    <form class="formValidate col s12" id="formValidate" method="POST" action="{% url 'update_task' task.pk %}">
+                    <form class="col s12 formValidate" id="formValidate" method="POST" action="{% url 'update_task' task.pk %}">
                         {% csrf_token %}
                         <div class="row col s12">
                             <h3 class="section-title">Edit Task</h3>
@@ -124,11 +124,12 @@
 
     <!--Datepicker Initialization-->
     <script>
-        const options_dp = {showDaysInNextAndPreviousMonths: true,
-                            yearRange: 15,
-                            firstDay: 1,
-                            showClearBtn: true,
-                            };
+        const options_dp = {
+            showDaysInNextAndPreviousMonths: true,
+            yearRange: 15,
+            firstDay: 1,
+            showClearBtn: true,
+        };
         $(document).ready(function() {
             $("select").formSelect();
             $(".datepicker").datepicker(options_dp);

@@ -40,7 +40,8 @@ def user_tasks_table(request):
 
 @login_required
 def assigned_tasks_table(request):
-    tasks = Task.objects.filter(tsk_user_id=request.user.pk).exclude(tsk_team_id=1)
+    tasks = Task.objects.filter(
+        tsk_user_id=request.user.pk).exclude(tsk_team_id=1)
     status = Status.objects.all()
     context = {
         'section_title': 'Assigned Tasks',
@@ -50,11 +51,31 @@ def assigned_tasks_table(request):
     return render(request, 'tasks/tasks_table.html', context=context)
 
 
+# TODO
+@login_required
+def team_tasks_table(request):
+    # Only for premium users
+    user = request.user
+    is_team_owner = hasattr(user, 'team_owner')
+    team_id = request.user.team_owner.pk
+    if is_team_owner:
+        tasks = Task.objects.filter(tsk_team_id=team_id)
+        status = Status.objects.all()
+        context = {
+            'section_title': 'Your Team Task List',
+            'tasks': tasks,
+            'status': status,
+        }
+        return render(request, 'tasks/tasks_table.html', context=context)
+    else:
+        messages.info(request, 'Only a Team Owner can access the Team Task List.')
+        return render(redirect('index'))
+
+
 @login_required
 def create_task(request):
     user = request.user
     is_team_owner = hasattr(user, 'team_owner')
-
     if request.method == 'POST':
         task_form = TasksForm(request.POST)
         if task_form.is_valid():
@@ -66,19 +87,18 @@ def create_task(request):
             task.tsk_category = task_form.cleaned_data['tsk_category']
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
-
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
                 task.tsk_team = Team.objects.get(pk=1)  # Default Team
+                next_url = 'user_tasks_table'
             else:
                 task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
+                next_url = 'team_tasks_table'
             task.save()
             messages.success(request, 'Task created!')
-
-            return redirect(reverse('user_tasks_table'))
+            return redirect(reverse(next_url))
         else:
             messages.error(request, 'Unable to create task. Please try again.')
-
     categories = Category.objects.all()
     importances = Importance.objects.all()
     status = Status.objects.all()
@@ -91,14 +111,12 @@ def create_task(request):
     }
     if is_team_owner:
         context['team_users'] = get_users_in_team(user.team_owner)
-
     return render(request, 'tasks/create_task.html', context=context)
 
 
 @login_required
 def update_task(request, pk):
     user = request.user
-    prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')
     if request.method == 'POST':
         task = get_object_or_404(Task, pk=pk)
         task_form = TasksForm(request.POST)
@@ -110,19 +128,18 @@ def update_task(request, pk):
             task.tsk_category = task_form.cleaned_data['tsk_category']
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
-
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
                 task.tsk_team = Team.objects.get(pk=1)  # Default Team
+                next_url = 'user_tasks_table'
             else:
                 task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
+                next_url = 'team_tasks_table'
             task.save()
             messages.success(request, 'Task updated')
-
-            return redirect(request.POST.get('prev_url', '/'))
+            return redirect(reverse(next_url))
         else:
             messages.error(request, 'Unable to update. Please try again.')
-
     task = get_object_or_404(Task, pk=pk)
     is_team_owner = hasattr(user, 'team_owner')
     categories = Category.objects.all()
@@ -134,11 +151,9 @@ def update_task(request, pk):
         'categories': categories,
         'importances': importances,
         'status': status,
-        'prev_url': prev_url.url,
     }
     if is_team_owner:
         context['team_users'] = get_users_in_team(user.team_owner)
-
     return render(request, 'tasks/update_task.html', context=context)
 
 
@@ -153,6 +168,4 @@ def update_status(request):
         messages.success(request, 'Status updated')
     else:
         messages.error(request, "Unable to update Status. Please try again.")
-    # prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')
-
-    return redirect(request.POST.get('prev_url', '/'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')

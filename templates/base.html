@@ -42,6 +42,9 @@
             <ul id="dropdown-tasks" class="dropdown-content">
                 <li><a href="{% url 'user_tasks_table' %}">Your Tasks</a></li>
                 <li><a href="{% url 'assigned_tasks_table' %}">Assigned Tasks</a></li>
+                {% for team in user_team %}
+                <li><a href="{% url 'team_tasks_table' %}">{{ team }}'s Tasks</a></li>
+                {% endfor %}
             </ul>
             <ul id="dropdown-profile" class="dropdown-content">
                 <li><a href="{% url 'profile' %}"><i class="material-icons">person_outline</i>Profile</a></li>

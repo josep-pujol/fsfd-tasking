@@ -1,5 +1,7 @@
 from django.urls import path
-from tasks.views import assigned_tasks_table, create_task, user_tasks_table, update_status, update_task
+from tasks.views import (assigned_tasks_table, create_task, user_tasks_table,
+                         update_status, update_task)
+
 
 urlpatterns = [
     path('', user_tasks_table, name='user_tasks_table'),

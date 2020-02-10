@@ -10,7 +10,6 @@ from tasks.models import Team, UserTeam
 def index(request):
     """Return landing page"""
     if hasattr(request.user, 'premiumuser'):
-        # return redirect(reverse('tasks_table'))
         return redirect(reverse('user_tasks_table'))
     elif request.user.is_authenticated:
         # User registerd but not premium
@@ -20,6 +19,7 @@ def index(request):
         return render(request, 'accounts/index.html')
 
 
+@login_required
 def logout(request):
     """Logout user"""
     auth.logout(request)
