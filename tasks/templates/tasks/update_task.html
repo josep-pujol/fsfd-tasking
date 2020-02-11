@@ -30,7 +30,7 @@
                                 <select id="tsk_user" name="tsk_user">
                                 <option value="" disabled>Assign to</option>
                                 {% for usr in team_users %}
-                                    {% if usr == task.tsk_user %}
+                                    {% if usr.username == task.tsk_user.username %}
                                         <option value="{{ usr.pk }}" selected>{{ usr.username }}</option>
                                     {% else %}
                                         <option value="{{ usr.pk }}">{{ usr.username }}</option>
@@ -50,7 +50,7 @@
                                 <select id="tsk_category" name="tsk_category">
                                 <option value="" disabled>Choose Category</option>
                                 {% for cat in categories %}
-                                    {% if cat.cat_name == task.tsk_category %}
+                                    {% if cat.cat_name == task.tsk_category.cat_name %}
                                         <option value="{{ cat.pk }}" selected>{{ cat.cat_name }}</option>
                                     {% else %}
                                         <option value="{{ cat.pk }}">{{ cat.cat_name }}</option>
@@ -66,7 +66,7 @@
                                 <select id="tsk_status" name="tsk_status">
                                 <option value="" disabled>Choose Status</option>
                                 {% for sta in status %}
-                                    {% if sta.sta_name == task.tsk_status %}
+                                    {% if sta.sta_name == task.tsk_status.sta_name %}
                                         <option value="{{ sta.pk }}" selected>{{ sta.sta_name }}</option>
                                     {% else %}
                                         <option value="{{ sta.pk }}">{{ sta.sta_name }}</option>               
@@ -96,7 +96,7 @@
                                 <select id="tsk_importance" name="tsk_importance">
                                 <option value="" disabled>Choose Importance</option>
                                 {% for imp in importances %}
-                                    {% if imp.imp_name == task.tsk_importance %}
+                                    {% if imp.imp_name == task.tsk_importance.imp_name %}
                                         <option value="{{ imp.pk }}" selected>{{ imp.imp_name }}</option>
                                     {% else %}
                                         <option value="{{ imp.pk }}">{{ imp.imp_name }}</option>

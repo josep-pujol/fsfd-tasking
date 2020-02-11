@@ -40,15 +40,15 @@
                             {% for task in tasks %}
                             <tr>
                                 <td class="taskColStyle">{{ task.tsk_name }}</td>
-                                <td class="userColStyle">{{ task.tsk_user|title }}</td>
-                                <td>{{ task.tsk_category }}</td>
+                                <td class="userColStyle">{{ task.tsk_user.username|title }}</td>
+                                <td>{{ task.tsk_category.cat_name }}</td>
                                 <td class="textCenter">{{ task.tsk_status }}</td>
                                 {% if task.tsk_importance.imp_name == "High" %}
-                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge red" data-badge-caption="">{{ task.tsk_importance }}</span></td>
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge red" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
                                 {% elif task.tsk_importance.imp_name == "Medium" %}
-                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge orange" data-badge-caption="">{{ task.tsk_importance }}</span></td>
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge orange" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
                                 {% elif task.tsk_importance.imp_name == "Low" %}
-                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance }}</span></td>
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
                                 {% else %}
                                     <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td> 
                                 {% endif %}
