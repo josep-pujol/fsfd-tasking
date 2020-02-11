@@ -1,7 +1,10 @@
 # Task List
 
+![Python](https://img.shields.io/static/v1?label=python&message=3.7.6&color=blue)
+![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)
 [![Build Status](https://travis-ci.org/josep-pujol/fsfd-tasking.svg?branch=master)](https://fsfd-tasking.herokuapp.com/)
 [![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
+
 This repo contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
 
 Consists on a "Tasks List" application in which users can store and manage tasks. Allow multiple users, groups of users etc.
@@ -43,7 +46,7 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 ### Existing Features
 
 - Main Page
-    - Navigation links on top
+    - Navigation links
     - Display tasks that are not completed
     - Pagination, including dropdown menu to select number of rows per page
     - Search and Sorting functionality for all fields in the Table
@@ -54,13 +57,13 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
         - Add or Remove the "Issues" sign
 
 - Completed Tasks Page
-    - Navigation links on top
+    - Navigation links
     - Display tasks that are not completed
     - Pagination, including dropdown menu to select number of rows per page
     - Search and Sorting functionality for all fields in the Table
     
 - Add and Edit Task Pages
-    - Navigation links on top
+    - Navigation links
     - Button to Cancel and go back to the Main Page
     - Button to Add and Store the Task
     - Insert the "Task Name" field; with validation
