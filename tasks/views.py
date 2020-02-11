@@ -27,7 +27,7 @@ def get_users_in_team(team):
 
 
 @login_required
-def user_tasks_table(request):
+def user_tasks(request):
     tasks = Task.objects.filter(tsk_user_id=request.user.pk, tsk_team_id=1)
     status = Status.objects.all()
     context = {
@@ -39,9 +39,16 @@ def user_tasks_table(request):
 
 
 @login_required
-def assigned_tasks_table(request):
+def assigned_tasks(request):
+    user = request.user
+    is_team_owner = hasattr(user, 'team_owner')
+    print('TEAM OWNER?', is_team_owner)
+    if is_team_owner:
+        ids_to_exclude = [1, user.team_owner.pk, ]
+    else:
+        ids_to_exclude = [1, ]
     tasks = Task.objects.filter(
-        tsk_user_id=request.user.pk).exclude(tsk_team_id=1)
+        tsk_user_id=request.user.pk).exclude(tsk_team_id__in=ids_to_exclude)
     status = Status.objects.all()
     context = {
         'section_title': 'Assigned Tasks',
@@ -53,12 +60,12 @@ def assigned_tasks_table(request):
 
 # TODO
 @login_required
-def team_tasks_table(request):
+def team_tasks(request):
     # Only for premium users
     user = request.user
     is_team_owner = hasattr(user, 'team_owner')
-    team_id = request.user.team_owner.pk
     if is_team_owner:
+        team_id = request.user.team_owner.pk
         tasks = Task.objects.filter(tsk_team_id=team_id)
         status = Status.objects.all()
         context = {
@@ -68,7 +75,7 @@ def team_tasks_table(request):
         }
         return render(request, 'tasks/tasks_table.html', context=context)
     else:
-        messages.info(request, 'Only a Team Owner can access the Team Task List.')
+        messages.info(request, 'Only a Team Owner can access a Team Task List.')
         return render(redirect('index'))
 
 
@@ -90,10 +97,10 @@ def create_task(request):
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
                 task.tsk_team = Team.objects.get(pk=1)  # Default Team
-                next_url = 'user_tasks_table'
+                next_url = 'user_tasks'
             else:
                 task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
-                next_url = 'team_tasks_table'
+                next_url = 'team_tasks'
             task.save()
             messages.success(request, 'Task created!')
             return redirect(reverse(next_url))
@@ -131,10 +138,10 @@ def update_task(request, pk):
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
                 task.tsk_team = Team.objects.get(pk=1)  # Default Team
-                next_url = 'user_tasks_table'
+                next_url = 'user_tasks'
             else:
                 task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
-                next_url = 'team_tasks_table'
+                next_url = 'team_tasks'
             task.save()
             messages.success(request, 'Task updated')
             return redirect(reverse(next_url))

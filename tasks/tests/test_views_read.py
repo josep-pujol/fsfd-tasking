@@ -18,7 +18,7 @@ class UserTasksTableViewTest(TestCase):
         )
         user2test.save()
 
-    def test_user_tasks_table_url_exists(self):
+    def test_user_tasks_url_exists(self):
         # Login user
         login = self.client.login(username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
@@ -27,12 +27,12 @@ class UserTasksTableViewTest(TestCase):
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
-    def test_user_tasks_table_accessible_by_name(self):
+    def test_user_tasks_accessible_by_name(self):
         # Login user
         login = self.client.login(username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
 
-        response = self.client.get(reverse('user_tasks_table'))
+        response = self.client.get(reverse('user_tasks'))
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
@@ -41,7 +41,7 @@ class UserTasksTableViewTest(TestCase):
         login = self.client.login(username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
 
-        response = self.client.get(reverse('user_tasks_table'))
+        response = self.client.get(reverse('user_tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
 
@@ -57,7 +57,7 @@ class AssignedTasksTableViewTest(TestCase):
         )
         user2test.save()
 
-    def test_assigned_tasks_table_url_exists(self):
+    def test_assigned_tasks_url_exists(self):
         # Login user
         login = self.client.login(username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
@@ -66,12 +66,12 @@ class AssignedTasksTableViewTest(TestCase):
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
-    def test_assigned_tasks_table_accessible_by_name(self):
+    def test_assigned_tasks_accessible_by_name(self):
         # Login user
         login = self.client.login(username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
 
-        response = self.client.get(reverse('assigned_tasks_table'))
+        response = self.client.get(reverse('assigned_tasks'))
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
@@ -80,7 +80,7 @@ class AssignedTasksTableViewTest(TestCase):
         login = self.client.login(username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
 
-        response = self.client.get(reverse('assigned_tasks_table'))
+        response = self.client.get(reverse('assigned_tasks'))
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
