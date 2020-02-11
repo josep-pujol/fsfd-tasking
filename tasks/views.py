@@ -16,22 +16,13 @@ def get_users_in_team(team):
     return sorted((itm.ut_user for itm in user_team), key=lambda k: k.username)
 
 
-# def tasks_table(request):
-#     tasks = Task.objects.all()
-#     status = Status.objects.all()
-#     context = {
-#         'tasks': tasks,
-#         'status': status,
-#     }
-#     return render(request, 'tasks/tasks_table.html', context=context)
-
-
 @login_required
 def user_tasks(request):
     tasks = Task.objects.filter(tsk_user_id=request.user.pk, tsk_team_id=1)
     status = Status.objects.all()
     context = {
         'section_title': 'Your Tasks',
+        'is_task_editor': True,
         'tasks': tasks,
         'status': status,
     }
@@ -52,6 +43,7 @@ def assigned_tasks(request):
     status = Status.objects.all()
     context = {
         'section_title': 'Assigned Tasks',
+        'is_task_editor': False,
         'tasks': tasks,
         'status': status,
     }
@@ -70,12 +62,13 @@ def team_tasks(request):
         status = Status.objects.all()
         context = {
             'section_title': 'Your Team Task List',
+            'is_task_editor': True,
             'tasks': tasks,
             'status': status,
         }
         return render(request, 'tasks/tasks_table.html', context=context)
     else:
-        messages.info(request, 'Only a Team Owner can access a Team Task List.')
+        messages.info(request, 'Only Team Owners can access a Team Task List.')
         return render(redirect('index'))
 
 
