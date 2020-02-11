@@ -2,8 +2,9 @@ from django.shortcuts import redirect, render, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views import View
 
-from accounts.forms import UserLoginForm, UserRegistrationForm
+from accounts.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
 from tasks.models import Team, UserTeam
 
 
@@ -90,9 +91,30 @@ def registration(request):
                   {'registration_form': registration_form})
 
 # TODO
-@login_required
-def user_profile(request):
-    """User's profile Page"""
+# @login_required
+# def user_profile(request):
+#     """User's profile Page"""
+#     user = request.user
+#     if request.method == 'POST':
+#         pass
+#     else:
+    
+#     return render(request, 'accounts/profile.html', {'user': user})
 
-    user = User.objects.get(email=request.user.email)
-    return render(request, 'accounts/profile.html', {'profile': user})
+
+class UserProfileView(View):
+    form_class = UserProfileForm
+    template_name = 'accounts/profile.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        print(self.template_name)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            print('# <process form cleaned data>')
+            return redirect('/profile/')
+
+        return render(request, self.template_name, {'form': form})
