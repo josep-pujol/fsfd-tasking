@@ -62,7 +62,9 @@
                                     <ul id="dropdown{{ forloop.counter }}" class="dropdown-content" >
                                         <!-- Modal Trigger -->
                                         <li><a href="#CreateEditStatusModalForm" data-id="{{ task.pk }}" class="triggerEditStatusModal">Edit Status</a></li>
+                                        {% if is_task_editor %}
                                         <li><a href="{% url 'update_task' task.pk %}">Edit Task</a></li>
+                                        {% endif %}
                                     </ul>
                                 </td>
                                 <td class="descriptionStyle">{{ task.tsk_description }}</td>
