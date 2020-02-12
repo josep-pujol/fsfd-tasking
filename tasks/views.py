@@ -16,6 +16,20 @@ def get_users_in_team(team):
     return sorted((itm.ut_user for itm in user_team), key=lambda k: k.username)
 
 
+def update_status_dependencies(task):
+    # Update startdate and finishdate in function of status
+    status_ = task.tsk_status.sta_name.lower()
+    today_ = datetime.datetime.today().date()
+    if status_ == 'completed':
+        task.startdate = today_
+        task.finishdate = today_
+    elif (status_ not in ['completed', 'not started', ] and
+        task.startdate is None):
+        task.startdate = today_
+    else:
+        pass
+
+
 @login_required
 def user_tasks(request):
     tasks = Task.objects.filter(
@@ -66,13 +80,13 @@ def team_tasks(request):
             tsk_team_id=team_id, finishdate__isnull=True)
         status = Status.objects.all()
         context = {
-            'section_title': 'Your Team Task List',
+            'section_title': "Your Team's Task List",
             'is_task_editor': True,
             'tasks': tasks,
             'status': status,
         }
         return render(
-            request, 'tasks/completed_tasks_table.html', context=context)
+            request, 'tasks/tasks_table.html', context=context)
     else:
         messages.info(request, 'Only Team Owners can access a Team Task List.')
         return render(redirect('index'))
@@ -106,12 +120,8 @@ def create_task(request):
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
 
-            # If user set task as completed then startdate and
-            # finished date are to be set at todays date
-            if task.tsk_status.sta_name == 'Completed':
-                today_ = datetime.datetime.today().date()
-                task.startdate = today_
-                task.finishdate = today_
+            # Update startdate and finishdate in function of status
+            update_status_dependencies(task)
 
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
@@ -157,12 +167,8 @@ def update_task(request, pk):
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
 
-            # If user set task as completed then startdate and
-            # finished date are to be set at todays date
-            if task.tsk_status.sta_name == 'Completed':
-                today_ = datetime.datetime.today().date()
-                task.startdate = today_
-                task.finishdate = today_
+            # Update startdate and finishdate in function of status
+            update_status_dependencies(task)
 
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
@@ -200,20 +206,10 @@ def update_status(request):
     task_id = request.POST['taskId']
     task = get_object_or_404(Task, pk=task_id)
     edit_status_form = EditStatusForm(request.POST)
-    print('\nBEFORE UPDATE STATUS', vars(task))
     if edit_status_form.is_valid():
         task.tsk_status = edit_status_form.cleaned_data['tsk_status']
-        today_ = datetime.datetime.today().date()
-        if task.tsk_status.sta_name == 'Started':
-            task.startdate = today_
-        elif task.tsk_status.sta_name == 'Completed':
-            task.finishdate = today_
-            if task.startdate is None:
-                task.startdate = today_
-        else:
-            pass
+        update_status_dependencies(task)
         task.save()
-        print(vars(task))
         messages.success(request, 'Status updated')
     else:
         messages.error(request, 'Unable to update the Status.')
