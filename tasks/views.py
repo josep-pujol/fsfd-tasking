@@ -33,7 +33,6 @@ def user_tasks(request):
 def assigned_tasks(request):
     user = request.user
     is_team_owner = hasattr(user, 'team_owner')
-    print('TEAM OWNER?', is_team_owner)
     if is_team_owner:
         ids_to_exclude = [1, user.team_owner.pk, ]
     else:
@@ -98,7 +97,8 @@ def create_task(request):
             messages.success(request, 'Task created!')
             return redirect(reverse(next_url))
         else:
-            messages.error(request, 'Unable to create task. Please try again.')
+            messages.error(request, 'Unable to create Task.')
+            messages.error(request, 'Please try again.')
     categories = Category.objects.all()
     importances = Importance.objects.all()
     status = Status.objects.all()
@@ -139,7 +139,8 @@ def update_task(request, pk):
             messages.success(request, 'Task updated')
             return redirect(reverse(next_url))
         else:
-            messages.error(request, 'Unable to update. Please try again.')
+            messages.error(request, 'Unable to update Task.')
+            messages.error(request, 'Please try again.')
     task = get_object_or_404(Task, pk=pk)
     is_team_owner = hasattr(user, 'team_owner')
     categories = Category.objects.all()
@@ -167,5 +168,6 @@ def update_status(request):
         task.save()
         messages.success(request, 'Status updated')
     else:
-        messages.error(request, "Unable to update Status. Please try again.")
+        messages.error(request, 'Unable to update the Status.')
+        messages.error(request, 'Please try again.')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/')

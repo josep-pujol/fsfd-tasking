@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.views import View
 
 from accounts.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
@@ -13,7 +12,7 @@ def index(request):
     if hasattr(request.user, 'premiumuser'):
         return redirect(reverse('user_tasks'))
     elif request.user.is_authenticated:
-        # User registerd but not premium
+        # User registered but not premium
         return redirect(reverse('subscribe'))
     else:
         # Unknown user
@@ -24,7 +23,8 @@ def index(request):
 def logout(request):
     """Logout user"""
     auth.logout(request)
-    messages.success(request, 'Logged out.  See you soon!')
+    messages.success(request, 'Logged out')
+    messages.success(request, 'See you soon!')
     return redirect(reverse('index'))
 
 
@@ -82,8 +82,8 @@ def registration(request):
                     request, f'Welcome to Tasking  { user.username.title() }!')
                 return redirect(reverse('index'))
             else:
-                messages.error(
-                    request, 'Unable to register at this time. Please try again')
+                messages.error(request, 'Unable to register at this time')
+                messages.error(request, 'Please try again')
     else:
         registration_form = UserRegistrationForm()
 
