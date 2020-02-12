@@ -26,6 +26,8 @@ def update_status_dependencies(task):
     elif (status_ not in ['completed', 'not started', ] and
         task.startdate is None):
         task.startdate = today_
+    elif status_ == 'not started':
+        task.startdate = None
     else:
         pass
 
