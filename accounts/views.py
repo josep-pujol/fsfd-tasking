@@ -9,7 +9,7 @@ from tasks.models import Team, UserTeam
 
 def index(request):
     """Return landing page"""
-    if hasattr(request.user, 'premiumuser'):
+    if hasattr(request.user, 'team_owner'):
         return redirect(reverse('user_tasks'))
     elif request.user.is_authenticated:
         # User registered but not premium
