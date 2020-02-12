@@ -42,8 +42,9 @@ def login(request):
             )
             if user:
                 auth.login(user=user, request=request)
+                messages.success(request, f'Logged in')
                 messages.success(
-                    request, f'Logged in.  Welcome { user.username.title() }!')
+                    request, f'Welcome { user.username.title() }!')
                 return redirect(reverse(('index')))
             else:
                 login_form.add_error(None, 'Incorrect login details')

@@ -86,7 +86,7 @@ def completed_tasks(request):
         'section_title': 'Completed Tasks',
         'tasks': tasks,
     }
-    return render(request, 'tasks/tasks_table.html', context=context)
+    return render(request, 'tasks/completed_tasks_table.html', context=context)
 
 
 @login_required

@@ -18,7 +18,7 @@ body
 /* Table */
 
 th, td {
-    padding: 5px;
+    padding: 8px;
 }
 
 .dataTables_length 
@@ -60,15 +60,20 @@ th, td {
     margin-top: 0;    
 }
 
+.dateColStyle 
+{
+    min-width: 110px;
+    white-space: nowrap;
+}
+
 .taskColStyle
 {
     min-width: 200px;
     padding-right: 1em;
 }
 
-.dateColStyle 
+.userColStyle
 {
-    min-width: 110px;
     white-space: nowrap;
 }
 
