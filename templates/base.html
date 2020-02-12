@@ -40,10 +40,10 @@
             <!-- Dropdowns Structure -->
             <ul id="dropdown-tasks" class="dropdown-content">
                 <li><a href="{% url 'user_tasks' %}">Your Tasks</a></li>
-                <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
-                {% if is_premium_user %}
-                    <li><a href="{% url 'team_tasks' %}">Your Team Tasks</a></li>
+                {% if user.premiumuser %}
+                    <li><a href="{% url 'team_tasks' %}">Your Team's Tasks</a></li>
                 {% endif %}
+                <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
                 <li><a href="{% url 'completed_tasks' %}">Completed Tasks</a></li>
             </ul>
             <ul id="dropdown-profile" class="dropdown-content">
@@ -53,10 +53,10 @@
             <ul class="sidenav" id="mobile-nav">
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'user_tasks' %}">Your Tasks</a></li>
-                    <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
-                    {% if is_premium_user %}
-                        <li><a href="{% url 'team_tasks' %}">Your Team Tasks</a></li>
+                    {% if user.premiumuser %}
+                        <li><a href="{% url 'team_tasks' %}">Your Team's Tasks</a></li>
                     {% endif %}
+                    <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
                     <li><a href="{% url 'completed_tasks' %}">Completed Tasks</a></li>
                     <li><div class="divider"></div></li>
                     <li><a href="{% url 'profile' %}">Profile</a></li>
