@@ -27,7 +27,11 @@
                         <thead>
                             <tr>
                                 <th>Task</th>
-                                <th>User</th>
+                                {% if is_task_editor %}
+                                    <th>User</th>
+                                {% else %}
+                                    <th>Team</th>
+                                {% endif %}
                                 <th>Category</th>
                                 <th class="textRight">Status</th>
                                 <th class="textRight">Importance</th>
@@ -40,7 +44,11 @@
                             {% for task in tasks %}
                             <tr>
                                 <td class="taskColStyle">{{ task.tsk_name }}</td>
-                                <td class="userColStyle">{{ task.tsk_user.username|title }}</td>
+                                {% if is_task_editor %}
+                                    <td class="userColStyle">{{ task.tsk_user.username|title }}</td>
+                                {% else %}
+                                    <td class="userColStyle">{{ task.tsk_team.tem_name|title }}</td>
+                                {% endif %}
                                 <td>{{ task.tsk_category.cat_name }}</td>
                                 <td class="textCenter">{{ task.tsk_status }}</td>
                                 {% if task.tsk_importance.imp_name == "High" %}

@@ -105,13 +105,14 @@ def create_task(request):
             task.tsk_category = task_form.cleaned_data['tsk_category']
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
-            print(vars(task))
+
             # If user set task as completed then startdate and
             # finished date are to be set at todays date
             if task.tsk_status.sta_name == 'Completed':
                 today_ = datetime.datetime.today().date()
                 task.startdate = today_
                 task.finishdate = today_
+
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
                 task.tsk_team = Team.objects.get(pk=1)  # Default Team
@@ -119,6 +120,7 @@ def create_task(request):
             else:
                 task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
                 next_url = 'team_tasks'
+
             task.save()
             messages.success(request, 'Task created!')
             return redirect(reverse(next_url))
@@ -146,7 +148,6 @@ def update_task(request, pk):
     if request.method == 'POST':
         task = get_object_or_404(Task, pk=pk)
         task_form = TasksForm(request.POST)
-        print(vars(task_form))
         if task_form.is_valid():
             task.tsk_name = task_form.cleaned_data['tsk_name']
             task.tsk_user = task_form.cleaned_data['tsk_user']
@@ -155,14 +156,14 @@ def update_task(request, pk):
             task.tsk_category = task_form.cleaned_data['tsk_category']
             task.tsk_importance = task_form.cleaned_data['tsk_importance']
             task.tsk_status = task_form.cleaned_data['tsk_status']
-            print(vars(task))
+
             # If user set task as completed then startdate and
             # finished date are to be set at todays date
             if task.tsk_status.sta_name == 'Completed':
                 today_ = datetime.datetime.today().date()
                 task.startdate = today_
                 task.finishdate = today_
-                print(vars(task))
+
             # Select task team in function of user assigned to task
             if int(task.tsk_user.pk) == int(user.pk):
                 task.tsk_team = Team.objects.get(pk=1)  # Default Team
@@ -170,6 +171,7 @@ def update_task(request, pk):
             else:
                 task.tsk_team = Team.objects.get(pk=user.team_owner.pk)
                 next_url = 'team_tasks'
+
             task.save()
             messages.success(request, 'Task updated')
             return redirect(reverse(next_url))
@@ -198,9 +200,20 @@ def update_status(request):
     task_id = request.POST['taskId']
     task = get_object_or_404(Task, pk=task_id)
     edit_status_form = EditStatusForm(request.POST)
+    print('\nBEFORE UPDATE STATUS', vars(task))
     if edit_status_form.is_valid():
         task.tsk_status = edit_status_form.cleaned_data['tsk_status']
+        today_ = datetime.datetime.today().date()
+        if task.tsk_status.sta_name == 'Started':
+            task.startdate = today_
+        elif task.tsk_status.sta_name == 'Completed':
+            task.finishdate = today_
+            if task.startdate is None:
+                task.startdate = today_
+        else:
+            pass
         task.save()
+        print(vars(task))
         messages.success(request, 'Status updated')
     else:
         messages.error(request, 'Unable to update the Status.')
