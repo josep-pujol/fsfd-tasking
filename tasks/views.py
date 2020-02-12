@@ -24,7 +24,7 @@ def update_status_dependencies(task):
         task.startdate = today_
         task.finishdate = today_
     elif (status_ not in ['completed', 'not started', ] and
-        task.startdate is None):
+          task.startdate is None):
         task.startdate = today_
     elif status_ == 'not started':
         task.startdate = None
@@ -91,7 +91,7 @@ def team_tasks(request):
             request, 'tasks/tasks_table.html', context=context)
     else:
         messages.info(request, 'Only Team Owners can access a Team Task List.')
-        return render(redirect('index'))
+        return redirect(reverse('index'))
 
 
 @login_required
@@ -111,7 +111,6 @@ def create_task(request):
     is_team_owner = hasattr(user, 'team_owner')
     if request.method == 'POST':
         task_form = TasksForm(request.POST)
-        print(vars(task_form))
         if task_form.is_valid():
             task = Task()
             task.tsk_name = task_form.cleaned_data['tsk_name']
@@ -184,8 +183,8 @@ def update_task(request, pk):
             messages.success(request, 'Task updated')
             return redirect(reverse(next_url))
         else:
-            messages.error(request, 'Unable to update Task.')
-            messages.error(request, 'Please try again.')
+            messages.error(request, 'Unable to update Task')
+            messages.error(request, 'Please try again')
     task = get_object_or_404(Task, pk=pk)
     is_team_owner = hasattr(user, 'team_owner')
     categories = Category.objects.all()
