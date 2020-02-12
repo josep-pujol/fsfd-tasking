@@ -7,7 +7,13 @@ admin.site.register(Category)
 admin.site.register(Importance)
 admin.site.register(Team)
 admin.site.register(Status)
-admin.site.register(Task)
+
+
+@admin.register(Task)
+class TaksAdmin(admin.ModelAdmin):
+    list_display = ('tsk_name', 'tsk_user', 'tsk_team', 'tsk_due_date',
+                    'startdate', 'finishdate', )
+    list_filter = ('tsk_user', 'tsk_team', )
 
 
 @admin.register(UserTeam)
