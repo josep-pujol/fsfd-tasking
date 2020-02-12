@@ -73,8 +73,8 @@ class Task(models.Model):
         ordering = ['tsk_due_date', ]
         constraints = [
             models.CheckConstraint(
-                check=Q(startdate__lt=F('finishdate')),
-                name='startdate_lt_finishdate',
+                check=Q(startdate__lte=F('finishdate')),
+                name='startdate_lte_finishdate',
             ),
         ]
 
