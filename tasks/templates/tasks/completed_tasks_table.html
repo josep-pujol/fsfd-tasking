@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block page_title %}Tasks{% endblock %}
+
+{% block css %}
+<!--DataTables CSS-->
+<link rel="stylesheet" type="text/css" href="{% static 'tasks/css/material.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'tasks/css/dataTables.material.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'tasks/css/responsive.dataTables.min.css' %}">
+{% endblock %} 
+
+{% block content %}
+<!-- Main body-->
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <!--Table inside a card-->
+            <div class="card-panel">
+                <div class="row col s12">
+                    <h2 class="section-title">{{ section_title }}</h2>
+                </div>
+                <!-- TABLE -->
+                <div class="dataTables_wrapper">
+                    <table id="tasksTable" class="highlight compact">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>User</th>
+                                <th>Category</th>
+                                <th class="textRight">Status</th>
+                                <th class="textRight">Importance</th>
+                                <th class="dateColStyle">Due Date</th>
+                                <th></th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                            <tr>
+                                <td class="taskColStyle">{{ task.tsk_name }}</td>
+                                <td class="userColStyle">{{ task.tsk_user.username|title }}</td>
+                                <td>{{ task.tsk_category.cat_name }}</td>
+                                <td class="textCenter">{{ task.tsk_status }}</td>
+                                {% if task.tsk_importance.imp_name == "High" %}
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge red" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
+                                {% elif task.tsk_importance.imp_name == "Medium" %}
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge orange" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
+                                {% elif task.tsk_importance.imp_name == "Low" %}
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
+                                {% else %}
+                                    <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td> 
+                                {% endif %}
+                                <td class="dateColStyle">{{ task.tsk_due_date|date:'M d, Y'}}</td>
+                                <td>
+                                    <!-- Dropdown Trigger -->
+                                    <a class="dropdown-trigger" href="#" data-target="dropdown{{ forloop.counter }}" >
+                                        <i class="material-icons menu-dots">more_vert</i>
+                                    </a>
+                                    <!-- Dropdown Structure -->
+                                    <ul id="dropdown{{ forloop.counter }}" class="dropdown-content" >
+                                        <!-- Modal Trigger -->
+                                        <li><a href="#CreateEditStatusModalForm" data-id="{{ task.pk }}" class="triggerEditStatusModal">Edit Status</a></li>
+                                        {% if is_task_editor %}
+                                        <li><a href="{% url 'update_task' task.pk %}">Edit Task</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                                <td class="descriptionStyle">{{ task.tsk_description }}</td>
+                            </tr>
+                            {% endfor %}
+
+                            <!-- MODAL -->
+                            <!-- Edit Status Modal Structure -->
+                            <div id="CreateEditStatusModalForm" class="modal">
+                                <div class="modal-content">
+                                    <h4>Select Status</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="POST" action="{% url 'update_status' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="taskId" id="taskId" value=""> 
+                                        <div class="col s6">
+                                            <select class="browser-default" id="tsk_status" name="tsk_status" value="">
+                                            <option value="" disabled selected>Choose Status</option>
+                                                {% for sta in status %}
+                                                    <option value="{{ sta.pk }}">{{ sta.sta_name }}</option>                                               
+                                                {% endfor %}
+                                            </select>   
+                                        </div>
+                                        <a class="btn-flat modal-close">Cancel</a>
+                                        <button class="btn modal-action modal-close" type="submit" name="action">Confirm</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- END MODAL -->
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END TABLE -->
+            </div>
+            <!--End table card-->
+        </div>
+    </div>
+    <!--Floating Button to Add Tasks-->
+    {% if is_task_editor %}
+        <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large tooltipped gradient-45deg-light-blue-cyan gradient-shadow" data-position="left" data-tooltip="Click to add a Task"  href="{% url 'create_task' %}">
+                <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %} 
+
+<!--SCRIPTS-->
+{% block js %}
+<script src="{% static 'tasks/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'tasks/js/dataTables.material.min.js' %}"></script>
+<script src="{% static 'tasks/js/dataTables.responsive.min.js' %}"></script>
+
+<!--Materialize Initialization-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems_dd = document.querySelectorAll('.dropdown-trigger');
+        var instances_dd = M.Dropdown.init(elems_dd);
+        var elems_fb = document.querySelectorAll('.fixed-action-btn');
+        var instances_fb = M.FloatingActionButton.init(elems_fb);
+        var elems_tt = document.querySelectorAll('.tooltipped');
+        var instances_tt = M.Tooltip.init(elems_tt);
+    });
+</script>
+
+<!--Initialize and set options for Modals and DataTables-->
+<script>
+    $(document).ready(function() {
+        // Modals
+        $(".modal").modal({
+            dismissible: true
+        });
+        $(".triggerEditStatusModal").click(function() {
+            $(".modal-footer #taskId").val($(this).data("id"));
+            $('#CreateEditStatusModalForm').modal("open");
+        });
+        
+        // DataTables
+        // Needs to be placed after the modals otherwise it doesn't pick up the right row on second page
+        // https://stackoverflow.com/questions/16119693/jquery-data-table-not-working-from-second-page
+        $("#tasksTable").DataTable({
+            "language": {
+                "emptyTable": "Tasks will appear as soon as they are added."
+            },
+            "lengthMenu": [ 
+                [ 5, 10, 25, -1 ], 
+                [ 5, 10, 25, "All" ] 
+            ],
+            "select": true,
+            // Columns in displayed order
+            // Task User  Category  Status  Importance  DueDate  DropDownMenu   Description
+            "columns": [ null, null, null, null, null, null, { "orderable": false }, null ],
+            "order": [ 5, "asc" ],
+            "responsive": true,
+            "columnDefs": [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 2, targets: 6 },
+                { responsivePriority: 3, targets: 5 },
+                { responsivePriority: 4, targets: 1 },
+                { responsivePriority: 5, targets: 4 },
+                { responsivePriority: 6, targets: 3 }, 
+                { responsivePriority: 7, targets: 2 },
+                { responsivePriority: 8, targets: 7 },
+            ]
+        });
+    });
+</script>
+{% endblock %}
+
