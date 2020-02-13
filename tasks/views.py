@@ -41,7 +41,7 @@ def user_tasks(request):
     )
     status = Status.objects.all()
     context = {
-        'section_title': 'Your Tasks',
+        'section_title': 'Personal Tasks',
         'is_task_editor': True,
         'tasks': tasks,
         'status': status,
@@ -82,7 +82,7 @@ def team_tasks(request):
             tsk_team_id=team_id, finishdate__isnull=True)
         status = Status.objects.all()
         context = {
-            'section_title': "Your Team's Task List",
+            'section_title': "Team's Task List",
             'is_task_editor': True,
             'tasks': tasks,
             'status': status,

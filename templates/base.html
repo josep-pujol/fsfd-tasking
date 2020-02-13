@@ -39,21 +39,24 @@
             </nav>
             <!-- Dropdowns Structure -->
             <ul id="dropdown-tasks" class="dropdown-content">
-                <li><a href="{% url 'user_tasks' %}">Personal Tasks</a></li>
-                {% if user.premiumuser %}
-                    <li><a href="{% url 'team_tasks' %}">Team's Tasks</a></li>
+                <li><a href="{% url 'user_tasks' %}"><i class="material-icons">person_outline</i>Personal Tasks</a></li>
+                {% if user.team_owner %}
+                    <li><a href="{% url 'team_tasks' %}"><i class="material-icons">people_outline</i>Team's Tasks</a></li>
                 {% endif %}
-                <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
-                <li><a href="{% url 'completed_tasks' %}">Completed Tasks</a></li>
+                <li><a href="{% url 'assigned_tasks' %}"><i class="material-icons">assignment</i>Assigned Tasks</a></li>
+                <li><a href="{% url 'completed_tasks' %}"><i class="material-icons">playlist_add_check</i>Completed Tasks</a></li>
             </ul>
             <ul id="dropdown-profile" class="dropdown-content">
                 <li><a href="{% url 'profile' %}"><i class="material-icons">person_outline</i>Profile</a></li>
-                <li><a href="{% url 'logout' %}"><i class="material-icons">keyboard_tab</i>Logout</a></li>
+                {% if user.team_owner %}
+                    <li><a href="{% url 'profile' %}"><i class="material-icons">people_outline</i>Team</a></li>
+                {% endif %}                
+                <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Logout</a></li>
             </ul>
             <ul class="sidenav" id="mobile-nav">
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'user_tasks' %}">Personal Tasks</a></li>
-                    {% if user.premiumuser %}
+                    {% if user.team_owner %}
                         <li><a href="{% url 'team_tasks' %}">Team's Tasks</a></li>
                     {% endif %}
                     <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
@@ -79,7 +82,9 @@
     <!--Initialize dropdown in Navbar-->
     <script>
         $(document).ready(function() {
-            $('.dropdown-trigger').dropdown();
+            $('.dropdown-trigger').dropdown({
+                coverTrigger: false
+            });
         });
     </script>
 

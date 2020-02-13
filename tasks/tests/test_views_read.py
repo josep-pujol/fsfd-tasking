@@ -1,10 +1,8 @@
-import datetime
-
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from tasks.models import Category, Importance, Status, Task, Team, UserTeam
+from tasks.models import Team, UserTeam
 
 
 class UserTasksTableViewTest(TestCase):
@@ -159,7 +157,7 @@ class TeamTasksTableViewTest(TestCase):
         response = self.client.get(reverse('team_tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
-        self.assertContains(response, 'Your Team&#39;s Task List')
+        self.assertContains(response, 'Team&#39;s Task List')
 
 
 class CompletedTasksTableViewTest(TestCase):
