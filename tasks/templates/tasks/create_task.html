@@ -19,7 +19,7 @@
                                 <i class="material-icons prefix">assignment</i>
                                 <input id="tsk_name" name="tsk_name" type="text" class="validate" required>
                                 <label for="tsk_name">Task Name</label>
-                                <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
+                                <span class="helper-text" data-error="Required field" data-success="Good!"></span>
                             </div>
                         </div>
 
@@ -74,9 +74,9 @@
                         <div class="row col s12">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">today</i>
-                                <input id="tsk_due_date" name="tsk_due_date" type="text" class="datepicker validate" required>
+                                <input id="tsk_due_date" name="tsk_due_date" type="text" pattern="[a-zA-Z]{3}\s\d{2},\s\d{4}" class="datepicker validate" required>
                                 <label for="tsk_due_date">Due Date</label>
-                                <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
+                                <span class="helper-text" data-error="Required field. Please use the Date Picker to select a date with the right format e.g. Sep 05, 2020" data-success="Good!"></span>
                             </div>
                         </div>
                         <div class="row col s12">
@@ -107,11 +107,15 @@
 
     <!--Datepicker Initialization-->
     <script>
-        const options_dp = {showDaysInNextAndPreviousMonths: true,
-                            yearRange: 10,
-                            firstDay: 1,
-                            showClearBtn: true,
-                            };
+        const options_dp = {
+            showDaysInNextAndPreviousMonths: true,
+            yearRange: 10,
+            firstDay: 1,
+            showClearBtn: true,
+            autoClose: true,
+            defaultDate: new Date(),
+            setDefaultDate: true
+        };
         $(document).ready(function() {
             $("select").formSelect();
             $(".datepicker").datepicker(options_dp);
