@@ -39,9 +39,9 @@
             </nav>
             <!-- Dropdowns Structure -->
             <ul id="dropdown-tasks" class="dropdown-content">
-                <li><a href="{% url 'user_tasks' %}">Your Tasks</a></li>
+                <li><a href="{% url 'user_tasks' %}">Personal Tasks</a></li>
                 {% if user.premiumuser %}
-                    <li><a href="{% url 'team_tasks' %}">Your Team's Tasks</a></li>
+                    <li><a href="{% url 'team_tasks' %}">Team's Tasks</a></li>
                 {% endif %}
                 <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
                 <li><a href="{% url 'completed_tasks' %}">Completed Tasks</a></li>
@@ -52,9 +52,9 @@
             </ul>
             <ul class="sidenav" id="mobile-nav">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'user_tasks' %}">Your Tasks</a></li>
+                    <li><a href="{% url 'user_tasks' %}">Personal Tasks</a></li>
                     {% if user.premiumuser %}
-                        <li><a href="{% url 'team_tasks' %}">Your Team's Tasks</a></li>
+                        <li><a href="{% url 'team_tasks' %}">Team's Tasks</a></li>
                     {% endif %}
                     <li><a href="{% url 'assigned_tasks' %}">Assigned Tasks</a></li>
                     <li><a href="{% url 'completed_tasks' %}">Completed Tasks</a></li>
@@ -95,9 +95,9 @@
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success' %}
-                <script>M.toast({html: "{{ message }}", classes: 'teal darken-1', displayLength:5000});</script>
+                <script>M.toast({html: "{{ message }}", classes: 'teal darken-1', displayLength:4000});</script>
             {% elif message.tags == 'info' %}
-                <script>M.toast({html: "{{ message }}", classes: 'light-blue darken-3', displayLength:5000});</script>
+                <script>M.toast({html: "{{ message }}", classes: 'light-blue darken-3', displayLength:4000});</script>
             {% elif message.tags == 'warning' %}
                 <script>M.toast({html: "{{ message }}", classes: 'orange darken-4', displayLength:10000});</script>
             {% elif message.tags == 'error' %}
