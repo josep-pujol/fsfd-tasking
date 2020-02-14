@@ -9,13 +9,21 @@
     <div class="row">
         <div class="col s12 m8 offset-m2">
             <div class="card-panel">
-                <h2 class="section-title">Log in</h2>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ login_form | materializecss }}
-                    <button class="btn btn-secondary" type="submit">Sign in<i class="material-icons right">send</i></button>
-                </form>
-                <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+                <div class="row">
+                    <div class="row col s12">
+                        <h2 class="section-title">Log in</h2>
+                    </div>
+                    <div class="col s12">
+                        <form method="POST" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            {{ login_form | materializecss }}
+                            <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+                            <div class="row col s12">                 
+                                <button class="btn btn-secondary right" type="submit">Sign in<i class="material-icons right">send</i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
