@@ -19,7 +19,8 @@
                             </ul>
                         </div>
                         <div id="userinfo" class="col s12">
-                            <table class="responsive-table">
+                            <br>
+                            <table>
                                 <tbody>
                                     <tr>
                                         <td>First Name:</td>
@@ -41,13 +42,13 @@
                             </table>
                             <br><br>
                             <div class="row col s12">
-                                <button class="btn waves-effect waves-light">Update Profile<i class="material-icons right">update</i></button>
+                                <a class="btn waves-effect waves-light" href="{% url 'update_profile' user.pk %}">Update Profile<i class="material-icons right">update</i></a>
                             </div>
                         </div>
                         <div id="password" class="col s12">
                             <br><br>
                             <div class="row col s12">
-                                <button class="btn waves-effect waves-light">Reset Password<i class="material-icons right">update</i></button>
+                                <a class="btn waves-effect waves-light" href="#">Reset Password<i class="material-icons right">update</i></a>
                             </div>
                         </div>
                     </div>

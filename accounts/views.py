@@ -1,9 +1,12 @@
 from django.shortcuts import redirect, render, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic.edit import UpdateView
 
-from accounts.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
+from accounts.forms import UserLoginForm, UserRegistrationForm
 from tasks.models import Team, UserTeam
 
 
@@ -45,7 +48,7 @@ def login(request):
                 messages.success(request, f'Logged in')
                 messages.success(
                     request, f'Welcome { user.username.title() }!')
-                return redirect(reverse(('index')))
+                return redirect(reverse('index'))
             else:
                 login_form.add_error(None, 'Incorrect login details')
     else:
@@ -88,24 +91,37 @@ def registration(request):
     else:
         registration_form = UserRegistrationForm()
 
-    return render(request, 'accounts/registration.html',
-                  {'registration_form': registration_form})
+    return render(
+        request,
+        'accounts/registration.html',
+        {'registration_form': registration_form},
+    )
 
 
 class UserProfileView(View):
-    form_class = UserProfileForm
     template_name = 'accounts/profile.html'
 
     def get(self, request, *args, **kwargs):
-        # form = self.form_class()
         user_profile = request.user
         return render(
-            request, self.template_name, {'user_profile': user_profile})
+            request, self.template_name, {'user_profile': user_profile}, )
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            print('# <process form cleaned data>')
-            return redirect('/profile/')
 
-        return render(request, self.template_name, {'form': form})
+class UserUpdate(UpdateView):
+    model = User
+    fields = ['first_name', 'last_name', 'username', 'email', ]
+    template_name = 'accounts/update_profile.html'
+    success_url = reverse_lazy('profile')
+    # def get(self, request, *args, **kwargs):
+    #     print(self.template_name)
+    #     user = request.user
+    #     return render(
+    #         request, self.template_name, {'form': form, 'user': user}, )
+
+    # def post(self, request, *args, **kwargs):
+    #     form = self.form_class(request.POST)
+    #     if form.is_valid():
+    #         print('# <process form cleaned data>')
+    #         return redirect('/profile/')
+
+    #     return render(request, self.template_name, {'form': form})

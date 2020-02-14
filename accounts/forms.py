@@ -43,12 +43,3 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError('Passwords does not match')
 
         return password2
-
-
-class UserProfileForm(ModelForm):
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', ]
-        # TODO  is_team_owner...
-

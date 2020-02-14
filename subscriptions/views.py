@@ -19,6 +19,7 @@ def subscribe(request):
 
     plan_id = 'plan_Gcb3Ira0nEPtnk'
     if request.method == 'POST':
+
         # Stripe side
         stripe_customer = stripe.Customer.create(
             email=request.user.email, source=request.POST['stripeToken']
