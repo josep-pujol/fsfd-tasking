@@ -1,7 +1,8 @@
-from django.urls import path
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
+from django.urls import path, reverse_lazy
 from accounts.views import (logout, login, registration, UserProfileView,
                             UserUpdate)
-from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
@@ -17,5 +18,13 @@ urlpatterns = [
         'update-profile/<int:pk>/',
         login_required(UserUpdate.as_view()),
         name='update_profile'
+    ),
+    path(
+        'change-password/',
+        auth_views.PasswordChangeView.as_view(
+            template_name='accounts/change_password.html',
+            success_url=reverse_lazy('profile')
+        ),
+        name='change_password'
     ),
 ]
