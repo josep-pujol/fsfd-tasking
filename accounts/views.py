@@ -91,26 +91,16 @@ def registration(request):
     return render(request, 'accounts/registration.html',
                   {'registration_form': registration_form})
 
-# TODO
-# @login_required
-# def user_profile(request):
-#     """User's profile Page"""
-#     user = request.user
-#     if request.method == 'POST':
-#         pass
-#     else:
-    
-#     return render(request, 'accounts/profile.html', {'user': user})
-
 
 class UserProfileView(View):
     form_class = UserProfileForm
     template_name = 'accounts/profile.html'
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class()
-        print(self.template_name)
-        return render(request, self.template_name, {'form': form})
+        # form = self.form_class()
+        user_profile = request.user
+        return render(
+            request, self.template_name, {'user_profile': user_profile})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)

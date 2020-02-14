@@ -1,23 +1,69 @@
 {% extends 'base.html' %}
 
-<!-- {% load materializecss %} -->
-
-{% block page_title %}{{ user }}'s Profile{% endblock %}
+{% block page_title %}{{ user|title }}'s Profile{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col s12 m8 offset-m2">
             <div class="card-panel">
-                <h2 class="section-title">{{ user }}'s Profile</h2>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ form.as_ul }}
-                    <button class="btn btn-secondary" type="submit">Update Profile<i class="material-icons right">send</i></button>
-                </form>
+                <div class="row">
+                    <div class="row col s12">
+                        <h2 class="section-title">Profile</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s6"><a class="active" href="#userinfo">USER INFO</a></li>
+                                <li class="tab col s6"><a href="#password">PASSWORD</a></li>
+                            </ul>
+                        </div>
+                        <div id="userinfo" class="col s12">
+                            <table class="responsive-table">
+                                <tbody>
+                                    <tr>
+                                        <td>First Name:</td>
+                                        <td>{{ user_profile.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name:</td>
+                                        <td>{{user_profile.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Username:</td>
+                                        <td>{{user_profile.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email Address:</td>
+                                        <td>{{user_profile.email }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br><br>
+                            <div class="row col s12">
+                                <button class="btn waves-effect waves-light">Update Profile<i class="material-icons right">update</i></button>
+                            </div>
+                        </div>
+                        <div id="password" class="col s12">
+                            <br><br>
+                            <div class="row col s12">
+                                <button class="btn waves-effect waves-light">Reset Password<i class="material-icons right">update</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+    <!-- Initialize Tabs -->
+    <script>
+        $(document).ready(function(){
+            $('.tabs').tabs();
+        });
+    </script>
 {% endblock %}
