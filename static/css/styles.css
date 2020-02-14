@@ -14,7 +14,6 @@ body
 }
 
 
-
 /* Table */
 
 th, td {
@@ -98,7 +97,6 @@ th, td {
 }
 
 
-
 /* Pagination buttons */
 
 .mdl-button--raised.mdl-button--colored
@@ -110,7 +108,6 @@ th, td {
 {    
     background-color: #00897b;
 }
-
 
 
 /* Fixed/Action Button */
@@ -178,4 +175,34 @@ nav .brand-logo
 {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+
+/* Tabs */
+
+.tabs .tab a 
+{
+  color: #26a69a;
+}
+
+.tabs .tab a:hover 
+{
+  background-color: #eee;
+  color: #26a69a;
+}
+
+.tabs .tab a:focus.active
+{
+  background-color: rgba(38, 166, 154, 0.2);
+  color: #26a69a;
+}
+
+.tabs .tab a.active 
+{
+    color: #26a69a;
+}
+
+.tabs .indicator
+{
+  background-color: #26a69a;
 }
