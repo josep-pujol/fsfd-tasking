@@ -1,7 +1,8 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from django.contrib.auth.models import User
+from tasks.models import Team, UserTeam
 
 
 class LoginViewTest(TestCase):
@@ -47,19 +48,50 @@ class LoginViewTest(TestCase):
     def test_correct_user_logged_in_and_in_session(self):
         login = self.client.login(
             username='user2test', password='XISRUkwtuK')
-        user = User.objects.filter(username='user2test')
+        user = User.objects.filter(username='user2test')[0]
         self.assertTrue(login)
         self.assertEqual(int(self.client.session['_auth_user_id']),
-                         user[0].id)
+                         user.id)
 
     def test_redirect_to_subscription_if_logged_in_and_not_premium(self):
         # Login user
         login = self.client.login(
             username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
-        # Requesting the login page should redirect to index
+
+        # Requesting the login page should redirect to subscription when
+        # not premium user
         response = self.client.get('/accounts/login/', follow=True)
         self.assertRedirects(response, '/subscriptions/')
+
+    def test_redirect_to_user_tasks_if_logged_in_and_team_owner(self):
+        user2test = User.objects.filter(username='user2test')[0]
+
+        # Create a Team and premium user
+        team = Team.objects.create(
+            tem_name=f"{user2test.username.capitalize()}'s Team",
+            tem_description='Team managed by user '
+                            f'{user2test.username.capitalize()}',
+            tem_owner=user2test,
+        )
+        team.save()
+
+        # Create relationship User Team for premium user
+        user_team = UserTeam.objects.create(
+            ut_user=user2test,
+            ut_team=team,
+        )
+        user_team.save()
+        
+        # Login user
+        login = self.client.login(
+            username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+
+        # Requesting the login page should redirect to subscription when
+        # not premium user
+        response = self.client.get('/accounts/login/', follow=True)
+        self.assertRedirects(response, '/tasks/')
 
 
 class LogoutViewTest(TestCase):
@@ -72,19 +104,19 @@ class LogoutViewTest(TestCase):
         )
         user2test.save()
 
-    def test_logout_view_logs_out_user(self):
+    def test_accounts_logout_url_exists(self):
         login = self.client.login(
             username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
-        user = User.objects.filter(username='user2test')
+
         response = self.client.get('/accounts/logout/', follow=True)
         self.assertEqual(response.status_code, 200)
-        try:
-            self.client.session['_auth_user_id']
-            self.assertNotEqual(int(self.client.session['_auth_user_id']), 
-                                user[0].id)
-        except KeyError as exc:
-            self.assertEqual(repr(exc), "KeyError('_auth_user_id')")
+
+    def test_unable_to_access_unless_logged_in(self):
+        response = self.client.get('/accounts/logout/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(
+            response, '/accounts/login/?next=/accounts/logout/')
 
     def test_view_url_accessible_by_name(self):
         login = self.client.login(
@@ -101,6 +133,20 @@ class LogoutViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/index.html')
 
+    def test_logout_view_logs_out_user(self):
+        login = self.client.login(
+            username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        user = User.objects.filter(username='user2test')[0]
+        response = self.client.get('/accounts/logout/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        try:
+            self.client.session['_auth_user_id']
+            self.assertNotEqual(int(self.client.session['_auth_user_id']), 
+                                user.id)
+        except KeyError as exc:
+            self.assertEqual(repr(exc), "KeyError('_auth_user_id')")
+
     def test_redirect_to_index_when_logging_out(self):
         # Login user
         login = self.client.login(
@@ -110,3 +156,47 @@ class LogoutViewTest(TestCase):
         # Logout url should logout user and redirect to index
         response = self.client.get('/accounts/logout/', follow=True)
         self.assertRedirects(response, '/')
+
+
+class UserUpdateViewTest(TestCase):
+    @classmethod
+    def setUp(self):
+        # Create new user
+        user2test = User.objects.create_user(
+            username='user2test', email='usertest@email.com',
+            password='XISRUkwtuK',
+        )
+        user2test.save()
+
+    def test_update_profile_url_exists(self):
+        user = User.objects.filter(username='user2test')[0]
+
+        # Login user
+        login = self.client.login(
+            username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+
+        response = self.client.get(f'/accounts/update-profile/{user.pk}/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_unable_to_access_unless_logged_in(self):
+        user = User.objects.filter(username='user2test')[0]
+        response = self.client.get(
+            f'/accounts/update-profile/{user.pk}/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(
+            response,
+            f'/accounts/login/?next=/accounts/update-profile/{user.pk}/'
+        )
+
+    def test_view_uses_correct_template(self):
+        user = User.objects.filter(username='user2test')[0]
+
+        # Login user
+        login = self.client.login(
+            username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+
+        response = self.client.get(f'/accounts/update-profile/{user.pk}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/update_profile.html')

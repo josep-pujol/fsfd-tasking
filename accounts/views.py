@@ -112,4 +112,3 @@ class UserUpdate(UpdateView):
     fields = ['first_name', 'last_name', 'username', 'email', ]
     template_name = 'accounts/update_profile.html'
     success_url = reverse_lazy('profile')
-

@@ -16,6 +16,10 @@ class UserTasksTableViewTest(TestCase):
         )
         user2test.save()
 
+    def test_unable_to_access_unless_logged_in(self):
+        response = self.client.get('/tasks/')
+        self.assertEqual(response.status_code, 302)
+
     def test_user_tasks_url_exists(self):
         # Login user
         login = self.client.login(username='user2test', password='XISRUkwtuK')
@@ -54,6 +58,10 @@ class AssignedTasksTableViewTest(TestCase):
             password='XISRUkwtuK',
         )
         user2test.save()
+
+    def test_unable_to_access_unless_logged_in(self):
+        response = self.client.get('/tasks/assigned-tasks/')
+        self.assertEqual(response.status_code, 302)
 
     def test_assigned_tasks_url_exists(self):
         # Login user
@@ -121,6 +129,10 @@ class TeamTasksTableViewTest(TestCase):
         )
         user_team.save()
 
+    def test_unable_to_access_unless_logged_in(self):
+        response = self.client.get('/tasks/team-tasks/')
+        self.assertEqual(response.status_code, 302)
+
     def test_team_tasks_url_exists(self):
         # Login user
         login = self.client.login(username='user2test', password='XISRUkwtuK')
@@ -170,6 +182,10 @@ class CompletedTasksTableViewTest(TestCase):
             password='XISRUkwtuK',
         )
         user2test.save()
+
+    def test_unable_to_access_unless_logged_in(self):
+        response = self.client.get('/tasks/completed-tasks/')
+        self.assertEqual(response.status_code, 302)
 
     def test_completed_tasks_url_exists(self):
         # Login user

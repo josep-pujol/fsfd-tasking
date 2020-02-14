@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from tasks.models import Team, UserTeam
-from subscriptions.models import PremiumUser
+
 
 class SubscriptionsViewTest(TestCase):
 
