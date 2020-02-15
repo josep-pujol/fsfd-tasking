@@ -1,7 +1,7 @@
 import os
 
 from django.contrib.auth.models import User
-from django.shortcuts import reverseg
+from django.shortcuts import reverse
 from django.test import TestCase
 from subscriptions.views import PLAN_ID
 
