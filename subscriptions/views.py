@@ -10,22 +10,25 @@ from tasks.models import Team, UserTeam
 import stripe
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+PLAN_ID = 'plan_Gcb3Ira0nEPtnk'
 
 
 @login_required
 def subscribe(request):
+    print('\n\n START subscribe view')
     if hasattr(request.user, 'team_owner'):
         return redirect(reverse('index'))
 
-    plan_id = 'plan_Gcb3Ira0nEPtnk'
     if request.method == 'POST':
+        print('\nREQUEST SUBSCRIBE', request)
+        print('REQUEST.POST SUBSCRIBE', request.POST)
 
         # Stripe side
         stripe_customer = stripe.Customer.create(
             email=request.user.email, source=request.POST['stripeToken']
         )
         subscription = stripe.Subscription.create(
-            customer=stripe_customer.id, items=[{'plan': plan_id}, ]
+            customer=stripe_customer.id, items=[{'plan': PLAN_ID}, ]
         )
 
         # Django side
@@ -58,6 +61,7 @@ def subscribe(request):
             f'You are now a Premium user { request.user.username.title() }!')
         return redirect('index')
     else:
+        print('\n\n subscribe view GET')
         price = 9900
         final_euro = 99
         return render(
@@ -65,6 +69,8 @@ def subscribe(request):
             'subscriptions/subscribe.html',
             {
                 'stripe_public_key': os.getenv('STRIPE_PUBLIC_KEY'),
-                'plan': plan_id, 'price': price, 'final_euro': final_euro,
+                'plan': PLAN_ID,
+                'price': price,
+                'final_euro': final_euro,
             },
         )

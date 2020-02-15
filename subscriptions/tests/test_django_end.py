@@ -5,7 +5,7 @@ from django.urls import reverse
 from tasks.models import Team, UserTeam
 
 
-class SubscriptionsViewTest(TestCase):
+class SubscribeViewTest(TestCase):
 
     @classmethod
     def setUp(self):
