@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Team{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card-panel">
+                <div class="row">
+                    <div class="row col s12">
+                        <h2 class="section-title">Team Collaborators</h2>
+                    </div>
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s6"><a class="active" href="#userinfo">COLLABORATORS</a></li>
+                            <li class="tab col s6"><a href="#password">ADD COLLABORATOR</a></li>
+                        </ul>
+                    </div>
+                    <div id="userinfo" class="col s12">
+                        <br>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>First Name:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Username:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Email Address:</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br><br>
+                        <div class="row col s12">
+                            <!-- <a class="btn waves-effect waves-light right" href="{% url 'update_profile' user.pk %}">Update Profile<i class="material-icons right">update</i></a> -->
+                        </div>
+                    </div>
+                    <div id="password" class="col s12">
+                        <br><br>
+                        <div class="row col s12">
+                            <!-- <a class="btn waves-effect waves-light right" href="{% url 'change_password' %}">Change Password<i class="material-icons right">update</i></a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+    <!-- Initialize Tabs -->
+    <script>
+        $(document).ready(function(){
+            $('.tabs').tabs();
+        });
+    </script>
+{% endblock %}

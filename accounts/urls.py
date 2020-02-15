@@ -1,6 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.urls import path, reverse_lazy
+
 from accounts.views import (logout, login, registration, UserProfileView,
                             UserUpdate)
 
