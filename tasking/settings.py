@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'subscriptions.apps.SubscriptionsConfig',
     'tasks.apps.TasksConfig',
+    'team.apps.TeamConfig',
 ]
 
 MIDDLEWARE = [

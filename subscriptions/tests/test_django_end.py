@@ -89,6 +89,6 @@ class SubscriptionsViewTest(TestCase):
 
         response = self.client.get('/accounts/login/', follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertURLEqual(response.request['PATH_INFO'], reverse('user_tasks'))
+        self.assertURLEqual(
+            response.request['PATH_INFO'], reverse('user_tasks'))
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
-    

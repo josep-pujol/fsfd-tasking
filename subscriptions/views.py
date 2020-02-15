@@ -14,7 +14,7 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 @login_required
 def subscribe(request):
-    if hasattr(request.user, 'premiumuser'):
+    if hasattr(request.user, 'team_owner'):
         return redirect(reverse('index'))
 
     plan_id = 'plan_Gcb3Ira0nEPtnk'
