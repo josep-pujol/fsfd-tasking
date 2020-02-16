@@ -52,6 +52,25 @@ class Team(models.Model):
         return self.tem_name
 
 
+class UserTeam(models.Model):
+    ut_user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
+    ut_team = models.ForeignKey(
+        Team, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        ordering = ['ut_team', ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=['ut_user', 'ut_team', ],
+                name='user_team'
+            )
+        ]
+
+    def __str__(self):
+        return str((self.ut_team, self.ut_user))
+
+
 class Task(models.Model):
     tsk_user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
@@ -80,22 +99,3 @@ class Task(models.Model):
 
     def __str__(self):
         return str((self.pk, self.tsk_name))
-
-
-class UserTeam(models.Model):
-    ut_user = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True)
-    ut_team = models.ForeignKey(
-        Team, on_delete=models.CASCADE, blank=True, null=True)
-
-    class Meta:
-        ordering = ['ut_team', ]
-        constraints = [
-            models.UniqueConstraint(
-                fields=['ut_user', 'ut_team', ],
-                name='user_team'
-            )
-        ]
-
-    def __str__(self):
-        return str((self.ut_team, self.ut_user))
