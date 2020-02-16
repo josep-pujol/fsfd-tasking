@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +50,7 @@
             <ul id="dropdown-profile" class="dropdown-content">
                 <li><a href="{% url 'profile' %}"><i class="material-icons">person_outline</i>Profile</a></li>
                 {% if user.team_owner %}
-                    <li><a href="{% url 'profile' %}"><i class="material-icons">people_outline</i>Team</a></li>
+                    <li><a href="{% url 'team_collaborators' %}"><i class="material-icons">people_outline</i>Team</a></li>
                 {% endif %}                
                 <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Logout</a></li>
             </ul>
@@ -63,6 +64,9 @@
                     <li><a href="{% url 'completed_tasks' %}">Completed Tasks</a></li>
                     <li><div class="divider"></div></li>
                     <li><a href="{% url 'profile' %}">Profile</a></li>
+                    {% if user.team_owner %}
+                        <li><a href="{% url 'team_collaborators' %}">Team</a></li>
+                    {% endif %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Sign in</a></li>
