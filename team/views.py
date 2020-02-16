@@ -1,30 +1,14 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
-from django.urls import reverse, reverse_lazy
-from django.views import View
-from django.views.generic.edit import CreateView
+from django.urls import reverse
 
 from tasks.models import Team, UserTeam
 from team.forms import AddCollaboratorForm
 
 
-# class UserTeamView(View):
-#     template_name = 'team/team_collaborators.html'
-
-#     def get(self, request, *args, **kwargs):
-#         user = request.user
-#         users_in_team = UserTeam.objects.filter(
-#             ut_team=user.team_owner.pk).exclude(ut_user=user.pk)
-#         add_collaborator_form = AddCollaboratorForm()
-#         context = {
-#             'users_in_team': users_in_team,
-#             'add_collaborator_form': add_collaborator_form,
-#         }
-#         return render(
-#             request, self.template_name, context=context)
-
-
+@login_required
 def user_team_view(request):
     user = request.user
     users_in_team = UserTeam.objects.filter(
@@ -33,12 +17,10 @@ def user_team_view(request):
     if request.method == 'POST':
         add_collaborator_form = AddCollaboratorForm(request.POST)
         if add_collaborator_form.is_valid():
-            new_collaborator = User.objects.filter(
+            new_collaborator = User.objects.get(
                 email=request.POST['email_to_add'])
-            team2assign = Team.objects.filter(tem_owner=user.team_owner.pk)
-            print('\n ALREADY IN TEAM', new_collaborator, users_in_team)
-            print('\n IN TEAM ? ', new_collaborator in users_in_team)
-            if new_collaborator in users_in_team:
+            team2assign = Team.objects.get(tem_owner=user)
+            if users_in_team.filter(ut_user=new_collaborator):
                 messages.error(
                     request,
                     f'Unable to add {new_collaborator.email} in the Team'
@@ -54,7 +36,7 @@ def user_team_view(request):
                     messages.success(request, 'Added to your Team!')
                     return redirect(reverse('team_collaborators'))
                 except Exception as e:
-                    print('\n\nEXCEPTION', e)
+                    print(e)
                     messages.error(
                         request,
                         f'Unable to add {new_collaborator.email} in the team'
