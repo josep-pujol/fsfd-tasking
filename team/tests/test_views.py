@@ -5,5 +5,5 @@ from django.test import TestCase
 
 
 class UserTeamViewTest(TestCase):
-
+    pass
 
