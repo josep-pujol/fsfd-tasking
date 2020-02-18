@@ -7,10 +7,8 @@ class AddCollaboratorForm(forms.Form):
     """Form used to add a collaborator in team"""
 
     email_to_add = forms.EmailField(
-        label='Email',
-        widget=forms.TextInput(
-            attrs={'placeholder': 'Email from a Tasking user'},
-        )
+        label='An email from a Tasking user',
+        widget=forms.EmailInput(),
     )
 
     def clean_email_to_add(self):
@@ -21,7 +19,7 @@ class AddCollaboratorForm(forms.Form):
             return email_
         except Exception as e:
             print(e)
-            raise ValidationError(
-                u'This email is not registered. '
-                u'The email owner needs to register to Tasking first.'
+            raise forms.ValidationError(
+                'This email is not registered.'
+                'The email owner needs to register to Tasking first.'
             )

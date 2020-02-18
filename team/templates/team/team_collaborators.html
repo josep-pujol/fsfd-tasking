@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{% load materializecss %}
-
 {% load staticfiles %}
+
+{% load materializecss %}
 
 {% block page_title %}Team{% endblock %}
 
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col s12">
                         <ul class="tabs">
-                            <li class="tab col s6"><a class="active" href="#teamCollabsTab">COLLABORATORS</a></li>
+                            <li class="tab col s6"><a href="#teamCollabsTab">COLLABORATORS</a></li>
                             <li class="tab col s6"><a href="#addCollab">ADD COLLABORATOR</a></li>
                         </ul>
                     </div>
@@ -57,7 +57,8 @@
                             <br>
                             <form method="POST">
                                 {% csrf_token %}
-                                {{ add_collaborator_form }}
+                                {{ add_collaborator_form | materializecss}}
+                                <p>Type the email of a user registered in Tasking</p>
                                 <div class="row col s12">
                                     <br>
                                     <button class="btn btn-secondary right" type="submit">Add<i class="material-icons right">playlist_add</i></button>
