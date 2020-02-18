@@ -90,15 +90,15 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="taskId" id="taskId" value=""> 
                                         <div class="col s6">
-                                            <select class="browser-default" id="tsk_status" name="tsk_status" value="">
-                                            <option value="" disabled selected>Choose Status</option>
+                                            <select class="browser-default" required id="tsk_status" name="tsk_status" value="">
+                                                <option value="" disabled selected>Choose Status</option>
                                                 {% for sta in status %}
                                                     <option value="{{ sta.pk }}">{{ sta.sta_name }}</option>                                               
                                                 {% endfor %}
                                             </select>   
                                         </div>
                                         <a class="btn-flat modal-close">Cancel</a>
-                                        <button class="btn modal-action modal-close" type="submit" name="action">Confirm</button>
+                                        <button id="submit_btn" class="btn modal-action" type="submit" name="action">Confirm</button>
                                     </form>
                                 </div>
                             </div>
@@ -184,5 +184,6 @@
         });
     });
 </script>
+
 {% endblock %}
 
