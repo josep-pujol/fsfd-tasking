@@ -142,9 +142,11 @@ class UpdateTaskViewTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-    # def test_updates_category(self):
+    # def test_upd
+    
+ates_category(self):
     #     response = self.client.get(
-    #       f'/tasks/update/task/{self.task2test.pk}/')
+    #       things'/tasks/update/task/{self.task2test.pk}/')
     #     self.assertEqual(response.status_code, 200)
     #     from pprint import pprint as pp
     #     print('\nCONTEXT')
