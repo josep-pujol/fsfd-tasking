@@ -143,7 +143,7 @@ class LogoutViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         try:
             self.client.session['_auth_user_id']
-            self.assertNotEqual(int(self.client.session['_auth_user_id']), 
+            self.assertNotEqual(int(self.client.session['_auth_user_id']),
                                 user.id)
         except KeyError as exc:
             self.assertEqual(repr(exc), "KeyError('_auth_user_id')")
@@ -222,5 +222,3 @@ class RegistrationViewTest(TestCase):
         response = self.client.get(reverse('registration'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/registration.html')
-
-

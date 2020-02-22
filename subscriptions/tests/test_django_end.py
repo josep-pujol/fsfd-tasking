@@ -62,7 +62,8 @@ class SubscribeViewTest(TestCase):
 
         response = self.client.get('/accounts/login/', follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertURLEqual(response.request['PATH_INFO'], reverse('subscribe'))
+        self.assertURLEqual(
+            response.request['PATH_INFO'], reverse('subscribe'))
         self.assertTemplateUsed(response, 'subscriptions/subscribe.html')
 
     def test_redirected_to_user_tasks_if_logged_in_and_team_owner(self):

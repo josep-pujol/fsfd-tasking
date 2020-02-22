@@ -15,15 +15,10 @@ PLAN_ID = 'plan_Gcb3Ira0nEPtnk'
 
 @login_required
 def subscribe(request):
-    print('\n\n START subscribe view')
     if hasattr(request.user, 'team_owner'):
         return redirect(reverse('index'))
-
     if request.method == 'POST':
-        print('\nREQUEST SUBSCRIBE', request)
-        print('REQUEST.POST SUBSCRIBE', request.POST)
-
-        # Stripe side
+        # Stripe end
         stripe_customer = stripe.Customer.create(
             email=request.user.email, source=request.POST['stripeToken']
         )
@@ -31,7 +26,7 @@ def subscribe(request):
             customer=stripe_customer.id, items=[{'plan': PLAN_ID}, ]
         )
 
-        # Django side
+        # Django end
         # Store premium user info
         premiumuser = PremiumUser()
         premiumuser.user = request.user
@@ -61,7 +56,6 @@ def subscribe(request):
             f'You are now a Premium user { request.user.username.title() }!')
         return redirect('index')
     else:
-        print('\n\n subscribe view GET')
         price = 9900
         final_euro = 99
         return render(
