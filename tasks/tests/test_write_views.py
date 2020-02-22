@@ -139,16 +139,14 @@ class UpdateTaskViewTest(TestCase):
         # POST
         response = self.client.post(reverse('update_task',
                                             kwargs={'pk': 999999}))
-        self.assertEqual(response.status_code, 404)fffffff
+        self.assertEqual(response.status_code, 404)
 
 
 
 
 
 
-    # def test_upd
-    
-ates_category(self):
+    # def test_updates_category(self):
     #     response = self.client.get(
     #       things'/tasks/update/task/{self.task2test.pk}/')
     #     self.assertEqual(response.status_code, 200)
