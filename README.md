@@ -7,7 +7,9 @@
 
 This repository contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
 
-Consists on a "Tasks List" or "To-Do" application in which users can store and manage tasks. Allow multiple users, groups of users etc.
+Consists on a "Tasks List" or "To-Do" application in which users can store and manage tasks. 
+The main functionality of the app is available for free, however users can get sdditional functionality subscribing.
+Subscribed users can create a To-Do list with a list of users of his/her choice.
 
 A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
@@ -76,21 +78,25 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 
 
 ### Features Left to Implement
-In the future, 
-
+In the future, it could be nice to implement additional options to duplicate or delete a task.
+As well, email notifications for:
+ - A user has been added to a Team
+ - A task has been assigned to a User
+ - Optional alerts when the due date of a task is close
 
 
 
 ## Technologies Used
 
 ### The main technologies used are:
-
+- [GitPod](https://gitpod.io/)
+    - Online IDE used to develop this project
 - [Python](https://www.python.org/)
     - Base language used for the application
 - [Django](https://https://docs.djangoproject.com/en/2.2/)
     - Web application framework for **Python**
 - **HTML**, **CSS** and **Javascript**
-    - Base languages used to create the site templates
+    - Base languages used to create the site frontend
 - [Materialize](https://materializecss.com)
     - Used **Materialize 1.0.0** for a responsive layout and styling
 - [DataTables](https://datatables.net)
@@ -99,15 +105,20 @@ In the future,
     - **JQuery** as a dependency for **DataTables**
 - [Github](https://github.com)
     - Used as repository of the project 
+- [ElephantSQL](https://www.elephantsql.com/)
+    - PostgreSQL as a service used during development
 - [Heroku](https://heroku.com)
     - To deploy the project
+- [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql)
+    - Relational Database based on PostgreSQL as main point of information storage
 - [Travis](https://travis-ci.org/)
     - Continuous integration and testing
 - [Codecov](https://codecov.io/)
     - Coverage reports
-
-
-
+- [SendGrid](https://sendgrid.com/)
+    - SendGrid API is used to email users that request to reset their password
+- [Stripe](https://stripe.com/docs/api)
+    - Stripe API to process payments in users subscritions 
 
 ## Testing
 - Python Unit tests with over 90% coverage, including:
@@ -143,7 +154,14 @@ In the future,
 2. Download or clone this repository by running the ```git clone <project's Github URL>``` command
 3. Create your own repository
 4. Install Python packages from ```requirements.txt``` file. From Terminal type ```pip install -r requirements.txt```
-5. Install the MongoDB client. From Terminal type ```wget -q https://git.io/fh7vV -O /tmp/setupmongodb.sh && source /tmp/setupmongodb.sh```
+5. Add environmental variables in your environment. You should have:
+    - ```DATABASE_URL```: conection string to your Database. I used https://www.elephantsql.com/ during development
+    - ```IP```: set to ```0.0.0.0```
+    - ```PORT```: set to ```8080```
+    - ```SECRET_KEY```: Django secret key. You can generate one in the site https://djecrety.ir/
+    - ```SENDGRID_API_KEY```: create a SendGrid account to generate a key
+    - ```STRIPE_PUBLIC_KEY```: you need an Stripe account to generate a key
+    - ```STRIPE_SECRET_KEY```: you need an Stripe account to generate a key
 6. Create a MongoDB Atlas account, get the URI connection string to connect to Mongo Shell and test the connection
 7. Add the connection string as environment variable in file ```.bashrc``` with the name ```MONGO_URI```
 8. Create the following collections in MongoDB Atlas
@@ -156,7 +174,7 @@ In the future,
         - Add any status you like plus their associated order
         - Make sure you add the default values ```Not started``` with order ```0```, and ```Completed``` which show have the highest order
     - ```tasks``` collection just need to be created, and then populated through the application
-9. To ensure all is working properly, run the Unit tests from Terminal, type ```python3 -m unittest discover```
+9. To ensure all is working properly, run the Unit tests from Terminal, type ```python3 manage.py test```
 
 
 
@@ -164,14 +182,15 @@ In the future,
 0. If previous steps ran successfully, to deploy the app in Heroku do the following
 1. Create an account in Heroku
 2. Create an app
-3. In the Settings section of the app set the following environmental variables:
+3. In the Resources section Add the Heroku Postgres add-on
+4. In the Settings section of the app set the following environmental variables:
     - ```IP``` set to ```0.0.0.0```
     - ```PORT``` set to ```8080```
     - ```DATABASE_URL``` set to the value from previous section
 4. Install Heroku in your system. From Terminal type ```sudo snap install --classic heroku```
 4. Back in the Heroku website go to the Deploy section and connect your repository with Heroku
 5. Select the option "Manual Deploy"
-6. Load the url to test the application is up and running. Notice that there won't be any tasks.
+6. Load the url to test the application is up and running
 7. If issues, please have a look at the deployment logs in Heroku
 
 
@@ -179,3 +198,4 @@ In the future,
 
 ## Credits
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/)
+Many thanks to my mentor [Sindhu Kolli](https://github.com/itssindhu13) for her great advise and suggestions.
