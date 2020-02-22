@@ -23,7 +23,8 @@ def user_team_view(request):
             if users_in_team.filter(ut_user=new_collaborator):
                 messages.error(
                     request,
-                    f'{new_collaborator.email} is already a Collaborator in the Team'
+                    f'{new_collaborator.email} '
+                    'is already a Collaborator in the Team'
                 )
             else:
                 try:
@@ -40,8 +41,12 @@ def user_team_view(request):
                     )
                     messages.error(request, 'Please try again')
         else:
-            messages.error(request, 'Please ensure the email belongs to a Tasking user')
-            messages.error(request, 'Only registered Tasking users can collaborate in teams')
+            messages.error(
+                request, 'Please ensure the email belongs to a Tasking user')
+            messages.error(
+                request,
+                'Only registered Tasking users can collaborate in teams'
+            )
 
     else:
         add_collaborator_form = AddCollaboratorForm()
