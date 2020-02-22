@@ -154,14 +154,14 @@ As well, email notifications for:
 2. Download or clone this repository by running the ```git clone <project's Github URL>``` command
 3. Create your own repository
 4. Install Python packages from ```requirements.txt``` file. From Terminal type ```pip install -r requirements.txt```
-5. Add environmental variables in your environment. You should have:
-    - ```DATABASE_URL```: conection string to your Database. I used https://www.elephantsql.com/ during development
+5. Add the following environmental variables in your environment:
+    - ```DATABASE_URL```: conection string to your Database. In this project https://www.elephantsql.com/ was used
     - ```IP```: set to ```0.0.0.0```
     - ```PORT```: set to ```8080```
-    - ```SECRET_KEY```: Django secret key. You can generate one in the site https://djecrety.ir/
-    - ```SENDGRID_API_KEY```: create a SendGrid account to generate a key
-    - ```STRIPE_PUBLIC_KEY```: you need an Stripe account to generate a key
-    - ```STRIPE_SECRET_KEY```: you need an Stripe account to generate a key
+    - ```SECRET_KEY```: Django secret key. You can generate one in this site https://djecrety.ir/
+    - ```SENDGRID_API_KEY```: create a SendGrid account to get a key
+    - ```STRIPE_PUBLIC_KEY```: create a Stripe account to get a key
+    - ```STRIPE_SECRET_KEY```: create a Stripe account to get a key
 6. Create a MongoDB Atlas account, get the URI connection string to connect to Mongo Shell and test the connection
 7. Add the connection string as environment variable in file ```.bashrc``` with the name ```MONGO_URI```
 8. Create the following collections in MongoDB Atlas
@@ -174,23 +174,20 @@ As well, email notifications for:
         - Add any status you like plus their associated order
         - Make sure you add the default values ```Not started``` with order ```0```, and ```Completed``` which show have the highest order
     - ```tasks``` collection just need to be created, and then populated through the application
-9. To ensure all is working properly, run the Unit tests from Terminal, type ```python3 manage.py test```
+9. Run Unit tests from your Terminal to ensure everything is working properly - type ```python3 manage.py test```
 
 
 
 ### Deploy in Heroku
 0. If previous steps ran successfully, to deploy the app in Heroku do the following
 1. Create an account in Heroku
-2. Create an app
+2. Create an Heroku app
 3. In the Resources section Add the Heroku Postgres add-on
-4. In the Settings section of the app set the following environmental variables:
-    - ```IP``` set to ```0.0.0.0```
-    - ```PORT``` set to ```8080```
-    - ```DATABASE_URL``` set to the value from previous section
-4. Install Heroku in your system. From Terminal type ```sudo snap install --classic heroku```
-4. Back in the Heroku website go to the Deploy section and connect your repository with Heroku
-5. Select the option "Manual Deploy"
-6. Load the url to test the application is up and running
+4. In the Settings section make sure you have the same environmental variables of previous section
+5. In the Deploy section: 
+    - Select GitHub as a source in the "Deployment method" subsection 
+    - Click on Deploy Branch button in the "Manual Deploy" subsection
+6. Open the given Heroku url to test that the application is up and running
 7. If issues, please have a look at the deployment logs in Heroku
 
 
