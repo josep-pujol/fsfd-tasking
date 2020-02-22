@@ -6,6 +6,7 @@ from tasks.models import Team, UserTeam
 
 
 class LoginViewTest(TestCase):
+
     @classmethod
     def setUp(self):
         # Create new user
@@ -82,7 +83,7 @@ class LoginViewTest(TestCase):
             ut_team=team,
         )
         user_team.save()
-        
+
         # Login user
         login = self.client.login(
             username='user2test', password='XISRUkwtuK')
@@ -169,8 +170,7 @@ class UserUpdateViewTest(TestCase):
         user2test.save()
 
     def test_update_profile_url_exists(self):
-        user = User.objects.filter(username='user2test')[0]
-
+        user = User.objects.get(email='usertest@email.com')
         # Login user
         login = self.client.login(
             username='user2test', password='XISRUkwtuK')
@@ -190,13 +190,37 @@ class UserUpdateViewTest(TestCase):
         )
 
     def test_view_uses_correct_template(self):
-        user = User.objects.filter(username='user2test')[0]
-
+        user = User.objects.get(email='usertest@email.com')
         # Login user
         login = self.client.login(
             username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
-
         response = self.client.get(f'/accounts/update-profile/{user.pk}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/update_profile.html')
+
+
+class RegistrationViewTest(TestCase):
+    @classmethod
+    def setUp(self):
+        # Create new user
+        user2test = User.objects.create_user(
+            username='user2test', email='usertest@email.com',
+            password='XISRUkwtuK',
+        )
+        user2test.save()
+
+    def test_registration_url_exists(self):
+        response = self.client.get(f'/accounts/register/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_accessible_by_name(self):
+        response = self.client.get(reverse('registration'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('registration'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/registration.html')
+
+

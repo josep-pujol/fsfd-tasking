@@ -5,9 +5,9 @@
 [![Build Status](https://travis-ci.org/josep-pujol/fsfd-tasking.svg?branch=master)](https://travis-ci.org/josep-pujol/fsfd-tasking)
 [![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
 
-This repo contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
+This repository contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
 
-Consists on a "Tasks List" application in which users can store and manage tasks. Allow multiple users, groups of users etc.
+Consists on a "Tasks List" or "To-Do" application in which users can store and manage tasks. Allow multiple users, groups of users etc.
 
 A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
@@ -48,7 +48,7 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 - Main Page
     - Navigation links
     - Display tasks that are not completed
-    - Pagination, including dropdown menu to select number of rows per page
+    - Pagination, including dropdown menu to select number of items per page
     - Search and Sorting functionality for all fields in the Table
     - Fixed floating button with tooltip, to add tasks
     - Menu-dots per Task which opens a window to:
@@ -103,6 +103,8 @@ In the future,
     - To deploy the project
 - [Travis](https://travis-ci.org/)
     - Continuous integration and testing
+- [Codecov](https://codecov.io/)
+    - Coverage reports
 
 
 
