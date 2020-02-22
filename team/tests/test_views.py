@@ -137,9 +137,11 @@ class UserTeamViewTest(TestCase):
             username='user2test', password='XISRUkwtuK')
         self.assertTrue(login)
         # Add user into team
-        response = self.client.post(reverse('add_collaborator'),
-                                    {'email_to_add': 'not_registered@email.com'},
-                                    follow=True)
+        response = self.client.post(
+            reverse('add_collaborator'),
+            {'email_to_add': 'not_registered@email.com'},
+            follow=True
+        )
         self.assertEqual(response.status_code, 200)
         msgs = [msg.__str__() for msg in get_messages(response.wsgi_request)]
         self.assertIn(

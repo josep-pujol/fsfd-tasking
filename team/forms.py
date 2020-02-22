@@ -18,7 +18,6 @@ class AddCollaboratorForm(forms.Form):
             User.objects.get(email=email_)
             return email_
         except Exception as e:
-            print(e)
             raise forms.ValidationError(
                 'This email is not registered.'
                 'The email owner needs to register to Tasking first.'

@@ -33,8 +33,7 @@ def user_team_view(request):
                     add_user_team.save()
                     messages.success(request, 'Added to your Team!')
                     return redirect(reverse('team_collaborators'))
-                except Exception as e:
-                    print(e)
+                except Exception:
                     messages.error(
                         request,
                         f'Unable to add {new_collaborator.email} in the team'
