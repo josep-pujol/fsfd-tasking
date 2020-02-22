@@ -33,6 +33,9 @@ def update_status_dependencies(task):
         pass
 
 
+# ---- READ VIEWS --------------------------------------------------------
+
+
 @login_required
 def user_tasks(request):
     tasks = Task.objects.filter(
@@ -74,7 +77,7 @@ def assigned_tasks(request):
 
 @login_required
 def team_tasks(request):
-    # Only for premium users
+    # Only for premium users, or users that own a Team
     user = request.user
     is_team_owner = hasattr(user, 'team_owner')
     if is_team_owner:
@@ -104,6 +107,9 @@ def completed_tasks(request):
         'tasks': tasks,
     }
     return render(request, 'tasks/completed_tasks_table.html', context=context)
+
+
+# ---- WRITE VIEWS --------------------------------------------------------
 
 
 @login_required
