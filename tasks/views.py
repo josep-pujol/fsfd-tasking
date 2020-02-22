@@ -21,8 +21,9 @@ def update_status_dependencies(task):
     status_ = task.tsk_status.sta_name.lower()
     today_ = datetime.datetime.today().date()
     if status_ == 'completed':
-        task.startdate = today_
         task.finishdate = today_
+        if task.startdate is None:
+            task.startdate = today_
     elif (status_ not in ['completed', 'not started', ] and
           task.startdate is None):
         task.startdate = today_
