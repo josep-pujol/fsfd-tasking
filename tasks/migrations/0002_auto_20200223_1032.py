@@ -20,8 +20,8 @@ def add_default_values(apps, schema_editor):
     cat1.save()
     cat2 = Category(
         pk=2,
-        cat_name='Undefined',
-        cat_description='Default Category',
+        cat_name='admin',
+        cat_description='Admin Category',
         cat_order=1)
     cat2.save()
     cat3 = Category(
