@@ -82,7 +82,7 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 
 
 ### Features Left to Implement
-In the future, it could be nice to implement additional options to duplicate or delete a task.
+In the future, it could be nice to implement additional options to duplicate or delete a tasks, and to manage categories so users can add or remove the default ones.
 As well, email notifications for:
  - A user has been added to a Team
  - A task has been assigned to a User
