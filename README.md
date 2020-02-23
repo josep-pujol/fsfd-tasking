@@ -7,8 +7,9 @@
 
 This repository contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
 
-Consists on a "Tasks List" or "To-Do" application in which users can store and manage tasks. 
-The main functionality of the app is available for free, however users can get sdditional functionality subscribing.
+Consists on a "Tasks List" or "To-Do" application in which users can store and manage tasks.
+
+The main functionality of the app is available for free, however users can get additional functionality by subscribing.
 Subscribed users can create a To-Do list with a list of users of his/her choice.
 
 A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
@@ -18,27 +19,30 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
 ## UX
 
-The app consists of three main pages: 
+### Free User
+The app consists of three main sections: 
 
-- Main page to display all Tasks to be done
+- Non registered users: Landing page and Sign-in Sign-up functionality
 
     ![Main page or Tasks page](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/tasks_mockup.png)
 
-- Pages to add and edit a single Task
+- Tasks: 
+    - Section to manage different Task Lists or To-Do lists
+    - The available Task Lists are:
+        - "Personal Tasks": Tasks aimed only at the owner of the account - all features avilable 
+        - "Assigned Tasks": Tasks assigned to the user from other registered users of Tasking - restricted features
+        - "Completed Tasks": all the tasks completed by the user - restricted features
 
     ![Add Task](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/add_task_mockup.png)
 
-- Page to display completed Tasks
+- User: section for the owner of the account in which he can update profile or logout
 
     ![Completed Tasks](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/completed_tasks_mockup.png)
 
 
-Additionally, some modals/popup windows are used to perform actions like:
-- Edit the Status of a Task
-- Add an Issue or Alert sign on the Task
-- Update any of the fields of the Task
+Additionally, modals and popup windows are used to perform actions like Edit the Status of a Task, Update any of the fields of a Task etc.
 
-These actions can be activated by clicking on the menu-dots item on the right-hand side of each Task.
+These actions can be activated by clicking on the menu-dots item on the right-hand side of each Task - if user has right permissions.
 
 
 
@@ -151,9 +155,9 @@ As well, email notifications for:
 ### Getting the code up and running
 0. The following instructions are meant for a Linux System running Python3
 1. First it is recommended to create a virtual environment for the application
-2. Download or clone this repository by running the ```git clone <project's Github URL>``` command
-3. Create your own repository
-4. Install Python packages from ```requirements.txt``` file. From Terminal type ```pip install -r requirements.txt```
+2. Create your own repository
+3. Download or clone this repository by running the ```git clone <project's Github URL>``` command
+4. Install Python packages from ```requirements.txt``` file - from Terminal type ```pip install -r requirements.txt```
 5. Add the following environmental variables in your environment:
     - ```DATABASE_URL```: conection string to your Database. In this project https://www.elephantsql.com/ was used
     - ```IP```: set to ```0.0.0.0```
@@ -162,21 +166,10 @@ As well, email notifications for:
     - ```SENDGRID_API_KEY```: create a SendGrid account to get a key
     - ```STRIPE_PUBLIC_KEY```: create a Stripe account to get a key
     - ```STRIPE_SECRET_KEY```: create a Stripe account to get a key
-6. Create a MongoDB Atlas account, get the URI connection string to connect to Mongo Shell and test the connection
-7. Add the connection string as environment variable in file ```.bashrc``` with the name ```MONGO_URI```
-8. Create the following collections in MongoDB Atlas
-    - ```task_category``` with a single field name ```category```. 
-        - Add any category names you like plus the default value ```Undefined```
-    - ```task_importance``` with two fields named ```importance``` and ```order```. 
-        - Add any levels of task importance you like with their associated order 
-        - Make sure you add the default value ```Low``` with order ```1```, which will be the lowest level of importance
-    - ```task_status``` with two fields named ```status``` and ```order```. 
-        - Add any status you like plus their associated order
-        - Make sure you add the default values ```Not started``` with order ```0```, and ```Completed``` which show have the highest order
-    - ```tasks``` collection just need to be created, and then populated through the application
-9. Run Unit tests from your Terminal to ensure everything is working properly - type ```python3 manage.py test```
-
-
+6. To have the Database ready to run the app do the following (see below*):
+    - Make migrations typing ```python3 manage.py makemigrations```
+    - Migrate typing ```python3 manage.py migrate```
+7. Run Unit tests from your Terminal to ensure everything is working properly, type ```python3 manage.py test```
 
 ### Deploy in Heroku
 0. If previous steps ran successfully, to deploy the app in Heroku do the following
@@ -189,6 +182,17 @@ As well, email notifications for:
     - Click on Deploy Branch button in the "Manual Deploy" subsection
 6. Open the given Heroku url to test that the application is up and running
 7. If issues, please have a look at the deployment logs in Heroku
+
+
+*Notice that migrations automatically create options for the Dropdown menus
+    - ```task_category``` with a single field name ```category```. 
+        - Add any category names you like plus the default value ```Undefined```
+    - ```task_importance``` with two fields named ```importance``` and ```order```. 
+        - Add any levels of task importance you like with their associated order 
+        - Make sure you add the default value ```Low``` with order ```1```, which will be the lowest level of importance
+    - ```task_status``` with two fields named ```status``` and ```order```. 
+        - Add any status you like plus their associated order
+        - Make sure you add the default values ```Not started``` with order ```0```, and ```Completed``` which show have the highest order
 
 
 
