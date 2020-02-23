@@ -5,9 +5,9 @@
 [![Build Status](https://travis-ci.org/josep-pujol/fsfd-tasking.svg?branch=master)](https://travis-ci.org/josep-pujol/fsfd-tasking)
 [![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
 
-This repository contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
+This repository contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute. This is the last step to obtain the Diploma.
 
-Consists on a "Tasks List" or "To-Do" application in which users can organize their tasks or to-dos. Users not only can create and update their tasks but they can search, filter or sort their tasks.
+Consists on a "Tasks List" or "To-Do" application in which users can organize their tasks or to-dos. Users not only can create and update tasks but as well search, filter or sort tasks.
 
 The main functionality of the app is available for free, however users can get additional functionality by subscribing.
 Subscribed users can create a To-Do list with a list of users of his/her choice.
