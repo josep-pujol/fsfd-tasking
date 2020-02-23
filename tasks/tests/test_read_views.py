@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from tasks.models import Team, UserTeam
+from team.models import Team, UserTeam
 
 
 class UserTasksTableViewTest(TestCase):

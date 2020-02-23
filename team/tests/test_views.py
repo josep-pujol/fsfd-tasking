@@ -3,7 +3,7 @@ from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
-from tasks.models import Team, UserTeam
+from team.models import Team, UserTeam
 
 
 class UserTeamViewTest(TestCase):
