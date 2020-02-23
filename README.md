@@ -9,8 +9,8 @@ This repository contains a solution code for the milestone project of the *Full 
 
 Consists on a "Tasks List" or "To-Do" application in which users can organize their tasks or to-dos. Users not only can create and update tasks but as well search, filter or sort tasks.
 
-The main functionality of the app is available for free, however users can get additional functionality by subscribing.
-Subscribed users can create a To-Do list with a list of users of his/her choice.
+Most of the functionality is available for free, however users can get additional features by subscribing.
+Subscribed users can create a To-Do list with a list of users of his/her choice, and collaborate online from their PC or mobile phone.
 
 A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
@@ -120,7 +120,7 @@ As well, email notifications for:
 - [Codecov](https://codecov.io/)
     - Coverage reports
 - [SendGrid](https://sendgrid.com/)
-    - SendGrid API is used to email users that request to reset their password
+    - SendGrid API is used to email users that request a password reset
 - [Stripe](https://stripe.com/docs/api)
     - Stripe API to process payments in users subscritions 
 
@@ -154,32 +154,32 @@ As well, email notifications for:
  
 ### Getting the code up and running
 0. The following instructions are meant for a Linux System running Python3
-1. First it is recommended to create a virtual environment for the application
+1. First it is recommended to create a virtual environment
 2. Create your own repository
 3. Download or clone this repository by running the ```git clone <project's Github URL>``` command
 4. Install Python packages from ```requirements.txt``` file - from Terminal type ```pip install -r requirements.txt```
 5. Add the following environmental variables in your environment:
-    - ```DATABASE_URL```: conection string to your Database. In this project https://www.elephantsql.com/ was used
+    - ```DATABASE_URL```: conection string to your Database. https://www.elephantsql.com/ was used in this project
     - ```IP```: set to ```0.0.0.0```
     - ```PORT```: set to ```8080```
     - ```SECRET_KEY```: Django secret key. You can generate one in this site https://djecrety.ir/
     - ```SENDGRID_API_KEY```: create a SendGrid account to get a key
     - ```STRIPE_PUBLIC_KEY```: create a Stripe account to get a key
     - ```STRIPE_SECRET_KEY```: create a Stripe account to get a key
-6. To have the Database ready to run the app do the following (see below*):
+6. To have the Database ready to run the app do the following in your Terminal (see below*):
     - Make migrations typing ```python3 manage.py makemigrations```
     - Migrate typing ```python3 manage.py migrate```
-7. Run Unit tests from your Terminal to ensure everything is working properly, type ```python3 manage.py test```
+7. Run Unit tests to ensure everything is working properly, type ```python3 manage.py test``` in your Terminal 
 
 ### Deploy in Heroku
-0. If previous steps ran successfully, to deploy the app in Heroku do the following
-1. Create an account in Heroku
+0. If previous steps ran successfully, do the following to deploy the app in Heroku 
+1. Frist you need to create an account in Heroku
 2. Create an Heroku app
-3. In the Resources section Add the Heroku Postgres add-on
-4. In the Settings section make sure you have the same environmental variables of previous section
-5. In the Deploy section: 
-    - Select GitHub as a source in the "Deployment method" subsection 
-    - Click on Deploy Branch button in the "Manual Deploy" subsection
+3. In the "Resources" section Add the Heroku Postgres add-on
+4. In the "Settings" section make sure you have the same environmental variables previously discussed
+5. In the "Deploy" section: 
+    - Select "GitHub" as a source in the "Deployment method" subsection 
+    - Click the "Deploy Branch" button in the "Manual Deploy" subsection
 6. Open the given Heroku url to test that the application is up and running
 7. If issues, please have a look at the deployment logs in Heroku
 
@@ -199,4 +199,5 @@ As well, email notifications for:
 
 ## Credits
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/)
+
 Many thanks to my mentor [Sindhu Kolli](https://github.com/itssindhu13) for her great advise and suggestions.
