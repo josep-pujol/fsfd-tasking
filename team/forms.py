@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 
 
 class AddCollaboratorForm(forms.Form):
@@ -17,7 +16,7 @@ class AddCollaboratorForm(forms.Form):
         try:
             User.objects.get(email=email_)
             return email_
-        except Exception as e:
+        except Exception:
             raise forms.ValidationError(
                 'This email is not registered.'
                 'The email owner needs to register to Tasking first.'
