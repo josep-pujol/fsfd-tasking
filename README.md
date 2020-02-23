@@ -169,7 +169,10 @@ As well, email notifications for:
 6. To have the Database ready to run the app do the following in your Terminal (see below*):
     - Make migrations typing ```python3 manage.py makemigrations```
     - Migrate typing ```python3 manage.py migrate```
-7. Run Unit tests to ensure everything is working properly, type ```python3 manage.py test``` in your Terminal 
+    - Notice a default superuser is created with same username and password as "admin"
+7. Run Unit tests to ensure everything is working properly, type ```python3 manage.py test``` in your Terminal
+8. Go to Django Admin and change the default Superuser password
+
 
 ### Deploy in Heroku
 0. If previous steps ran successfully, do the following to deploy the app in Heroku 
@@ -181,7 +184,8 @@ As well, email notifications for:
     - Select "GitHub" as a source in the "Deployment method" subsection 
     - Click the "Deploy Branch" button in the "Manual Deploy" subsection
 6. Open the given Heroku url to test that the application is up and running
-7. If issues, please have a look at the deployment logs in Heroku
+7. Go to Django Admin and change the default Superuser password
+8. If issues, please have a look at the deployment logs in Heroku
 
 
 *Notice that migrations automatically create options for the Dropdown menus
