@@ -74,9 +74,9 @@ class SubscribeViewTest(TestCase):
         # Create a Team and premium user
         # user2test = User.objects.filter(username='user2test')
         team = Team.objects.create(
-            tem_name=f"{self.user2test.username.capitalize()}'s Team",
+            tem_name=f"{self.user2test.username}'s Team",
             tem_description='Team managed by user '
-                            f'{self.user2test.username.capitalize()}',
+                            f'{self.user2test.username}',
             tem_owner=self.user2test,
         )
         team.save()

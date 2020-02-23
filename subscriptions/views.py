@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render, reverse
 from django.contrib.auth.decorators import login_required
 
 from subscriptions.models import PremiumUser
-from tasks.models import Team, UserTeam
+from team.models import Team, UserTeam
 
 import stripe
 
@@ -36,9 +36,9 @@ def subscribe(request):
 
         # Create a Team for premium user
         team = Team.objects.create(
-            tem_name=f"{request.user.username.capitalize()}'s Team",
+            tem_name=f"{request.user.username}'s Team",
             tem_description='Team managed by user '
-                            f'{request.user.username.capitalize()}',
+                            f'{request.user.username}',
             tem_owner=request.user,
         )
         team.save()
@@ -53,7 +53,7 @@ def subscribe(request):
         messages.success(request, 'Payment processed succesfully.')
         messages.success(
             request,
-            f'You are now a Premium user { request.user.username.title() }!')
+            f'You are now a Premium user { request.user.username }!')
         return redirect('index')
     else:
         price = 9900

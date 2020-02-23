@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic.edit import UpdateView
 
 from accounts.forms import UserLoginForm, UserRegistrationForm
-from tasks.models import Team, UserTeam
+from team.models import Team, UserTeam
 
 
 def index(request):
@@ -48,7 +48,7 @@ def registration(request):
 
                 messages.success(request, 'You are registered!')
                 messages.success(
-                    request, f'Welcome to Tasking  { user.username.title() }!')
+                    request, f'Welcome to Tasking  { user.username }!')
                 return redirect(reverse('index'))
             else:
                 messages.error(request, 'Unable to register at this time')
@@ -79,7 +79,7 @@ def login(request):
                 auth.login(user=user, request=request)
                 messages.success(request, f'Logged in')
                 messages.success(
-                    request, f'Welcome { user.username.title() }!')
+                    request, f'Welcome { user.username }!')
                 return redirect(reverse('index'))
             else:
                 login_form.add_error(None, 'Incorrect login details')

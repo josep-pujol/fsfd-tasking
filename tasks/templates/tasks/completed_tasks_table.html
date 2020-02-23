@@ -43,15 +43,15 @@
                                 {% if task.tsk_team.pk == 1 %}
                                     <td class="userColStyle">You</td>
                                 {% else %}
-                                    <td class="userColStyle">{{ task.tsk_team.tem_name|title }}</td>
+                                    <td class="userColStyle">{{ task.tsk_team.tem_name }}</td>
                                 {% endif %}
                                 <td>{{ task.tsk_category.cat_name }}</td>
-                                {% if task.tsk_importance.imp_name == "High" %}
-                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge red" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
-                                {% elif task.tsk_importance.imp_name == "Medium" %}
-                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge orange" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
-                                {% elif task.tsk_importance.imp_name == "Low" %}
-                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance.imp_name }}</span></td>
+                                {% if task.tsk_importance.imp_name == "high" %}
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge red" data-badge-caption="">{{ task.tsk_importance.imp_name|title }}</span></td>
+                                {% elif task.tsk_importance.imp_name == "medium" %}
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge orange" data-badge-caption="">{{ task.tsk_importance.imp_name|title }}</span></td>
+                                {% elif task.tsk_importance.imp_name == "low" %}
+                                    <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance.imp_name|title }}</span></td>
                                 {% else %}
                                     <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td> 
                                 {% endif %}

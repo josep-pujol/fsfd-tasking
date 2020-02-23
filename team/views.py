@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from tasks.models import Team, UserTeam
+from team.models import Team, UserTeam
 from team.forms import AddCollaboratorForm
 
 

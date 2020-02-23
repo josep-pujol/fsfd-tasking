@@ -115,9 +115,9 @@ class TeamTasksTableViewTest(TestCase):
 
         # Create a Team and premium user
         team = Team.objects.create(
-            tem_name=f"{user2test.username.capitalize()}'s Team",
+            tem_name=f"{user2test.username}'s Team",
             tem_description='Team managed by user '
-                            f'{user2test.username.capitalize()}',
+                            f'{user2test.username}',
             tem_owner=user2test,
         )
         team.save()

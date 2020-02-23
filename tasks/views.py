@@ -7,7 +7,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from tasks.forms import EditStatusForm, TasksForm
-from tasks.models import Category, Importance, Status, Task, Team, UserTeam
+from tasks.models import Category, Importance, Status, Task
+from team.models import Team, UserTeam
 
 
 def get_users_in_team(team):
@@ -18,7 +19,7 @@ def get_users_in_team(team):
 
 def update_status_dependencies(task):
     # Update startdate and finishdate in function of status
-    status_ = task.tsk_status.sta_name.lower()
+    status_ = task.tsk_status.sta_name
     today_ = datetime.datetime.today().date()
     if status_ == 'completed':
         task.finishdate = today_
