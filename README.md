@@ -7,7 +7,7 @@
 
 This repository contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute.
 
-Consists on a "Tasks List" or "To-Do" application in which users can store and manage tasks.
+Consists on a "Tasks List" or "To-Do" application in which users can organize their tasks or to-dos. Users not only can create and update their tasks but they can search, filter or sort their tasks.
 
 The main functionality of the app is available for free, however users can get additional functionality by subscribing.
 Subscribed users can create a To-Do list with a list of users of his/her choice.
