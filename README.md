@@ -1,4 +1,6 @@
-# Task List
+![Tasking mockups](readme_files/multidevice_mockups.png?raw=true "Tasking mockups")
+
+# [Tasking](https://fsfd-tasking.herokuapp.com/)
 
 ![Python](https://img.shields.io/static/v1?label=python&message=3.7.6&color=blue)
 ![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)
@@ -15,14 +17,47 @@ Subscribed users can create a To-Do list with a list of users of his/her choice,
 A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
 
+---
+
+
+## Table of Contents
+1. [**UX**](#ux)
+    - [**User Stories**](#user-stories)
+    - [**Free User**](#free-user)
+    - [**Premium User**](#premium-user)
+
+2. [**Features**](#features)
+    - [**Existing Features**](#existing-features)
+    - [**Features Left to Implement**](#features-left-to-implement)
+
+3. [**Technologies Used**](#technologies-used)
+
+4. [**Testing**](#testing)
+    - [**Validators**](#validators)
+    - [**Compatibility**](#compatibility)
+    - [**Known Issues**](#known-issues)
+    - [**Automated Testing**](#automated-testing)
+
+5. [**Deployment**](#deployment)
+    - [**Getting the code up and running**](#getting-the-code-up-and-running)
+    - [**Deploy in Heroku**](#deploy-in-heroku)
+
+6. [**Credits**](#credits)
+
+
+##### back to [top](#tasking)
+
+
+---
 
 
 ## UX
 
+
 ### Free User
 The app consists of three main sections: 
 
-- Non registered users: Landing page and Sign-in Sign-up functionality
+- Non registered users: Landing page with Sign-in and Sign-up functionality
 
     ![Main page or Tasks page](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/tasks_mockup.png)
 
@@ -31,11 +66,11 @@ The app consists of three main sections:
     - The available Task Lists are:
         - "Personal Tasks": Tasks aimed only at the owner of the account - all features avilable 
         - "Assigned Tasks": Tasks assigned to the user from other registered users of Tasking - restricted features
-        - "Completed Tasks": all the tasks completed by the user - restricted features
+        - "Completed Tasks": all the tasks completed by the user
 
     ![Add Task](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/add_task_mockup.png)
 
-- User: section for the owner of the account in which he can update profile or logout
+- User: section for the owner of the account in which the user profile can be updated and from where you can logout
 
     ![Completed Tasks](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/completed_tasks_mockup.png)
 
@@ -44,7 +79,18 @@ Additionally, modals and popup windows are used to perform actions like Edit the
 
 These actions can be activated by clicking on the menu-dots item on the right-hand side of each Task - if user has right permissions.
 
+### Premium User
 
+A Premium user has all the sections and features of a Free User plus the following:
+- Tasks: 
+    - "Team Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable 
+- User:
+    - "Team": where a Team owner manage the users in the Team
+
+##### back to [top](#tasking)
+
+
+---
 
 
 ## Features
@@ -82,12 +128,14 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 
 
 ### Features Left to Implement
-In the future, it could be nice to implement additional options to duplicate or delete a tasks, and to manage categories so users can add or remove the default ones.
-As well, email notifications for:
- - A user has been added to a Team
- - A task has been assigned to a User
- - Optional alerts when the due date of a task is close
+In the future, it could be nice to implement additional options to duplicate or delete tasks, and to allow a Team owner to remove a user from his/her Team.
+manage categories so users can add or remove the default ones. 
+As well, the posibility to manage categories or to get alerts and notifications could be a nice features to implement.
 
+##### back to [top](#tasking)
+
+
+---
 
 
 ## Technologies Used
@@ -124,6 +172,12 @@ As well, email notifications for:
 - [Stripe](https://stripe.com/docs/api)
     - Stripe API to process payments in users subscritions 
 
+##### back to [top](#tasking)
+
+
+---
+
+
 ## Testing
 - Python Unit tests with over 90% coverage, including:
     - Page rendering
@@ -147,7 +201,10 @@ As well, email notifications for:
   - Microsoft Edge
   - Mozilla Firefox
 
+##### back to [top](#tasking)
 
+
+---
 
 
 ## Deployment
@@ -198,10 +255,15 @@ As well, email notifications for:
         - Add any status you like plus their associated order
         - Make sure you add the default values ```Not started``` with order ```0```, and ```Completed``` which show have the highest order
 
+##### back to [top](#tasking)
 
+
+---
 
 
 ## Credits
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/)
 
 Many thanks to my mentor [Sindhu Kolli](https://github.com/itssindhu13) for her great advise and suggestions.
+
+##### back to [top](#tasking)
