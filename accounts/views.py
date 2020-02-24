@@ -22,6 +22,41 @@ def index(request):
         return render(request, 'accounts/index.html')
 
 
+def login(request):
+    """Return Login Page"""
+    if request.user.is_authenticated:
+        return redirect(reverse('index'))
+    if request.method == 'POST':
+        login_form = UserLoginForm(request.POST)
+        if login_form.is_valid():
+            user = auth.authenticate(
+                request=request,
+                username=request.POST['username_or_email'],
+                password=request.POST['password']
+            )
+            if user:
+                auth.login(user=user, request=request)
+                messages.success(request, f'Logged in')
+                messages.success(
+                    request, f'Welcome { user.username }!')
+                return redirect(reverse('index'))
+            else:
+                login_form.add_error(None, 'Incorrect login details')
+    else:
+        login_form = UserLoginForm()
+
+    return render(request, 'accounts/login.html', {'login_form': login_form})
+
+
+@login_required
+def logout(request):
+    """Logout user"""
+    auth.logout(request)
+    messages.success(request, 'Logged out')
+    messages.success(request, 'See you soon!')
+    return redirect(reverse('index'))
+
+
 def registration(request):
     """Render the registration page"""
 
@@ -61,41 +96,6 @@ def registration(request):
         'accounts/registration.html',
         {'registration_form': registration_form},
     )
-
-
-def login(request):
-    """Return Login Page"""
-    if request.user.is_authenticated:
-        return redirect(reverse('index'))
-    if request.method == 'POST':
-        login_form = UserLoginForm(request.POST)
-        if login_form.is_valid():
-            user = auth.authenticate(
-                request=request,
-                username=request.POST['username_or_email'],
-                password=request.POST['password']
-            )
-            if user:
-                auth.login(user=user, request=request)
-                messages.success(request, f'Logged in')
-                messages.success(
-                    request, f'Welcome { user.username }!')
-                return redirect(reverse('index'))
-            else:
-                login_form.add_error(None, 'Incorrect login details')
-    else:
-        login_form = UserLoginForm()
-
-    return render(request, 'accounts/login.html', {'login_form': login_form})
-
-
-@login_required
-def logout(request):
-    """Logout user"""
-    auth.logout(request)
-    messages.success(request, 'Logged out')
-    messages.success(request, 'See you soon!')
-    return redirect(reverse('index'))
 
 
 class UserProfileView(View):
