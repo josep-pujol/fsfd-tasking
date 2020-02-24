@@ -50,7 +50,7 @@ def subscribe(request):
         )
         user_team.save()
 
-        messages.success(request, 'Payment processed succesfully.')
+        messages.success(request, 'Payment processed succesfully')
         messages.success(
             request,
             f'You are now a Premium user { request.user.username }!')
