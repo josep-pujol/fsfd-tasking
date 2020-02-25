@@ -43,9 +43,9 @@
                                 {% if task.tsk_team.pk == 1 %}
                                     <td class="userColStyle">You</td>
                                 {% else %}
-                                    <td class="userColStyle">{{ task.tsk_team.tem_name }}</td>
+                                    <td class="userColStyle">{{ task.tsk_team.tem_name|title }}</td>
                                 {% endif %}
-                                <td>{{ task.tsk_category.cat_name }}</td>
+                                <td>{{ task.tsk_category.cat_name|title }}</td>
                                 {% if task.tsk_importance.imp_name == "high" %}
                                     <td class="textCenter" data-sort="{{ task.tsk_importance.imp_order }}"><span class="new badge red" data-badge-caption="">{{ task.tsk_importance.imp_name|title }}</span></td>
                                 {% elif task.tsk_importance.imp_name == "medium" %}
@@ -55,9 +55,9 @@
                                 {% else %}
                                     <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td> 
                                 {% endif %}
-                                <td class="dateColStyle">{{ task.tsk_due_date|date:'M d, Y'}}</td>
-                                <td class="dateColStyle">{{ task.startdate|date:'M d, Y'}}</td>
-                                <td class="dateColStyle">{{ task.finishdate|date:'M d, Y'}}</td>
+                                <td class="dateColStyle" data-sort="{{ task.tsk_due_date|date:'Ymd' }}">{{ task.tsk_due_date|date:'M d, Y' }}</td>
+                                <td class="dateColStyle" data-sort="{{ task.startdate|date:'Ymd' }}">{{ task.startdate|date:'M d, Y' }}</td>
+                                <td class="dateColStyle" data-sort="{{ task.finishdate|date:'Ymd' }}">{{ task.finishdate|date:'M d, Y' }}</td>
                                 <td class="descriptionStyle">{{ task.tsk_description }}</td>
                             </tr>
                             {% endfor %}

@@ -60,7 +60,7 @@
                                 {% else %}
                                     <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td> 
                                 {% endif %}
-                                <td class="dateColStyle">{{ task.tsk_due_date|date:'M d, Y'}}</td>
+                                <td class="dateColStyle" data-sort="{{ task.tsk_due_date|date:'Ymd' }}">{{ task.tsk_due_date|date:'M d, Y' }}</td>
                                 <td>
                                     <!-- Dropdown Trigger -->
                                     <a class="dropdown-trigger" href="#" data-target="dropdown{{ forloop.counter }}" >

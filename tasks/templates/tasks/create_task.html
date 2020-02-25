@@ -30,7 +30,7 @@
                                 <select id="tsk_user" name="tsk_user">
                                 <option value="{{ user.pk }}" selected>Assign to</option>
                                 {% for usr in team_users %}
-                                    <option value="{{ usr.pk }}">{{ usr.username }}</option>
+                                    <option value="{{ usr.pk }}">{{ usr.username|title }}</option>
                                 {% endfor %}
                                 </select>
                                 <label for="tsk_user">User Assigned</label>
@@ -46,7 +46,7 @@
                                 <select id="tsk_category" name="tsk_category">
                                 <option value="1" selected>Choose Category</option>
                                 {% for cat in categories %}
-                                    <option value="{{ cat.pk }}">{{ cat.cat_name }}</option>
+                                    <option value="{{ cat.pk }}">{{ cat.cat_name|title }}</option>
                                 {% endfor %}
                                 </select>
                                 <label>Task Category</label>
@@ -58,7 +58,7 @@
                                 <select id="tsk_status" name="tsk_status">
                                 <option value="1" selected>Choose Status</option>
                                 {% for sta in status %}
-                                    <option value="{{ sta.pk }}">{{ sta.sta_name }}</option>
+                                    <option value="{{ sta.pk }}">{{ sta.sta_name|title }}</option>
                                 {% endfor %}
                                 </select>
                                 <label>Status</label>
@@ -85,7 +85,7 @@
                                 <select id="tsk_importance" name="tsk_importance">
                                 <option value="1" selected>Choose Importance</option>
                                 {% for imp in importances  %}
-                                    <option value="{{ imp.pk }}">{{ imp.imp_name }}</option>
+                                    <option value="{{ imp.pk }}">{{ imp.imp_name|title }}</option>
                                 {% endfor %}
                                 </select>
                                 <label>Importance</label>
