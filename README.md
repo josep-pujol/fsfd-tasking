@@ -192,9 +192,8 @@ As well, the posibility to manage categories or to get alerts and notifications 
 
 ##### back to [top](#tasking)
 
-
----
-
+<br>
+<br>
 
 ## Deployment
  
@@ -251,8 +250,7 @@ As well, the posibility to manage categories or to get alerts and notifications 
 
 ## Credits
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/)
-
-Wallpaper images used were taken from [pixabay.com](https://pixabay.com/), and multidevice mockups used on this README file was generated with [techsini.com](http://techsini.com/multi-mockup/)
+Wallpaper images used were taken from [pixabay.com](https://pixabay.com/), and multidevice mockups used on this README file were generated on [techsini.com](http://techsini.com/multi-mockup/)
 
 Many thanks to my mentor [Sindhu Kolli](https://github.com/itssindhu13) for her great advise and suggestions.
 
