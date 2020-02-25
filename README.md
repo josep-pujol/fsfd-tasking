@@ -129,7 +129,7 @@ As well, the posibility to manage categories or to get alerts and notifications 
 
 ## Technologies Used
 
-### The main technologies used are:
+The main technologies used are:
 - [GitPod](https://gitpod.io/)
     - Online IDE used to develop this project
 - [Python](https://www.python.org/)
