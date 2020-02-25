@@ -146,6 +146,7 @@ def create_task(request):
         else:
             messages.error(request, 'Unable to create Task.')
             messages.error(request, 'Please try again.')
+    prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/').url
     categories = Category.objects.all()
     importances = Importance.objects.all()
     status = Status.objects.all()
@@ -155,6 +156,7 @@ def create_task(request):
         'categories': categories,
         'importances': importances,
         'status': status,
+        'prev_url': prev_url,
     }
     if is_team_owner:
         context['team_users'] = get_users_in_team(user.team_owner)
@@ -193,6 +195,7 @@ def update_task(request, pk):
         else:
             messages.error(request, 'Unable to update Task')
             messages.error(request, 'Please try again')
+    prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/').url
     task = get_object_or_404(Task, pk=pk)
     is_team_owner = hasattr(user, 'team_owner')
     categories = Category.objects.all()
@@ -204,6 +207,7 @@ def update_task(request, pk):
         'categories': categories,
         'importances': importances,
         'status': status,
+        'prev_url': prev_url,
     }
     if is_team_owner:
         context['team_users'] = get_users_in_team(user.team_owner)
