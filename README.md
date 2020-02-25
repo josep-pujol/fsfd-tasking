@@ -16,9 +16,8 @@ Subscribed users can create a To-Do list with a list of users of his/her choice,
 
 A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
-
----
-
+<br>
+<br>
 
 ## Table of Contents
 1. [**UX**](#ux)
@@ -43,12 +42,10 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
 ##### back to [top](#tasking)
 
-
----
-
+<br>
+<br>
 
 ## UX
-
 
 ### Free User
 The app consists of three main sections: 
@@ -85,9 +82,8 @@ A Premium user has all the sections and features of a Free User plus the followi
 
 ##### back to [top](#tasking)
 
-
----
-
+<br>
+<br>
 
 ## Features
 
@@ -121,8 +117,6 @@ A Premium user has all the sections and features of a Free User plus the followi
     - Select the "Due Date" of the Task from a Calendar popup window; with validation
     - Select the "Task Importance" from the dropdown menu or leave default option 
 
-
-
 ### Features Left to Implement
 In the future, it could be nice to implement additional options to duplicate or delete tasks, and to allow a Team owner to remove a user from his/her Team.
 manage categories so users can add or remove the default ones. 
@@ -130,9 +124,8 @@ As well, the posibility to manage categories or to get alerts and notifications 
 
 ##### back to [top](#tasking)
 
-
----
-
+<br>
+<br>
 
 ## Technologies Used
 
@@ -170,11 +163,11 @@ As well, the posibility to manage categories or to get alerts and notifications 
 
 ##### back to [top](#tasking)
 
-
----
-
+<br>
+<br>
 
 ## Testing
+
 - Python Unit tests with over 90% coverage, including:
     - Page rendering
     - CRUD operations
@@ -212,10 +205,10 @@ As well, the posibility to manage categories or to get alerts and notifications 
 3. Download or clone this repository by running the ```git clone <project's Github URL>``` command
 4. Install Python packages from ```requirements.txt``` file - from Terminal type ```pip install -r requirements.txt```
 5. Add the following environmental variables in your environment:
-    - ```DATABASE_URL```: conection string to your Database. https://www.elephantsql.com/ was used in this project
+    - ```DATABASE_URL```: conection string to your Database. [elephantsql](https://www.elephantsql.com/) was used in this project
     - ```IP```: set to ```0.0.0.0```
     - ```PORT```: set to ```8080```
-    - ```SECRET_KEY```: Django secret key. You can generate one in this site https://djecrety.ir/
+    - ```SECRET_KEY```: Django secret key. You can generate one on the site [djecrety](https://djecrety.ir/)
     - ```SENDGRID_API_KEY```: create a SendGrid account to get a key
     - ```STRIPE_PUBLIC_KEY```: create a Stripe account to get a key
     - ```STRIPE_SECRET_KEY```: create a Stripe account to get a key
@@ -253,12 +246,13 @@ As well, the posibility to manage categories or to get alerts and notifications 
 
 ##### back to [top](#tasking)
 
-
----
-
+<br>
+<br>
 
 ## Credits
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/)
+
+Wallpaper images used were taken from [pixabay.com](https://pixabay.com/), and multidevice mockups used on this README file was generated with [techsini.com](http://techsini.com/multi-mockup/)
 
 Many thanks to my mentor [Sindhu Kolli](https://github.com/itssindhu13) for her great advise and suggestions.
 
