@@ -1,6 +1,6 @@
 ![Tasking mockups](readme_files/multidevice_mockups.png?raw=true "Tasking mockups")
 
-# [Tasking](https://fsfd-tasking.herokuapp.com/)
+# Tasking
 
 ![Python](https://img.shields.io/static/v1?label=python&message=3.7.6&color=blue)
 ![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)
@@ -33,10 +33,6 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 3. [**Technologies Used**](#technologies-used)
 
 4. [**Testing**](#testing)
-    - [**Validators**](#validators)
-    - [**Compatibility**](#compatibility)
-    - [**Known Issues**](#known-issues)
-    - [**Automated Testing**](#automated-testing)
 
 5. [**Deployment**](#deployment)
     - [**Getting the code up and running**](#getting-the-code-up-and-running)
