@@ -5,6 +5,103 @@ from django.test import TestCase
 from django.urls import reverse
 
 from tasks.models import Category, Importance, Status, Task
+from tasks.views import get_users_in_team, update_status_dependencies
+
+
+class UpdateStatusDependenciesHelperTest(TestCase):
+
+    def setUp(self):
+        # Create new user
+        user2test = User.objects.create_user(
+            username='user2test', email='usertest@email.com',
+            password='XISRUkwtuK',
+        )
+        user2test.save()
+        self.user2test = user2test
+
+        # Create a Task
+        task2test = Task.objects.create(
+            tsk_user=user2test,
+            tsk_name='task2test',
+            tsk_description='Description of task2test',
+            tsk_due_date=datetime.datetime.today() +
+            datetime.timedelta(days=30),
+        )
+        task2test.save()
+        self.task2test = task2test
+
+        # Dates to assign to tasks
+        self.yesters_date = datetime.datetime.today() - datetime.timedelta(days=1)
+        self.todays_date = datetime.datetime.today().date()
+
+    def test_status_completed_finishdate_is_today(self):
+        status_completed = Status.objects.get(sta_name='completed')
+        self.task2test.tsk_status = status_completed
+        self.assertIsNone(self.task2test.startdate)
+        update_status_dependencies(self.task2test)
+        self.assertEqual(self.task2test.tsk_status, status_completed)
+        self.assertEqual(self.task2test.finishdate, self.todays_date)
+
+    def test_status_completed_finishdate_and_startdate_is_today(self):
+        status_completed = Status.objects.get(sta_name='completed')
+        self.task2test.tsk_status = status_completed
+        self.task2test.startdate = self.yesters_date
+        self.assertEqual(self.task2test.tsk_status, status_completed)
+        self.assertIsNotNone(self.task2test.startdate)
+        update_status_dependencies(self.task2test)
+        self.assertEqual(self.task2test.finishdate, self.todays_date)
+        self.assertEqual(self.task2test.startdate, self.yesters_date)
+
+    def test_status_50_and_startdate_none_becomes_today(self):
+        status_50 = Status.objects.get(sta_name='50%')
+        self.task2test.tsk_status = status_50
+        self.assertIsNone(self.task2test.startdate)
+        self.assertEqual(self.task2test.tsk_status, status_50)
+        update_status_dependencies(self.task2test)
+        self.assertEqual(self.task2test.startdate, self.todays_date)
+
+    def test_status_50_and_startdate_notnone_no_change(self):
+        status_50 = Status.objects.get(sta_name='50%')
+        self.task2test.tsk_status = status_50
+        self.task2test.startdate = self.yesters_date
+        self.assertIsNotNone(self.task2test.startdate)
+        self.assertEqual(self.task2test.tsk_status, status_50)
+        update_status_dependencies(self.task2test)
+        self.assertEqual(self.task2test.startdate, self.yesters_date)
+
+    def test_status_notstarted_and_startdate_enddate_none_no_change(self):
+        status_notstarted = Status.objects.get(sta_name='not started')
+        self.task2test.tsk_status = status_notstarted
+        self.assertIsNone(self.task2test.startdate)
+        self.assertIsNone(self.task2test.finishdate)
+        self.assertEqual(self.task2test.tsk_status, status_notstarted)
+        update_status_dependencies(self.task2test)
+        self.assertIsNone(self.task2test.startdate)
+        self.assertIsNone(self.task2test.finishdate)
+
+    def test_status_notstarted_and_startdate_enddate_notnone_become_none(self):
+        status_notstarted = Status.objects.get(sta_name='not started')
+        self.task2test.tsk_status = status_notstarted
+        self.task2test.startdate = self.yesters_date
+        self.task2test.finishdate = self.todays_date
+        self.assertIsNotNone(self.task2test.startdate)
+        self.assertIsNotNone(self.task2test.finishdate)
+        self.assertEqual(self.task2test.tsk_status, status_notstarted)
+        update_status_dependencies(self.task2test)
+        self.assertIsNone(self.task2test.startdate)
+        self.assertIsNone(self.task2test.finishdate)
+
+
+# class GetUsersTeamsHelperTest(TestCase):
+
+#     def setUp(self):
+#         # Create new user
+#         user2test = User.objects.create_user(
+#             username='user2test', email='usertest@email.com',
+#             password='XISRUkwtuK',
+#         )
+#         user2test.save()
+#         self.user2test = user2test
 
 
 class CreateTaskViewTest(TestCase):
