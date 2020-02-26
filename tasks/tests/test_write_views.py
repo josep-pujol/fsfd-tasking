@@ -69,27 +69,22 @@ class UpdateStatusDependenciesHelperTest(TestCase):
         update_status_dependencies(self.task2test)
         self.assertEqual(self.task2test.startdate, self.yesters_date)
 
-    def test_status_notstarted_and_startdate_enddate_none_no_change(self):
+    def test_status_notstarted_and_startdate_none_no_change(self):
         status_notstarted = Status.objects.get(sta_name='not started')
         self.task2test.tsk_status = status_notstarted
         self.assertIsNone(self.task2test.startdate)
-        self.assertIsNone(self.task2test.finishdate)
         self.assertEqual(self.task2test.tsk_status, status_notstarted)
         update_status_dependencies(self.task2test)
         self.assertIsNone(self.task2test.startdate)
-        self.assertIsNone(self.task2test.finishdate)
 
-    def test_status_notstarted_and_startdate_enddate_notnone_become_none(self):
+    def test_status_notstarted_and_startdate_notnone_become_none(self):
         status_notstarted = Status.objects.get(sta_name='not started')
         self.task2test.tsk_status = status_notstarted
         self.task2test.startdate = self.yesters_date
-        self.task2test.finishdate = self.todays_date
         self.assertIsNotNone(self.task2test.startdate)
-        self.assertIsNotNone(self.task2test.finishdate)
         self.assertEqual(self.task2test.tsk_status, status_notstarted)
         update_status_dependencies(self.task2test)
         self.assertIsNone(self.task2test.startdate)
-        self.assertIsNone(self.task2test.finishdate)
 
 
 # class GetUsersTeamsHelperTest(TestCase):
