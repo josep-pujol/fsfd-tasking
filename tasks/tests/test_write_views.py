@@ -1,10 +1,12 @@
 import datetime
 
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
 from tasks.models import Category, Importance, Status, Task
+from team.models import Team, UserTeam
 from tasks.views import get_users_in_team, update_status_dependencies
 
 
@@ -87,22 +89,39 @@ class UpdateStatusDependenciesHelperTest(TestCase):
         self.assertIsNone(self.task2test.startdate)
 
 
-# class GetUsersTeamsHelperTest(TestCase):
+class GetUsersTeamHelperTest(TestCase):
 
-#     def setUp(self):
-#         # Create new user
-#         user2test = User.objects.create_user(
-#             username='user2test', email='usertest@email.com',
-#             password='XISRUkwtuK',
-#         )
-#         user2test.save()
-#         self.user2test = user2test
+    def setUp(self):
+        num_users = 5
+        default_team = Team.objects.get(pk=1)
+        users_list = []
+        users_list.append(User.objects.get(username='admin'))
+        # Create users
+        for i in range(num_users):
+            user2test = User.objects.create_user(
+                username=f'user{i}test', email=f'user{i}test@email.com',
+                password='XISRUkwtuK',
+            )
+            user2test.save()
+            users_list.append(user2test)
+            # Add user to default UserTeam
+            user_team = UserTeam.objects.create(
+                ut_user=user2test, ut_team=default_team)
+            user_team.save()
+        self.num_users = num_users + 1
+        self.default_team = default_team
+        self.users_list = users_list
+
+    def test_get_users_in_team(self):
+        result = get_users_in_team(self.default_team)
+        print('RESULT', result)
+        self.assertEqual(result, self.users_list)
 
 
 class CreateTaskViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -138,11 +157,37 @@ class CreateTaskViewTest(TestCase):
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertTemplateUsed(response, 'tasks/create_task.html')
 
+    def test_create_task_w_default_values(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        self.assertEqual(len(Task.objects.filter(tsk_name='test_task')), 0)
+        tsk_user = User.objects.get(username='user2test')
+        tsk_due_date = datetime.datetime.today().date() +\
+            datetime.timedelta(days=30)
+        response = self.client.post(
+            reverse('create_task'),
+            {
+                'tsk_name': 'test_task',
+                'tsk_user': tsk_user.pk,
+                'tsk_category': 1,
+                'tsk_importance': 1,
+                'tsk_status': 1,
+                'tsk_due_date': tsk_due_date,
+            },
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        msgs = [msg.__str__() for msg in get_messages(response.wsgi_request)]
+        self.assertIn('Task created!', msgs)
+        created_task = Task.objects.filter(tsk_name='test_task')
+        self.assertEqual(len(created_task), 1)
+
 
 class UpdateTaskViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
