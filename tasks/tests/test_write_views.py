@@ -114,7 +114,6 @@ class GetUsersTeamHelperTest(TestCase):
 
     def test_get_users_in_team(self):
         result = get_users_in_team(self.default_team)
-        print('RESULT', result)
         self.assertEqual(result, self.users_list)
 
 
@@ -220,7 +219,7 @@ class UpdateTaskViewTest(TestCase):
         sta2test3.save()
 
         # Create a Task
-        self.task2test = Task.objects.create(
+        cls.task2test = Task.objects.create(
             tsk_user=user2test,
             tsk_category=cat2test1,
             tsk_importance=imp2test2,
