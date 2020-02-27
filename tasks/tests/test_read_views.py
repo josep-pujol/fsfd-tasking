@@ -8,7 +8,7 @@ from team.models import Team, UserTeam
 class UserTasksTableViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -51,7 +51,7 @@ class UserTasksTableViewTest(TestCase):
 class AssignedTasksTableViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -105,7 +105,7 @@ class AssignedTasksTableViewTest(TestCase):
 class TeamTasksTableViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -175,7 +175,7 @@ class TeamTasksTableViewTest(TestCase):
 class CompletedTasksTableViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
