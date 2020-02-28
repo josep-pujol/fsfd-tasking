@@ -5,7 +5,7 @@ from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
-from tasks.models import Category, Importance, Status, Task
+from tasks.models import Status, Task
 from team.models import Team, UserTeam
 from tasks.views import get_users_in_team, update_status_dependencies
 
@@ -26,14 +26,14 @@ class UpdateStatusDependenciesHelperTest(TestCase):
             tsk_user=user2test,
             tsk_name='task2test',
             tsk_description='Description of task2test',
-            tsk_due_date=datetime.datetime.today() +
+            tsk_due_date=datetime.datetime.today().date() +
             datetime.timedelta(days=30),
         )
         task2test.save()
         self.task2test = task2test
 
         # Dates to assign to tasks
-        self.yesters_date = datetime.datetime.today() - datetime.timedelta(days=1)
+        self.yesters_date = datetime.datetime.today().date() - datetime.timedelta(days=1)
         self.todays_date = datetime.datetime.today().date()
 
     def test_status_completed_finishdate_is_today(self):
@@ -185,50 +185,25 @@ class CreateTaskViewTest(TestCase):
 
 class UpdateTaskViewTest(TestCase):
 
-    @classmethod
-    def setUp(cls):
+    def setUp(self):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
             password='XISRUkwtuK',
         )
         user2test.save()
-
-        # Create Categories
-        cat2test1 = Category.objects.create(cat_name='Undefined', cat_order=1)
-        cat2test1.save()
-        cat2test2 = Category.objects.create(cat_name='Admin', cat_order=2)
-        cat2test2.save()
-        cat2test3 = Category.objects.create(cat_name='Other', cat_order=3)
-        cat2test3.save()
-
-        # Create Importances
-        imp2test1 = Importance.objects.create(imp_name='High', imp_order=3)
-        imp2test1.save()
-        imp2test2 = Importance.objects.create(imp_name='Medium', imp_order=2)
-        imp2test2.save()
-        imp2test3 = Importance.objects.create(imp_name='Low', imp_order=1)
-        imp2test3.save()
-
-        # Create Status
-        sta2test1 = Status.objects.create(sta_name='Not Started', sta_order=1)
-        sta2test1.save()
-        sta2test2 = Status.objects.create(sta_name='50%', sta_order=2)
-        sta2test2.save()
-        sta2test3 = Status.objects.create(sta_name='Completed', sta_order=3)
-        sta2test3.save()
+        self.user2test = user2test
 
         # Create a Task
-        cls.task2test = Task.objects.create(
+        task2test = Task.objects.create(
             tsk_user=user2test,
-            tsk_category=cat2test1,
-            tsk_importance=imp2test2,
-            tsk_status=sta2test3,
             tsk_name='task2test',
             tsk_description='Description of task2test',
-            tsk_due_date=datetime.datetime.today() +
+            tsk_due_date=datetime.datetime.today().date() +
             datetime.timedelta(days=30),
         )
+        task2test.save()
+        self.task2test = task2test
 
     def test_update_task_url_exists(self):
         # Login user
@@ -277,53 +252,138 @@ class UpdateTaskViewTest(TestCase):
                                             kwargs={'pk': 999999}))
         self.assertEqual(response.status_code, 404)
 
+    def test_update_task_category(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        response = self.client.get(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
+        )
+        self.assertEqual(response.status_code, 200)
+        original_task = response.context.get('task')
+        self.assertEqual(original_task.tsk_category.pk, 1)
+        response = self.client.post(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'}),
+            {
+                'tsk_name': original_task.tsk_name,
+                'tsk_user': original_task.tsk_user.pk,
+                'tsk_category': 2,
+                'tsk_importance': original_task.tsk_importance.pk,
+                'tsk_status': original_task.tsk_status.pk,
+                'tsk_description': original_task.tsk_description,
+                'tsk_due_date': original_task.tsk_due_date,
+            },
+            follow=True,
+        )
+        updated_task = Task.objects.get(pk=self.task2test.pk)
+        self.assertEqual(updated_task.tsk_category.pk, 2)
 
+    def test_update_task_importance(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        response = self.client.get(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
+        )
+        self.assertEqual(response.status_code, 200)
+        original_task = response.context.get('task')
+        self.assertEqual(original_task.tsk_importance.pk, 1)
+        response = self.client.post(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'}),
+            {
+                'tsk_name': original_task.tsk_name,
+                'tsk_user': original_task.tsk_user.pk,
+                'tsk_category': original_task.tsk_category.pk,
+                'tsk_importance': 2,
+                'tsk_status': original_task.tsk_status.pk,
+                'tsk_description': original_task.tsk_description,
+                'tsk_due_date': original_task.tsk_due_date,
+            },
+            follow=True,
+        )
+        updated_task = Task.objects.get(pk=self.task2test.pk)
+        self.assertEqual(updated_task.tsk_importance.pk, 2)
 
+    def test_update_task_status(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        response = self.client.get(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
+        )
+        self.assertEqual(response.status_code, 200)
+        original_task = response.context.get('task')
+        self.assertEqual(original_task.tsk_status.pk, 1)
+        response = self.client.post(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'}),
+            {
+                'tsk_name': original_task.tsk_name,
+                'tsk_user': original_task.tsk_user.pk,
+                'tsk_category': original_task.tsk_category.pk,
+                'tsk_importance': original_task.tsk_importance.pk,
+                'tsk_status': 2,
+                'tsk_description': original_task.tsk_description,
+                'tsk_due_date': original_task.tsk_due_date,
+            },
+            follow=True,
+        )
+        updated_task = Task.objects.get(pk=self.task2test.pk)
+        self.assertEqual(updated_task.tsk_status.pk, 2)
 
+    def test_update_task_due_date(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        response = self.client.get(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
+        )
+        self.assertEqual(response.status_code, 200)
+        original_task = response.context.get('task')
+        new_due_date = datetime.datetime.today().date() +\
+            datetime.timedelta(days=15)
+        response = self.client.post(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'}),
+            {
+                'tsk_name': original_task.tsk_name,
+                'tsk_user': original_task.tsk_user.pk,
+                'tsk_category': original_task.tsk_category.pk,
+                'tsk_importance': original_task.tsk_importance.pk,
+                'tsk_status': 2,
+                'tsk_description': original_task.tsk_description,
+                'tsk_due_date': new_due_date,
+            },
+            follow=True,
+        )
+        updated_task = Task.objects.get(pk=self.task2test.pk)
+        self.assertEqual(updated_task.tsk_due_date, new_due_date)
 
-
-    # def test_updates_category(self):
-    #     response = self.client.get(
-    #       things'/tasks/update/task/{self.task2test.pk}/')
-    #     self.assertEqual(response.status_code, 200)
-    #     from pprint import pprint as pp
-    #     print('\nCONTEXT')
-    #     pp(response.context)
-    #     print(dir(response))
-    #     print(response.context.get('task').id)
-    #     print(response.context.get('task').pk)
-    #     print(response.context.get('task').tsk_category_id)
-    #     print(response.context.get('task').tsk_category)
-    #     task = response.context.get('task')
-    #     task.tsk_category = Category.objects.get(pk=2)
-    #     print(type(task))
-    #     print(dir(task))
-    #     print(task.tsk_name)
-    #     response = self.client.post(
-    #         f'/tasks/update/task/{self.task2test.pk}/',
-    #         {'task': task}
-    #     )
-    #     print('RESPONSE', response)
-    #     self.assertEqual(response.status_code, 200)
-
-    # def test_updates_category(self):
-    #     response = self.client.post(
-    #         f'/tasks/update/task/{self.task2test.pk}/',
-    #         {'task': task}
-    #     )
-    #     from pprint import pprint as pp
-    #     print('\nCONTEXT')
-    #     pp(response.context)
-    #     print(dir(response))
-    #     print(response.context.get('task').id)
-    #     print(response.context.get('task').pk)
-    #     print(response.context.get('task').tsk_category_id)
-    #     print(response.context.get('task').tsk_category)
-    #     task = response.context.get('task')
-    #     task.tsk_category = Category.objects.get(pk=2)
-    #     print(type(task))
-    #     print(dir(task))
-    #     print(task.tsk_name)
-
-    #     print('RESPONSE', response)
-    #     self.assertEqual(response.status_code, 200)
+    def test_update_all_fields_at_once(self):
+        # Login user
+        login = self.client.login(username='user2test', password='XISRUkwtuK')
+        self.assertTrue(login)
+        response = self.client.get(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
+        )
+        self.assertEqual(response.status_code, 200)
+        new_due_date = datetime.datetime.today().date() +\
+            datetime.timedelta(days=25)
+        response = self.client.post(
+            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'}),
+            {
+                'tsk_name': 'new_task_name',
+                'tsk_user': 2,
+                'tsk_category': 3,
+                'tsk_importance': 3,
+                'tsk_status': 3,
+                'tsk_description': 'new description',
+                'tsk_due_date': new_due_date,
+            },
+            follow=True,
+        )
+        updated_task = Task.objects.get(pk=self.task2test.pk)
+        self.assertEqual(updated_task.tsk_name, 'new_task_name')
+        self.assertEqual(updated_task.tsk_category.pk, 3)
+        self.assertEqual(updated_task.tsk_importance.pk, 3)
+        self.assertEqual(updated_task.tsk_status.pk, 3)
+        self.assertEqual(updated_task.tsk_description, 'new description')
+        self.assertEqual(updated_task.tsk_due_date, new_due_date)
