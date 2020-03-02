@@ -8,9 +8,10 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 
 class StripeApiTest(TestCase):
+
     @classmethod
     def setUp(self):
-        # Create new Django user
+        # Create new Application user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
             password='XISRUkwtuK',
@@ -27,7 +28,6 @@ class StripeApiTest(TestCase):
         )
         assert hasattr(self.stripe_customer, 'id') is True
         assert self.stripe_customer.id is not None
-
 
     @classmethod
     def tearDown(self):
