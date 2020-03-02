@@ -44,6 +44,8 @@ class SubscribeViewTest(TestCase):
         self.assertContains(response, 'START COLLABORATING')
 
     def test_redirected_to_login_page_if_not_logged_in(self):
+        # Logout to clear session
+        self.client.logout()
         response = self.client.get('/subscriptions/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertURLEqual(response.request['PATH_INFO'], reverse('login'))
@@ -58,7 +60,6 @@ class SubscribeViewTest(TestCase):
 
     def test_redirected_to_user_tasks_if_logged_in_and_team_owner(self):
         # Create a Team and premium user
-        # user2test = User.objects.filter(username='user2test')
         team = Team.objects.create(
             tem_name=f"{self.user2test.username}'s Team",
             tem_description='Team managed by user '

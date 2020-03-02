@@ -10,28 +10,28 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 class StripeApiTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUpTestData(cls):
         # Create new Application user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
             password='XISRUkwtuK',
         )
         user2test.save()
-        self.user2test = user2test
+        cls.user2test = user2test
 
         # Create new Stripe Customer
-        self.email = "user2test_stripe@gmail.com"
-        self.description = "customer for user2test_stripe"
-        self.stripe_customer = stripe.Customer.create(
-            email=self.email,
-            description=self.description,
+        cls.email = "user2test_stripe@gmail.com"
+        cls.description = "customer for user2test_stripe"
+        cls.stripe_customer = stripe.Customer.create(
+            email=cls.email,
+            description=cls.description,
         )
-        assert hasattr(self.stripe_customer, 'id') is True
-        assert self.stripe_customer.id is not None
+        assert hasattr(cls.stripe_customer, 'id') is True
+        assert cls.stripe_customer.id is not None
 
     @classmethod
-    def tearDown(self):
-        stripe_res = stripe.Customer.delete(self.stripe_customer.id)
+    def tearDownTestData(cls):
+        stripe_res = stripe.Customer.delete(cls.stripe_customer.id)
         assert hasattr(stripe_res, 'deleted') is True
         assert stripe_res.get('deleted') is True
 
