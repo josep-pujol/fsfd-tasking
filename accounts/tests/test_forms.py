@@ -3,6 +3,7 @@ from django.test import TestCase
 
 
 class UserRegistrationFormTest(TestCase):
+
     @classmethod
     def setUp(self):
         user2test = User.objects.create_user(
@@ -12,8 +13,8 @@ class UserRegistrationFormTest(TestCase):
         user2test.save()
 
     def test_username__already_registered(self):
-        # Raise validation error when trying to register a username
-        # that is already in use
+        """Raise validation error when trying to register a username
+        that is already in use"""
         response = self.client.post(
             '/accounts/register/',
             {
@@ -27,8 +28,8 @@ class UserRegistrationFormTest(TestCase):
         )
 
     def test_email_address_already_registered(self):
-        # Raise validation error when trying to register an email
-        # address that is already in use
+        """Raise validation error when trying to register an email
+        address that is already in use"""
         response = self.client.post(
             '/accounts/register/',
             {
