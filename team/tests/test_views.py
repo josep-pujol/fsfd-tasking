@@ -123,5 +123,5 @@ class UserTeamViewTest(TestCase):
         response = self.client.get(reverse('team_collaborators'), follow=True)
         self.assertFalse(login)
         self.assertEqual(response.status_code, 200)
-        self.assertRedirects(response,
-                             '/accounts/login/?next=/team/collaborators/')
+        self.assertRedirects(
+            response, '/accounts/login/?next=/team/collaborators/')
