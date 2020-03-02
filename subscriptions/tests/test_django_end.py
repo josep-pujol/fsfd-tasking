@@ -8,33 +8,36 @@ from team.models import Team, UserTeam
 class SubscribeViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
             password='XISRUkwtuK',
         )
         user2test.save()
-        self.user2test = user2test
+        cls.user2test = user2test
+
+    def setUp(self):
+        # Login user
+        self.client.login(username='user2test', password='XISRUkwtuK')
 
     def test_unable_to_access_unless_logged_in(self):
+        # Logout to clear session
+        self.client.logout()
         response = self.client.get('/subscriptions/')
         self.assertEqual(response.status_code, 302)
 
     def test_subscriptions_url_exists(self):
-        self.client.login(username='user2test', password='XISRUkwtuK')
         response = self.client.get('/subscriptions/')
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_subscriptions_accessible_by_name(self):
-        self.client.login(username='user2test', password='XISRUkwtuK')
         response = self.client.get(reverse('subscribe'))
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_subscriptions_uses_correct_template(self):
-        self.client.login(username='user2test', password='XISRUkwtuK')
         response = self.client.get(reverse('subscribe'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'subscriptions/subscribe.html')
@@ -47,7 +50,6 @@ class SubscribeViewTest(TestCase):
         self.assertTemplateUsed(response, 'accounts/login.html')
 
     def test_redirected_to_subscriptions_if_logged_in_not_premium(self):
-        self.client.login(username='user2test', password='XISRUkwtuK')
         response = self.client.get('/accounts/login/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertURLEqual(
@@ -55,7 +57,6 @@ class SubscribeViewTest(TestCase):
         self.assertTemplateUsed(response, 'subscriptions/subscribe.html')
 
     def test_redirected_to_user_tasks_if_logged_in_and_team_owner(self):
-        self.client.login(username='user2test', password='XISRUkwtuK')
         # Create a Team and premium user
         # user2test = User.objects.filter(username='user2test')
         team = Team.objects.create(
