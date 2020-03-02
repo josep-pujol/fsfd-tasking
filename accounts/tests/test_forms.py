@@ -5,7 +5,7 @@ from django.test import TestCase
 class UserRegistrationFormTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUpTestData(cls):
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
             password='XISRUkwtuK',

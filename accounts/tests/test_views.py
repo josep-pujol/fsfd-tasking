@@ -8,7 +8,7 @@ from team.models import Team, UserTeam
 class LoginViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -55,11 +55,10 @@ class LoginViewTest(TestCase):
             int(self.client.session['_auth_user_id']), user.id)
 
     def test_redirect_to_subscription_if_logged_in_and_not_premium(self):
+        """Requesting the login page should redirect to subscription when
+        not premium user"""
         self.client.login(
             username='user2test', password='XISRUkwtuK')
-
-        # Requesting the login page should redirect to subscription when
-        # not premium user
         response = self.client.get('/accounts/login/', follow=True)
         self.assertRedirects(response, '/subscriptions/')
 
@@ -96,7 +95,7 @@ class LoginViewTest(TestCase):
 class LogoutViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUpTestData(cls):
         # Create a new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -104,36 +103,33 @@ class LogoutViewTest(TestCase):
         )
         user2test.save()
 
-    def test_accounts_logout_url_exists(self):
-        self.client.login(
-            username='user2test', password='XISRUkwtuK')
+    def setUp(self):
+        # Login user
+        self.client.login(username='user2test', password='XISRUkwtuK')
 
+    def test_accounts_logout_url_exists(self):
         response = self.client.get('/accounts/logout/', follow=True)
         self.assertEqual(response.status_code, 200)
 
     def test_unable_to_access_unless_logged_in(self):
+        # Logout to clear session
+        self.client.logout()
         response = self.client.get('/accounts/logout/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(
             response, '/accounts/login/?next=/accounts/logout/')
 
     def test_view_url_accessible_by_name(self):
-        self.client.login(
-            username='user2test', password='XISRUkwtuK')
         response = self.client.get(reverse('logout'), follow=False)
         self.assertEqual(response.status_code, 302)
 
     def test_view_uses_correct_template(self):
-        self.client.login(
-            username='user2test', password='XISRUkwtuK')
         response = self.client.get(reverse('logout'), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/index.html')
 
     def test_logout_view_logs_out_user(self):
-        self.client.login(
-            username='user2test', password='XISRUkwtuK')
-        user = User.objects.filter(username='user2test')[0]
+        user = User.objects.get(username='user2test')
         response = self.client.get('/accounts/logout/', follow=True)
         self.assertEqual(response.status_code, 200)
         try:
@@ -144,17 +140,15 @@ class LogoutViewTest(TestCase):
             self.assertEqual(repr(exc), "KeyError('_auth_user_id')")
 
     def test_redirect_to_index_when_logging_out(self):
-        self.client.login(
-            username='user2test', password='XISRUkwtuK')
-
-        # Logout url should logout user and redirect to index
+        """Logout url should logout user and redirect to index"""
         response = self.client.get('/accounts/logout/', follow=True)
         self.assertRedirects(response, '/')
 
 
 class UserUpdateViewTest(TestCase):
+
     @classmethod
-    def setUp(self):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -162,14 +156,18 @@ class UserUpdateViewTest(TestCase):
         )
         user2test.save()
 
+    def setUp(self):
+        # Login user
+        self.client.login(username='user2test', password='XISRUkwtuK')
+
     def test_update_profile_url_exists(self):
         user = User.objects.get(email='usertest@email.com')
-        self.client.login(
-            username='user2test', password='XISRUkwtuK')
         response = self.client.get(f'/accounts/update-profile/{user.pk}/')
         self.assertEqual(response.status_code, 200)
 
     def test_unable_to_access_unless_logged_in(self):
+        # Logout to clear session
+        self.client.logout()
         user = User.objects.filter(username='user2test')[0]
         response = self.client.get(
             f'/accounts/update-profile/{user.pk}/', follow=True)
@@ -181,8 +179,6 @@ class UserUpdateViewTest(TestCase):
 
     def test_view_uses_correct_template(self):
         user = User.objects.get(email='usertest@email.com')
-        self.client.login(
-            username='user2test', password='XISRUkwtuK')
         response = self.client.get(f'/accounts/update-profile/{user.pk}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/update_profile.html')
@@ -191,7 +187,7 @@ class UserUpdateViewTest(TestCase):
 class RegistrationViewTest(TestCase):
 
     @classmethod
-    def setUp(self):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
