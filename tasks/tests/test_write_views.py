@@ -21,7 +21,7 @@ class UpdateStatusDependenciesHelperTest(TestCase):
         user2test.save()
         self.user2test = user2test
 
-        # Create a Task
+        # Create a Task with empty startdate and enddate
         task2test = Task.objects.create(
             tsk_user=user2test,
             tsk_name='task2test',
@@ -33,58 +33,59 @@ class UpdateStatusDependenciesHelperTest(TestCase):
         self.task2test = task2test
 
         # Dates to assign to tasks
-        self.yesters_date = datetime.datetime.today().date() - datetime.timedelta(days=1)
+        self.yesters_date = datetime.datetime.today().date() -\
+            datetime.timedelta(days=1)
         self.todays_date = datetime.datetime.today().date()
 
-    def test_status_completed_finishdate_is_today(self):
+    def test_status_completed_finishdate_becomes_today(self):
+        # Prepare conditions to test
         status_completed = Status.objects.get(sta_name='completed')
         self.task2test.tsk_status = status_completed
-        self.assertIsNone(self.task2test.startdate)
+        # Test
         update_status_dependencies(self.task2test)
         self.assertEqual(self.task2test.tsk_status, status_completed)
         self.assertEqual(self.task2test.finishdate, self.todays_date)
 
     def test_status_completed_finishdate_and_startdate_is_today(self):
+        # Prepare conditions to test
         status_completed = Status.objects.get(sta_name='completed')
         self.task2test.tsk_status = status_completed
-        self.task2test.startdate = self.yesters_date
-        self.assertEqual(self.task2test.tsk_status, status_completed)
-        self.assertIsNotNone(self.task2test.startdate)
+        # Test
         update_status_dependencies(self.task2test)
         self.assertEqual(self.task2test.finishdate, self.todays_date)
-        self.assertEqual(self.task2test.startdate, self.yesters_date)
+        self.assertEqual(self.task2test.startdate, self.todays_date)
 
     def test_status_50_and_startdate_none_becomes_today(self):
+        # Prepare conditions to test
         status_50 = Status.objects.get(sta_name='50%')
         self.task2test.tsk_status = status_50
-        self.assertIsNone(self.task2test.startdate)
-        self.assertEqual(self.task2test.tsk_status, status_50)
+        # Test
         update_status_dependencies(self.task2test)
         self.assertEqual(self.task2test.startdate, self.todays_date)
 
     def test_status_50_and_startdate_notnone_no_change(self):
+        # Prepare conditions to test
         status_50 = Status.objects.get(sta_name='50%')
         self.task2test.tsk_status = status_50
         self.task2test.startdate = self.yesters_date
-        self.assertIsNotNone(self.task2test.startdate)
-        self.assertEqual(self.task2test.tsk_status, status_50)
+        # Test
         update_status_dependencies(self.task2test)
         self.assertEqual(self.task2test.startdate, self.yesters_date)
 
     def test_status_notstarted_and_startdate_none_no_change(self):
+        # Prepare conditions to test
         status_notstarted = Status.objects.get(sta_name='not started')
         self.task2test.tsk_status = status_notstarted
-        self.assertIsNone(self.task2test.startdate)
-        self.assertEqual(self.task2test.tsk_status, status_notstarted)
+        # Test
         update_status_dependencies(self.task2test)
         self.assertIsNone(self.task2test.startdate)
 
     def test_status_notstarted_and_startdate_notnone_become_none(self):
+        # Prepare conditions to test
         status_notstarted = Status.objects.get(sta_name='not started')
         self.task2test.tsk_status = status_notstarted
         self.task2test.startdate = self.yesters_date
-        self.assertIsNotNone(self.task2test.startdate)
-        self.assertEqual(self.task2test.tsk_status, status_notstarted)
+        # Test
         update_status_dependencies(self.task2test)
         self.assertIsNone(self.task2test.startdate)
 
@@ -114,13 +115,14 @@ class GetUsersTeamHelperTest(TestCase):
 
     def test_get_users_in_team(self):
         result = get_users_in_team(self.default_team)
+        self.assertEqual(len(result), self.num_users)
         self.assertEqual(result, self.users_list)
 
 
 class CreateTaskViewTest(TestCase):
 
     @classmethod
-    def setUp(cls):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -128,39 +130,30 @@ class CreateTaskViewTest(TestCase):
         )
         user2test.save()
 
-    def test_create_task_url_exists(self):
+    def setUp(self):
         # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
+        self.client.login(username='user2test', password='XISRUkwtuK')
 
+    def test_create_task_url_exists(self):
         response = self.client.get('/tasks/create/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(str(response.context['user']), 'user2test')
 
     def test_create_task_accessible_by_name(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('create_task'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(str(response.context['user']), 'user2test')
 
     def test_view_uses_correct_template(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('create_task'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertTemplateUsed(response, 'tasks/create_task.html')
 
     def test_create_task_w_default_values(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
+        # Check test start with no tasks
         self.assertEqual(len(Task.objects.filter(tsk_name='test_task')), 0)
+        # Test
         tsk_user = User.objects.get(username='user2test')
         tsk_due_date = datetime.datetime.today().date() +\
             datetime.timedelta(days=30)
@@ -176,10 +169,10 @@ class CreateTaskViewTest(TestCase):
             },
             follow=True,
         )
-        self.assertEqual(response.status_code, 200)
         msgs = [msg.__str__() for msg in get_messages(response.wsgi_request)]
-        self.assertIn('Task created!', msgs)
         created_task = Task.objects.filter(tsk_name='test_task')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Task created!', msgs)
         self.assertEqual(len(created_task), 1)
 
 
@@ -194,6 +187,9 @@ class UpdateTaskViewTest(TestCase):
         user2test.save()
         self.user2test = user2test
 
+        # Login user
+        self.client.login(username='user2test', password='XISRUkwtuK')
+
         # Create a Task
         task2test = Task.objects.create(
             tsk_user=user2test,
@@ -206,29 +202,17 @@ class UpdateTaskViewTest(TestCase):
         self.task2test = task2test
 
     def test_update_task_url_exists(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(f'/tasks/update/task/{self.task2test.pk}/')
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_update_task_accessible_by_name(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('update_task',
                                            kwargs={'pk': self.task2test.pk}))
         self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('update_task',
                                            kwargs={'pk': self.task2test.pk}))
         self.assertEqual(str(response.context['user']), 'user2test')
@@ -236,32 +220,23 @@ class UpdateTaskViewTest(TestCase):
         self.assertTemplateUsed(response, 'tasks/update_task.html')
 
     def test_view_returns_404_when_no_task_object(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-        response = self.client.get('/tasks/')
-        self.assertEqual(str(response.context['user']), 'user2test')
-
-        # GET
-        response = self.client.get(reverse('update_task',
-                                           kwargs={'pk': 999999}))
-        self.assertEqual(response.status_code, 404)
-
-        # POST
-        response = self.client.post(reverse('update_task',
-                                            kwargs={'pk': 999999}))
-        self.assertEqual(response.status_code, 404)
+        # Test GET
+        response_get = self.client.get(
+            reverse('update_task', kwargs={'pk': 999999}))
+        # Test POST
+        response_post = self.client.post(
+            reverse('update_task', kwargs={'pk': 999999}))
+        self.assertEqual(response_get.status_code, 404)
+        self.assertEqual(response_post.status_code, 404)
 
     def test_update_task_category(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
+        # Check category assigned to task before test
         response = self.client.get(
             reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
         )
-        self.assertEqual(response.status_code, 200)
         original_task = response.context.get('task')
         self.assertEqual(original_task.tsk_category.pk, 1)
+        # Test
         response = self.client.post(
             reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'}),
             {
@@ -279,15 +254,13 @@ class UpdateTaskViewTest(TestCase):
         self.assertEqual(updated_task.tsk_category.pk, 2)
 
     def test_update_task_importance(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
+        # Check importance assigned to task before test
         response = self.client.get(
             reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
         )
-        self.assertEqual(response.status_code, 200)
         original_task = response.context.get('task')
         self.assertEqual(original_task.tsk_importance.pk, 1)
+        # Test
         response = self.client.post(
             reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'}),
             {
@@ -305,15 +278,13 @@ class UpdateTaskViewTest(TestCase):
         self.assertEqual(updated_task.tsk_importance.pk, 2)
 
     def test_update_task_status(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
+        # Check status assigned to task before test
         response = self.client.get(
             reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
         )
-        self.assertEqual(response.status_code, 200)
         original_task = response.context.get('task')
         self.assertEqual(original_task.tsk_status.pk, 1)
+        # Test
         response = self.client.post(
             reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'}),
             {
@@ -331,13 +302,10 @@ class UpdateTaskViewTest(TestCase):
         self.assertEqual(updated_task.tsk_status.pk, 2)
 
     def test_update_task_due_date(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
+        # Get values from the original Task
         response = self.client.get(
             reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
         )
-        self.assertEqual(response.status_code, 200)
         original_task = response.context.get('task')
         new_due_date = datetime.datetime.today().date() +\
             datetime.timedelta(days=15)
@@ -358,13 +326,6 @@ class UpdateTaskViewTest(TestCase):
         self.assertEqual(updated_task.tsk_due_date, new_due_date)
 
     def test_update_all_fields_at_once(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-        response = self.client.get(
-            reverse('update_task', kwargs={'pk': f'{self.task2test.pk}'})
-        )
-        self.assertEqual(response.status_code, 200)
         new_due_date = datetime.datetime.today().date() +\
             datetime.timedelta(days=25)
         response = self.client.post(
@@ -381,6 +342,7 @@ class UpdateTaskViewTest(TestCase):
             follow=True,
         )
         updated_task = Task.objects.get(pk=self.task2test.pk)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(updated_task.tsk_name, 'new_task_name')
         self.assertEqual(updated_task.tsk_category.pk, 3)
         self.assertEqual(updated_task.tsk_importance.pk, 3)
