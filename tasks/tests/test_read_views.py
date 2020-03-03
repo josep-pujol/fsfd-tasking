@@ -8,7 +8,7 @@ from team.models import Team, UserTeam
 class UserTasksTableViewTest(TestCase):
 
     @classmethod
-    def setUp(cls):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -16,33 +16,25 @@ class UserTasksTableViewTest(TestCase):
         )
         user2test.save()
 
-    def test_unable_to_access_unless_logged_in(self):
+    def setUp(self):
+        # Login user
+        self.client.login(username='user2test', password='XISRUkwtuK')
+
+    def test_unable_to_access_when_not_logged_in(self):
+        # Logout to clear session
+        self.client.logout()
         response = self.client.get('/tasks/')
         self.assertEqual(response.status_code, 302)
 
     def test_user_tasks_url_exists(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get('/tasks/')
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_user_tasks_accessible_by_name(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('user_tasks'))
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_user_view_uses_correct_template(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('user_tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
@@ -51,7 +43,7 @@ class UserTasksTableViewTest(TestCase):
 class AssignedTasksTableViewTest(TestCase):
 
     @classmethod
-    def setUp(cls):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -59,43 +51,30 @@ class AssignedTasksTableViewTest(TestCase):
         )
         user2test.save()
 
-    def test_unable_to_access_unless_logged_in(self):
+    def setUp(self):
+        # Login user
+        self.client.login(username='user2test', password='XISRUkwtuK')
+
+    def test_unable_to_access_when_not_logged_in(self):
+        # Logout to clear session
+        self.client.logout()
         response = self.client.get('/tasks/assigned-tasks/')
         self.assertEqual(response.status_code, 302)
 
     def test_assigned_tasks_url_exists(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get('/tasks/assigned-tasks/')
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_assigned_tasks_accessible_by_name(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('assigned_tasks'))
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_assigned_view_uses_correct_template(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('assigned_tasks'))
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
 
     def test_assigned_view_uses_right_template_and_section_title(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('assigned_tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
@@ -105,7 +84,7 @@ class AssignedTasksTableViewTest(TestCase):
 class TeamTasksTableViewTest(TestCase):
 
     @classmethod
-    def setUp(cls):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -129,43 +108,30 @@ class TeamTasksTableViewTest(TestCase):
         )
         user_team.save()
 
-    def test_unable_to_access_unless_logged_in(self):
+    def setUp(self):
+        # Login user
+        self.client.login(username='user2test', password='XISRUkwtuK')
+
+    def test_unable_to_access_when_not_logged_in(self):
+        # Logout to clear session
+        self.client.logout()
         response = self.client.get('/tasks/team-tasks/')
         self.assertEqual(response.status_code, 302)
 
     def test_team_tasks_url_exists(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get('/tasks/team-tasks/')
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_team_tasks_accessible_by_name(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('team_tasks'))
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_team_view_uses_correct_template(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('team_tasks'))
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
 
     def test_team_view_uses_right_template_and_section_title(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('team_tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/tasks_table.html')
@@ -175,7 +141,7 @@ class TeamTasksTableViewTest(TestCase):
 class CompletedTasksTableViewTest(TestCase):
 
     @classmethod
-    def setUp(cls):
+    def setUpTestData(cls):
         # Create new user
         user2test = User.objects.create_user(
             username='user2test', email='usertest@email.com',
@@ -183,43 +149,30 @@ class CompletedTasksTableViewTest(TestCase):
         )
         user2test.save()
 
-    def test_unable_to_access_unless_logged_in(self):
+    def setUp(self):
+        # Login user
+        self.client.login(username='user2test', password='XISRUkwtuK')
+
+    def test_unable_to_access_when_not_logged_in(self):
+        # Logout to clear session
+        self.client.logout()
         response = self.client.get('/tasks/completed-tasks/')
         self.assertEqual(response.status_code, 302)
 
     def test_completed_tasks_url_exists(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get('/tasks/completed-tasks/')
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_completed_tasks_accessible_by_name(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('completed_tasks'))
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
 
     def test_completed_view_uses_correct_template(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('completed_tasks'))
-        self.assertEqual(str(response.context['user']), 'user2test')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/completed_tasks_table.html')
 
     def test_completed_view_uses_right_template_and_section_title(self):
-        # Login user
-        login = self.client.login(username='user2test', password='XISRUkwtuK')
-        self.assertTrue(login)
-
         response = self.client.get(reverse('completed_tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/completed_tasks_table.html')
