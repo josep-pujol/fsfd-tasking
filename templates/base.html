@@ -29,10 +29,10 @@
                     <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul id="main-nav" class="right hide-on-med-and-down">
                         {% if user.is_authenticated %}                        
-                            <li><a class="dropdown-trigger" href="" data-target="dropdown-tasks">Tasks</a></li>
+                            <li><a class="dropdown-trigger" href="" data-target="dropdown-tasks">Tasks </a></li>
                             <li>
                                 <div class="avatar-wrapper">
-                                    <a class="dropdown-trigger avatar-style" href="" data-target="dropdown-profile"><span>{{ user.username|first|title }}</span></a>
+                                    <a class="dropdown-trigger avatar-style" href="" data-target="dropdown-profile">{{ user.username|first|title }}</a>
                                 </div>
                             </li>  
                         {% else %}

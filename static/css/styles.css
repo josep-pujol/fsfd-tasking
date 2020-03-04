@@ -28,7 +28,7 @@ nav .brand-logo {
 }
 
 nav ul a {
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 .avatar-style {
@@ -180,6 +180,7 @@ th, td {
 
 
 /* Select options in forms */
+
 .select-wrapper li span {
     color: black;
 }
