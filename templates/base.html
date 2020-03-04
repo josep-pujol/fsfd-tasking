@@ -30,7 +30,11 @@
                     <ul id="main-nav" class="right hide-on-med-and-down">
                         {% if user.is_authenticated %}                        
                             <li><a class="dropdown-trigger" href="" data-target="dropdown-tasks">Tasks</a></li>
-                            <li><a class="dropdown-trigger" href="" data-target="dropdown-profile">{{ user.username|title }}<i class="material-icons right">arrow_drop_down</i></a></li>  
+                            <li>
+                                <div class="avatar-wrapper">
+                                    <a class="dropdown-trigger avatar-style" href="" data-target="dropdown-profile"><span>{{ user.username|first|title }}</span></a>
+                                </div>
+                            </li>  
                         {% else %}
                             <li><a href="{% url 'login' %}">Sign in</a></li>
                             <li><a href="{% url 'registration' %}">Sign up</a></li>                            
