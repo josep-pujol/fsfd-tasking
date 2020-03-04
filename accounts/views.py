@@ -11,7 +11,7 @@ from team.models import Team, UserTeam
 
 
 def index(request):
-    """Return landing page"""
+    """Return a home page in function of user status"""
     if hasattr(request.user, 'team_owner'):
         return redirect(reverse('user_tasks'))
     elif request.user.is_authenticated:
@@ -23,7 +23,7 @@ def index(request):
 
 
 def login(request):
-    """Return Login Page"""
+    """Return Login Page or submit login form"""
     if request.user.is_authenticated:
         return redirect(reverse('index'))
     if request.method == 'POST':
@@ -58,7 +58,7 @@ def logout(request):
 
 
 def registration(request):
-    """Render the registration page"""
+    """Return the registration page or submit registration form"""
 
     if request.user.is_authenticated:
         return redirect(reverse(('index')))
@@ -99,6 +99,7 @@ def registration(request):
 
 
 class UserProfileView(View):
+    """Return page with User Profile info"""
     template_name = 'accounts/profile.html'
 
     def get(self, request, *args, **kwargs):
@@ -108,6 +109,7 @@ class UserProfileView(View):
 
 
 class UserUpdate(UpdateView):
+    """Return page to update User Profile information or submit form"""
     model = User
     fields = ['first_name', 'last_name', 'username', 'email', ]
     template_name = 'accounts/update_profile.html'

@@ -140,7 +140,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_L10N = False
-DATE_FORMAT = '%b %d, %Y'
+DATE_FORMAT = '%b %d, %Y'  # Overwritten default date format
 
 USE_TZ = True
 

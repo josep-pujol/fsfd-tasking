@@ -8,6 +8,7 @@ from tasks.models import Status, Task
 
 @login_required
 def user_tasks(request):
+    """Return page with the User personal Tasks"""
     tasks = Task.objects.filter(
         tsk_user_id=request.user.pk,
         tsk_team_id=1,
@@ -25,6 +26,7 @@ def user_tasks(request):
 
 @login_required
 def assigned_tasks(request):
+    """Return page with Tasks assigned to the User by a Team Owner"""
     user = request.user
     is_team_owner = hasattr(user, 'team_owner')
     if is_team_owner:
@@ -47,7 +49,10 @@ def assigned_tasks(request):
 
 @login_required
 def team_tasks(request):
-    # Only for premium users, or users that own a Team
+    """
+    Return page with the Tasks that a Team Owner has assigned to
+    other users. Only visible to Team Owners
+    """
     user = request.user
     is_team_owner = hasattr(user, 'team_owner')
     if is_team_owner:
@@ -70,6 +75,7 @@ def team_tasks(request):
 
 @login_required
 def completed_tasks(request):
+    """Return page with all Tasks completed by the User"""
     tasks = Task.objects.filter(
         tsk_user_id=request.user.pk, finishdate__isnull=False)
     context = {

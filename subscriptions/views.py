@@ -15,6 +15,7 @@ PLAN_ID = 'plan_Gcb3Ira0nEPtnk'
 
 @login_required
 def subscribe(request):
+    """Return credit card form or submit payment when user not subscribed"""
     if hasattr(request.user, 'team_owner'):
         return redirect(reverse('index'))
     if request.method == 'POST':

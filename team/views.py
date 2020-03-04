@@ -10,16 +10,21 @@ from team.forms import AddCollaboratorForm
 
 @login_required
 def user_team_view(request):
+    """"Return page to add a user to a team or submit form"""
     user = request.user
     users_in_team = UserTeam.objects.filter(
         ut_team=user.team_owner.pk).exclude(ut_user=user.pk)
 
+    # Try to add a User in Team as collaborator aka team member
+    # Users that belong to a team are called collaborators
     if request.method == 'POST':
         add_collaborator_form = AddCollaboratorForm(request.POST)
         if add_collaborator_form.is_valid():
             new_collaborator = User.objects.get(
                 email=request.POST['email_to_add'])
             team2assign = Team.objects.get(tem_owner=user)
+
+            # Check if user is already a team collaborator
             if users_in_team.filter(ut_user=new_collaborator):
                 messages.error(
                     request,
@@ -28,6 +33,7 @@ def user_team_view(request):
                 )
             else:
                 try:
+                    # Try to create the relationship User Team
                     add_user_team = UserTeam.objects.create(
                         ut_user=new_collaborator, ut_team=team2assign)
                     add_user_team.save()
@@ -40,6 +46,7 @@ def user_team_view(request):
                     )
                     messages.error(request, 'Please try again')
         else:
+            # Feedback to user when form is not valid
             messages.error(
                 request, 'Please ensure the email belongs to a Tasking user')
             messages.error(
@@ -47,9 +54,7 @@ def user_team_view(request):
                 'Only registered Tasking users can collaborate in teams'
             )
 
-    else:
-        add_collaborator_form = AddCollaboratorForm()
-
+    # Return form to add a User in a Team
     add_collaborator_form = AddCollaboratorForm()
     context = {
         'users_in_team': users_in_team,

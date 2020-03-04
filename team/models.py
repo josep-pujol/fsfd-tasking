@@ -3,6 +3,7 @@ from django.db import models
 
 
 class Team(models.Model):
+    """Info about Teams"""
     tem_name = models.CharField(max_length=200)
     tem_description = models.TextField()
     tem_owner = models.OneToOneField(
@@ -16,6 +17,7 @@ class Team(models.Model):
 
 
 class UserTeam(models.Model):
+    """Relationship User Team"""
     ut_user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
     ut_team = models.ForeignKey(

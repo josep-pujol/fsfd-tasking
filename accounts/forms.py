@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 
 class UserLoginForm(forms.Form):
-    """Form to log users in"""
+    """Form to login users"""
 
     username_or_email = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -24,6 +24,7 @@ class UserRegistrationForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2', ]
 
     def clean_email(self):
+        """Validate email address"""
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
         if User.objects.filter(email=email).exclude(username=username):
@@ -32,6 +33,7 @@ class UserRegistrationForm(UserCreationForm):
         return email
 
     def clean_password2(self):
+        """"Validate two passwords exist and match"""
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 

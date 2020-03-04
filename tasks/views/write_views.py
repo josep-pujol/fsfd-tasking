@@ -12,13 +12,19 @@ from team.models import Team, UserTeam
 
 
 def get_users_in_team(team):
+    """
+    Helper function that gets users sorted alphabetically,
+    from the relationship User Team
+    """
     user_team = UserTeam.objects.filter(ut_team=team.pk)
-    # Get only users, from users and teams, and sort them alphabetically
     return sorted((itm.ut_user for itm in user_team), key=lambda k: k.username)
 
 
 def update_status_dependencies(task):
-    # Update startdate and finishdate in function of status
+    """
+    Helper function that updates the startdate and enddate of a task
+    in function of the status selected
+    """
     status_ = task.tsk_status.sta_name
     today_ = datetime.datetime.today().date()
     if status_ == 'completed':
@@ -36,6 +42,7 @@ def update_status_dependencies(task):
 
 @login_required
 def create_task(request):
+    """Returns page to create a Task or submits form"""
     user = request.user
     is_team_owner = hasattr(user, 'team_owner')
     if request.method == 'POST':
@@ -86,6 +93,7 @@ def create_task(request):
 
 @login_required
 def update_task(request, pk):
+    """Returns page to update a Task or submits form"""
     user = request.user
     if request.method == 'POST':
         task = get_object_or_404(Task, pk=pk)
@@ -116,6 +124,7 @@ def update_task(request, pk):
         else:
             messages.error(request, 'Unable to update Task')
             messages.error(request, 'Please try again')
+    # To return the user to previous page
     prev_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'), '/').url
     task = get_object_or_404(Task, pk=pk)
     is_team_owner = hasattr(user, 'team_owner')
@@ -137,6 +146,7 @@ def update_task(request, pk):
 
 @login_required
 def update_status(request):
+    """Submit form to update the status or alerts the user if errors"""
     task_id = request.POST['taskId']
     task = get_object_or_404(Task, pk=task_id)
     edit_status_form = EditStatusForm(request.POST)
