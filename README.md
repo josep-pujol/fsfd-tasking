@@ -193,7 +193,7 @@ The main technologies used are:
   - Mozilla Firefox
 
 ### Chrome DevTools Audit
-- Files with the tests ran in Chrome DevTools Audit can be found in this repository folder [test_files](readme_files/test_files "Chrome DevTools Audit"). The tests were done on the [landing](https://fsfd-tasking.herokuapp.com/) and the [Tasks](https://fsfd-tasking.herokuapp.com/) pages
+- Files with the tests ran in Chrome DevTools Audit can be found in this repository folder [**test_files**](readme_files/test_files "Chrome DevTools Audit"). The tests were done on the [**Landing**](https://fsfd-tasking.herokuapp.com/) and the [**Tasks**](https://fsfd-tasking.herokuapp.com/) pages
 - As a summary:
     - Landing Page: results about 90 for Performance, Accessibility, Best Practices and SEO
     - Tasks Page: results around 70 for Performance and Best Practices, and about 90 for Accessibility and SEO
