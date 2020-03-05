@@ -197,16 +197,20 @@ The main technologies used are:
 
 ### Unit Tests
 [![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
+
 Automatic tests with over 90% coverage are included in this repository. A detailed report can be seen on [codecov.io](https://codecov.io/gh/josep-pujol/fsfd-tasking)
+
 As a summary, tests include:
-    - Pages accessible and rendering the right template
-    - CRUD operations for Tasks, Teams and Users
-    - Forms validation
-    - User access to the site with different permissions
-    - Helper functions
+- Pages accessible and rendering the right template
+- CRUD operations for Tasks, Teams and Users
+- Forms validation
+- User access to the site with different permissions
+- Helper functions
+
 Tests that are left to be implemented:
-    - Stripe payments
-    - User registration process
+- Stripe payments
+- User registration process
+
 
 ### Chrome DevTools Audit
 - Files with the tests ran in Chrome DevTools Audit can be found in this repository folder [**test_files**](readme_files/test_files "Chrome DevTools Audit"). The tests were done on the [**Landing**](https://fsfd-tasking.herokuapp.com/) and the [**Tasks**](https://fsfd-tasking.herokuapp.com/) pages
