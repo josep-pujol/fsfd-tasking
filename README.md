@@ -214,7 +214,7 @@ The main technologies used are:
 6. To have the Database ready to run the app do the following in your Terminal (see below*):
     - Make migrations typing ```python3 manage.py makemigrations```
     - Migrate typing ```python3 manage.py migrate```
-    - Notice a default superuser is created with same username and password as "admin"
+    - Notice a default superuser is created with username and password ```admin```
 7. Run Unit tests to ensure everything is working properly, type ```python3 manage.py test``` in your Terminal
 8. Go to Django Admin and change the default Superuser password
 
@@ -223,7 +223,7 @@ The main technologies used are:
 0. If previous steps ran successfully, do the following to deploy the app in Heroku 
 1. Frist you need to create an account in Heroku
 2. Create an Heroku app
-3. In the "Resources" section Add the Heroku Postgres add-on
+3. In the "Resources" section Add the "Heroku Postgres" add-on
 4. In the "Settings" section make sure you have the same environmental variables previously discussed
 5. In the "Deploy" section: 
     - Select "GitHub" as a source in the "Deployment method" subsection 
@@ -233,15 +233,24 @@ The main technologies used are:
 8. If issues, please have a look at the deployment logs in Heroku
 
 
-*Notice that migrations automatically create options for the Dropdown menus
-    - ```task_category``` with a single field name ```category```. 
-        - Add any category names you like plus the default value ```Undefined```
-    - ```task_importance``` with two fields named ```importance``` and ```order```. 
-        - Add any levels of task importance you like with their associated order 
-        - Make sure you add the default value ```Low``` with order ```1```, which will be the lowest level of importance
-    - ```task_status``` with two fields named ```status``` and ```order```. 
-        - Add any status you like plus their associated order
-        - Make sure you add the default values ```Not started``` with order ```0```, and ```Completed``` which show have the highest order
+### Database Migrations and initial values
+The Database migrations automatically create a superuser and the following default values:
+- ```superuser``` to access Django Admin with username  ```admin``` and password  ```admin```
+- ```team_team``` stores information related to Teams
+    - A default Team called ````tasking``` is set for all users
+- ```team_userteam``` stores the relationship of a User with a Team. In other words, which Users belong to each Teams
+    - A relationship between the default Team ```tasking``` and all users is created by default
+    - The superuser ```àdmin``` is the Team Owner of ```tasking``` Team
+- ```task_category``` to classify the tasks in different category groups. 
+    - The category groups are:  ```undefined```,  ```admin```, ```meetings```, ```other```, ```planning```, ```projects```, ```training``` and ```travel```   
+- ```task_importance``` to define the importance or urgency of a Task to be completed
+    - A Task can be labelled with Importance values: ```low```, ```medium``` and ```high```
+- ```task_status``` provide information to the user about the degree of completion of a Task, and sets the start and completed date of a Task
+    - The status available are: ```not started```, ```started```, ```25%```, ```50%```, ```75%``` and ```completed```
+    - Notice that some status modify the start or completed date of a Task:
+        - For example, when the status ```started``` is selected, the Task start date is set to current date
+        - When the status ```completed``` is selected, the Task completed date is set to current date
+
 
 ##### back to [top](#tasking)
 
