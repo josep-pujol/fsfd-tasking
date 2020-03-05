@@ -32,6 +32,9 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 3. [**Technologies Used**](#technologies-used)
 
 4. [**Testing**](#testing)
+    - [**Manual Testing**](#manual-testing)
+    - [**Unit Tests**](#unit-tests)
+    - [**Chrome DevTools Audit**](#chrome-devtools-audit)
 
 5. [**Deployment**](#deployment)
     - [**Getting the code up and running**](#getting-the-code-up-and-running)
@@ -170,10 +173,8 @@ The main technologies used are:
 
 ## Testing
 
-- Python Unit tests with over 90% coverage, including:
-    - Page rendering
-    - CRUD operations
-   
+### Manual Testing
+
 - All code used on this site has been manually tested to ensure everything is working as expected. Some tests include:
     - Site responsiveness from small mobile up to 17" desktop screens
     - Content is displayed correctly for screens of small mobiles to 17" desktop screens
@@ -187,10 +188,25 @@ The main technologies used are:
         - Added several tasks using major browsers
         - Added tasks with empty fields for validation
         - Added tasks with empty fields to test default values
-- Site viewed and tested in the following browsers:
-  - Google Chrome
-  - Microsoft Edge
-  - Mozilla Firefox
+- Site tested with the following browsers and devices
+    - Google Chrome v80 (mobile and desktop version)
+    - Microsoft Edge v44 (desktop version)
+    - Mozilla Firefox v73 (mobile and desktop version)
+    - Dell Desktop PC model Precision T5810XL
+    - Samsung Galaxy S8 SM-G950F
+
+### Unit Tests
+[![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
+Automatic tests with over 90% coverage are included in this repository. A detailed report can be seen on [codecov.io](https://codecov.io/gh/josep-pujol/fsfd-tasking)
+As a summary, tests include:
+    - Pages accessible and rendering the right template
+    - CRUD operations for Tasks, Teams and Users
+    - Forms validation
+    - User access to the site with different permissions
+    - Helper functions
+Tests that are left to be implemented:
+    - Stripe payments
+    - User registration process
 
 ### Chrome DevTools Audit
 - Files with the tests ran in Chrome DevTools Audit can be found in this repository folder [**test_files**](readme_files/test_files "Chrome DevTools Audit"). The tests were done on the [**Landing**](https://fsfd-tasking.herokuapp.com/) and the [**Tasks**](https://fsfd-tasking.herokuapp.com/) pages
