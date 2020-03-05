@@ -234,18 +234,18 @@ The main technologies used are:
 
 
 ### Database Migrations and initial values
-The Database migrations automatically create a superuser and the following default values:
-- ```superuser``` to access Django Admin with username  ```admin``` and password  ```admin```
-- ```team_team``` stores information related to Teams
+The Database migrations automatically create a superuser and the following tables with default values:
+- ```superuser``` (admin user): the administrator user to access Django Admin, with credentials username  ```admin``` and password  ```admin``` 
+- ```team_team``` (table): table that stores information related to Teams
     - A default Team called ````tasking``` is set for all users
-- ```team_userteam``` stores the relationship of a User with a Team. In other words, which Users belong to each Teams
+- ```team_userteam``` (table): table to store the relationship of a User with a Team. In other words, which Users belong to each Teams
     - A relationship between the default Team ```tasking``` and all users is created by default
     - The superuser ```àdmin``` is the Team Owner of ```tasking``` Team
-- ```task_category``` to classify the tasks in different category groups. 
+- ```task_category``` (table): used in dropdown menus to classify the tasks in different category groups 
     - The category groups are:  ```undefined```,  ```admin```, ```meetings```, ```other```, ```planning```, ```projects```, ```training``` and ```travel```   
-- ```task_importance``` to define the importance or urgency of a Task to be completed
+- ```task_importance``` (table): with values to define the importance or urgency of a Task to be completed
     - A Task can be labelled with Importance values: ```low```, ```medium``` and ```high```
-- ```task_status``` provide information to the user about the degree of completion of a Task, and sets the start and completed date of a Task
+- ```task_status``` (table): provide information to the user about the degree of completion of a Task, and sets the start and completed date of a Task
     - The status available are: ```not started```, ```started```, ```25%```, ```50%```, ```75%``` and ```completed```
     - Notice that some status modify the start or completed date of a Task:
         - For example, when the status ```started``` is selected, the Task start date is set to current date
