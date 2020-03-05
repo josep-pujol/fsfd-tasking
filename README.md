@@ -7,7 +7,7 @@
 [![Build Status](https://travis-ci.org/josep-pujol/fsfd-tasking.svg?branch=master)](https://travis-ci.org/josep-pujol/fsfd-tasking)
 [![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
 
-This repository contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at Code Institute. This is the last step to obtain the Diploma.
+This repository contains a solution code for the milestone project of the *Full Stack Frameworks with Django* module at [Code Institute](https://codeinstitute.net/). This is the last step to obtain the Diploma.
 
 Consists on a "Tasks List" or "To-Do" application in which users can organize their tasks or to-dos. Users not only can create and update tasks but as well search, filter or sort tasks.
 
@@ -191,6 +191,16 @@ The main technologies used are:
   - Google Chrome
   - Microsoft Edge
   - Mozilla Firefox
+
+### Chrome DevTools Audit
+- Files with the tests ran in Chrome DevTools Audit can be found in this repository folder [test_files](readme_files/test_files "Chrome DevTools Audit"). The tests were done on the [landing](https://fsfd-tasking.herokuapp.com/) and the [Tasks](https://fsfd-tasking.herokuapp.com/) pages
+- As a summary:
+    - Landing Page: results about 90 for Performance, Accessibility, Best Practices and SEO
+    - Tasks Page: results around 70 for Performance and Best Practices, and about 90 for Accessibility and SEO
+    - Runtime settings: 
+        - Emulated Nexus 5X device
+        - User Agent (network) Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36
+
 
 ##### back to [top](#tasking)
 
