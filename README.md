@@ -36,6 +36,8 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 5. [**Deployment**](#deployment)
     - [**Getting the code up and running**](#getting-the-code-up-and-running)
     - [**Deploy in Heroku**](#deploy-in-heroku)
+    - [**Database initial values**](#database-initial-values)
+    - [**Database Schema**](#database-schema)
 
 6. [**Credits**](#credits)
 
@@ -233,9 +235,9 @@ The main technologies used are:
 8. If issues, please have a look at the deployment logs in Heroku
 
 
-### Database Migrations and initial values
+### Database initial values
 The Database migrations automatically create a superuser and the following tables with default values:
-- ```superuser``` (admin user): the administrator user to access Django Admin, with credentials username  ```admin``` and password  ```admin``` 
+- ```superuser``` : the administrator user to access Django Admin, with credentials username  ```admin``` and password  ```admin``` 
 - ```team_team``` (table): table that stores information related to Teams
     - A default Team called ````tasking``` is set for all users
 - ```team_userteam``` (table): table to store the relationship of a User with a Team. In other words, which Users belong to each Teams
@@ -250,6 +252,9 @@ The Database migrations automatically create a superuser and the following table
     - Notice that some status modify the start or completed date of a Task:
         - For example, when the status ```started``` is selected, the Task start date is set to current date
         - When the status ```completed``` is selected, the Task completed date is set to current date
+
+### Database Schema
+![Database schema](readme_files/database_schema.png?raw=true "Database Schema")
 
 
 ##### back to [top](#tasking)
