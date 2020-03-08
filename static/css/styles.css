@@ -23,6 +23,8 @@ body {
 }
 
 nav .brand-logo {
+    font-family: "Helvetica","Arial",sans-serif;
+    font-size: x-large;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -31,11 +33,18 @@ nav ul a {
     font-size: 1.2em;
 }
 
+.dropdown-trigger {
+    font-family: "Helvetica","Arial",sans-serif;
+    font-size: medium;
+    font-weight: normal;
+}
+
 .avatar-style {
     width: 45px;
     height: 45px;
     border-radius: 50%;
     text-align: center;
+    font-family: "Helvetica","Arial",sans-serif;
     font-size: large;
     font-weight: bold;
     background-color: #eee;
