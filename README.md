@@ -52,6 +52,45 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
 ## UX
 
+### User Stories
+User stories are divided between Free Users and Permium Users, and in function of the CRUD operation performed:
+
+#### Free User
+As a Free User I want to ...
+
+- Create:  
+    - create my own tasks	
+		
+- View:	
+    - see all tasks I created	
+    - sort and filter tasks for easier retrieval
+	- see tasks assigned to me by a Premium User
+    - see all completed tasks	
+		
+- Edit:
+	- edit the tasks I create 
+	- edit Status fields of other tasks	
+		
+#### Premium User
+As a Premium User I want to ...	
+
+- Create
+    - subscribe to the Tasking service
+    - create my own tasks
+	- add users to my Team so they can collaborate
+    - create tasks for the users of my Team
+	- assign tasks to the users of my Team	
+		
+- View
+	- see all tasks I created
+	- see tasks I assigned to the users of my Team
+	- see the users that are in my Team	
+		
+- Edit	
+    - edit tasks I create	
+	- edit Status fields of other tasks
+
+
 ### Free User
 The app consists of three main sections: 
 
@@ -138,7 +177,7 @@ The main technologies used are:
 - [GitPod](https://gitpod.io/)
     - Online IDE used to develop this project
 - [Python](https://www.python.org/)
-    - Base language used for the application
+    - Main language used to build the application
 - [Django](https://https://docs.djangoproject.com/en/2.2/)
     - Web application framework for **Python**
 - **HTML**, **CSS** and **Javascript**
@@ -198,28 +237,26 @@ The main technologies used are:
 ### Unit Tests
 [![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
 
-Automatic tests with over 90% coverage are included in this repository. A detailed report can be seen on [codecov.io](https://codecov.io/gh/josep-pujol/fsfd-tasking)
-
-As a summary, tests include:
+Automatic tests with over 90% coverage are included in this repository. A detailed report can be seen on [**codecov.io**](https://codecov.io/gh/josep-pujol/fsfd-tasking). As a summary, tests include:
 - Pages accessible and rendering the right template
 - CRUD operations for Tasks, Teams and Users
 - Forms validation
 - User access to the site with different permissions
 - Helper functions
 
-Tests that are left to be implemented:
+Automaic Tests that are to be implemented:
 - Stripe payments
 - User registration process
 
 
 ### Chrome DevTools Audit
-- Files with the tests ran in Chrome DevTools Audit can be found in this repository folder [**test_files**](readme_files/test_files "Chrome DevTools Audit"). The tests were done on the [**Landing**](https://fsfd-tasking.herokuapp.com/) and the [**Tasks**](https://fsfd-tasking.herokuapp.com/) pages
+- Files with the tests ran in Chrome DevTools Audit can be found in this repository in the folder [**test_files**](readme_files/test_files "Chrome DevTools Audit"). The tests were done on the [**Landing**](https://fsfd-tasking.herokuapp.com/) and the [**Tasks**](https://fsfd-tasking.herokuapp.com/) pages
 - As a summary:
     - Landing Page: results about 90 for Performance, Accessibility, Best Practices and SEO
     - Tasks Page: results around 70 for Performance and Best Practices, and about 90 for Accessibility and SEO
     - Runtime settings: 
         - Emulated Nexus 5X device
-        - User Agent (network) Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36
+        - User Agent (network):  Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36
 
 
 ##### back to [top](#tasking)
