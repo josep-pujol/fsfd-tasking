@@ -104,11 +104,11 @@ The app consists of three main sections:
         - "Assigned Tasks": Tasks assigned to the user from other registered users of Tasking - restricted features
         - "Completed Tasks": all the tasks completed by the user
 
-    ![Personal Tasks](https://github.com/josep-pujol/fsfd-tasking/tree/master/readme_files/images/FreeUser_PersonalTasks.png)
+    ![Personal Tasks](readme_files/images/FreeUser_PersonalTasks.png)
 
 - User: section for the owner of the account in which the user profile can be updated and from where you can logout
 
-    ![Free User Account](https://github.com/josep-pujol/fsfd-tasking/tree/master/readme_files/images/FreeUser_Account.png)
+    ![Free User Account](readme_files/images/FreeUser_Account.png)
 
 
 Additionally, modals and popup windows are used to perform actions like Edit the Status of a Task, Update any of the fields of a Task etc.
@@ -121,12 +121,12 @@ A Premium user has all the sections and features of a Free User plus the followi
 - Tasks: 
     - "Team Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable
 
-    ![Team's Tasks](https://github.com/josep-pujol/fsfd-tasking/tree/master/readme_files/images/PremiumUser_TeamsTasks.png)
+    ![Team's Tasks](readme_files/images/PremiumUser_TeamsTasks.png)
 
 - User:
     - "Team": where a Team owner can add users in the Team
 
-    ![Premium User Account](https://github.com/josep-pujol/fsfd-tasking/tree/master/readme_files/images/FreeUser_Account.png)
+    ![Premium User Account](readme_files/images/PremiumUser_Account.png)
 
 
 ##### back to [top](#tasking)
