@@ -22,8 +22,7 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 ## Table of Contents
 1. [**UX**](#ux)
     - [**User Stories**](#user-stories)
-    - [**Free User**](#free-user)
-    - [**Premium User**](#premium-user)
+    - [**App Overviewr**](#app-verview)
 
 2. [**Features**](#features)
     - [**Existing Features**](#existing-features)
@@ -53,6 +52,7 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 ## UX
 
 ### User Stories
+
 User stories are divided between Free Users and Permium Users, and in function of the CRUD operation performed:
 
 
@@ -93,7 +93,11 @@ As a Premium User I want to ...
 	- edit Status fields of other tasks
 
 
-### Free User
+### App Overview
+
+
+#### Free User
+
 The app consists of three main sections: 
 
 - Non registered users: Landing page with Sign-in and Sign-up functionality
@@ -115,11 +119,12 @@ Additionally, modals and popup windows are used to perform actions like Edit the
 
 These actions can be activated by clicking on the menu-dots item on the right-hand side of each Task - if user has right permissions.
 
-### Premium User
+
+#### Premium User
 
 A Premium user has all the sections and features of a Free User plus the following:
 - Tasks: 
-    - "Team Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable
+    - "Team's Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable
 
     ![Team's Tasks](readme_files/images/PremiumUser_TeamsTasks.png)
 
@@ -144,10 +149,9 @@ A Premium user has all the sections and features of a Free User plus the followi
     - Pagination, including dropdown menu to select number of items per page
     - Search and Sorting functionality for all fields in the Table
     - Fixed floating button with tooltip, to add tasks
-    - Menu-dots per Task which opens a window to:
+    - Menu-dots per Task which opens a pop-up window to:
         - Edit the Status of a Task
         - Edit any of the fields of a Task
-        - Add or Remove the "Issues" sign
 
 - Completed Tasks Page
     - Navigation links
@@ -252,6 +256,10 @@ Automatic tests with over 90% coverage are included in this repository. A detail
 Automaic Tests that are to be implemented:
 - Stripe payments
 - User registration process
+
+Additionally, [Travis-CI](https://travis-ci.org/) was used for Continuous Integration. See live badge below:
+
+[![Build Status](https://travis-ci.org/josep-pujol/fsfd-tasking.svg?branch=master)](https://travis-ci.org/josep-pujol/fsfd-tasking)
 
 
 ### Chrome DevTools Audit
