@@ -55,11 +55,13 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 ### User Stories
 User stories are divided between Free Users and Permium Users, and in function of the CRUD operation performed:
 
+
 #### Free User
 As a Free User I want to ...
 
 - Create:  
-    - create my own tasks	
+    - create my own tasks
+    - subscribe to Tasking to enjoy Premium features
 		
 - View:	
     - see all tasks I created	
@@ -70,12 +72,12 @@ As a Free User I want to ...
 - Edit:
 	- edit the tasks I create 
 	- edit Status fields of other tasks	
-		
+
+
 #### Premium User
 As a Premium User I want to ...	
 
 - Create
-    - subscribe to the Tasking service
     - create my own tasks
 	- add users to my Team so they can collaborate
     - create tasks for the users of my Team
@@ -95,9 +97,6 @@ As a Premium User I want to ...
 The app consists of three main sections: 
 
 - Non registered users: Landing page with Sign-in and Sign-up functionality
-
-    ![Main page or Tasks page](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/tasks_mockup.png)
-
 - Tasks: 
     - Section to manage different Task Lists or To-Do lists
     - The available Task Lists are:
@@ -105,11 +104,11 @@ The app consists of three main sections:
         - "Assigned Tasks": Tasks assigned to the user from other registered users of Tasking - restricted features
         - "Completed Tasks": all the tasks completed by the user
 
-    ![Add Task](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/add_task_mockup.png)
+    ![Personal Tasks](https://github.com/josep-pujol/fsfd-tasking/tree/master/readme_files/images/FreeUser_PersonalTasks.png)
 
 - User: section for the owner of the account in which the user profile can be updated and from where you can logout
 
-    ![Completed Tasks](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/completed_tasks_mockup.png)
+    ![Free User Account](https://github.com/josep-pujol/fsfd-tasking/tree/master/readme_files/images/FreeUser_Account.png)
 
 
 Additionally, modals and popup windows are used to perform actions like Edit the Status of a Task, Update any of the fields of a Task etc.
@@ -120,9 +119,15 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 
 A Premium user has all the sections and features of a Free User plus the following:
 - Tasks: 
-    - "Team Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable 
+    - "Team Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable
+
+    ![Team's Tasks](https://github.com/josep-pujol/fsfd-tasking/tree/master/readme_files/images/PremiumUser_TeamsTasks.png)
+
 - User:
-    - "Team": where a Team owner manage the users in the Team
+    - "Team": where a Team owner can add users in the Team
+
+    ![Premium User Account](https://github.com/josep-pujol/fsfd-tasking/tree/master/readme_files/images/FreeUser_Account.png)
+
 
 ##### back to [top](#tasking)
 
