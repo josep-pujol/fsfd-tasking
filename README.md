@@ -126,7 +126,7 @@ A Premium user has all the sections and features of a Free User plus the followi
 - User:
     - "Team": where a Team owner can add users in the Team
 
-    ![Premium User Account](readme_files/images/PremiumUser_Account.png)
+    ![Premium User Account](readme_files/images/PermiumUser_Account.png) ![Premium User Teams](readme_files/images/PermiumUser_TeamsPage.png)
 
 
 ##### back to [top](#tasking)
