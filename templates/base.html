@@ -108,9 +108,9 @@
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success' %}
-                <script>M.toast({html: "{{ message }}", classes: 'teal darken-1', displayLength:4000});</script>
+                <script>M.toast({html: "{{ message }}", classes: 'teal darken-1', displayLength:3500});</script>
             {% elif message.tags == 'info' %}
-                <script>M.toast({html: "{{ message }}", classes: 'light-blue darken-3', displayLength:4000});</script>
+                <script>M.toast({html: "{{ message }}", classes: 'light-blue darken-3', displayLength:3500});</script>
             {% elif message.tags == 'warning' %}
                 <script>M.toast({html: "{{ message }}", classes: 'orange darken-4', displayLength:10000});</script>
             {% elif message.tags == 'error' %}
