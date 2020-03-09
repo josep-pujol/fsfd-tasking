@@ -93,6 +93,8 @@ As a Premium User I want to ...
     - edit tasks I create	
 	- edit Status fields of other tasks
 
+Mockup versions of the Design fase of this project are included in this repository in the [**readme_files**](readme_files/wireframes-mockups.pdf "Wireframes and Mockups") folder.
+
 
 ### App Overview
 
