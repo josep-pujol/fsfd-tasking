@@ -101,7 +101,7 @@ As a Premium User I want to ...
 The app consists of three main sections: 
 
 - Non registered users: Landing page with Sign-in and Sign-up functionality
-- Tasks: 
+- Tasks Pages: 
     - Section to manage different Task Lists or To-Do lists
     - The available Task Lists are:
         - "Personal Tasks": Tasks aimed only at the owner of the account - all features avilable 
@@ -123,7 +123,7 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 #### Premium User
 
 A Premium user has all the sections and features of a Free User plus the following:
-- Tasks: 
+- Tasks Pages: 
     - "Team's Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable
 
     ![Team's Tasks](readme_files/images/PremiumUser_TeamsTasks.png)
@@ -144,35 +144,63 @@ A Premium user has all the sections and features of a Free User plus the followi
 ### Existing Features
 
 - Main Page
-    - Navigation links
-    - Pagination, including dropdown menu to select number of items per page
-    - Search and Sorting functionality for all fields in the Table
-    - Fixed floating button with tooltip, to add tasks
-    - Menu-dots per Task which opens a pop-up window to:
-        - Edit the Status of a Task
-        - Edit any of the fields of a Task
+    - Navigation bar on top which becomes a side bar for small screens
+    - Fixed floating button, with tooltip, to add tasks
 
-- Completed Tasks Page
-    - Navigation links
-    - Display tasks that are not completed
-    - Pagination, including dropdown menu to select number of rows per page
-    - Search and Sorting functionality for all fields in the Table
+- Tasks tables 
+    - Pagination, including dropdown menu to select the number of items per page
+    - Search and Sorting functionality for most fields in the Table
+    - Expand icon per Task, left side, which allows a user to see additional fields of a Task. Specially useful when using a device with small screen.
+    - Menu-dots per Task, right side, with options to
+        - Edit the Status of a Task. Opens a pop-up window with options
+        - Edit any of the fields of a Task. Redirect to Edit Tasks page
+
+- Pop-up window to edit Status of a Task
+    - Drop-down menu with available options to select
+    - Selecting "Completed" option will set completion date of the task and move task to "Completed Tasks" list
+    - Selecting "Started" option will set the start date of the task to the current date
+    - Selecting "Not Started" option will reset the start time of the Task to blank
+    - The Selection of any of the other options will not affect the start or end time of a Task, unless the "Started" option was not previously selected
     
-- Add and Edit Tasks Pages
-    - Navigation links
-    - Button to Cancel and go back to the previous page
-    - Button to Add and Store the Task
-    - Insert the "Task Name" field; with validation
-    - Select a "Task Category" from the dropdown menu or leave default option
-    - Select a "Task Status" from the dropdown menu or leave default option
-    - Add a text description
-    - Select the "Due Date" of the Task from a Calendar popup window; with validation
-    - Select the "Task Importance" from the dropdown menu or leave default option 
+- Pages to Add or Edit Tasks
+    - Insert the "Task Name" field; with validation, mandatory field
+    - Select a "Task Owner" from the dropdown; or leave default option, current user
+    - Select a "Task Category" from the dropdown; or leave default option "Undefined"
+    - Select a "Task Status" from the dropdown; or leave default option "Not Started"
+    - Add a text description; optional
+    - Select the "Due Date" of the Task from a Calendar popup window; with validation or leave current day as default
+    - Select the "Task Importance" from the dropdown; or leave default option "Low"
+
+- Profile Page
+    - Update User Profile information like username, email address ...
+    - Update User Password
+
+- Team Page
+    - See list of Collaborators in Team
+        - Sort and search the list of Collaborators in your Team by username or email address
+        - Includes Pagination
+    - Add a User to the list of Collaborators in Team
+
+- User Accounts & Permissions
+    - Login
+    - Logout
+    - Register as User in Tasking
+    - Reset Password when forgotten by receving an email with instructions
+    - Permissions for Free and Premium User ( see [**App Overview**](#app-overview) for more info):
+        - Free User 
+            - can only create or edit Personal Tasks
+            - doesn't have access to features to manage a Team
+        - Premium User 
+            - can create and edit Personal Tasks, and Tasks aimed to other Users in a Team
+            - full access to features to manage a Team
+
+
 
 ### Features Left to Implement
 In the future, it could be nice to implement additional options to duplicate or delete tasks, and to allow a Team owner to remove a user from his/her Team.
 manage categories so users can add or remove the default ones. 
-As well, the posibility to manage categories or to get alerts and notifications could be a nice features to implement.
+
+As well, the posibility to manage categories or to get alerts and notifications could be nice features to implement.
 
 ##### back to [top](#tasking)
 
