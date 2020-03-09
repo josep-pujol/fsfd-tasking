@@ -132,8 +132,7 @@ A Premium user has all the sections and features of a Free User plus the followi
     - "Team": where a Team owner can add users in the Team
 
     ![Premium User Account](readme_files/images/PermiumUser_Account.png) 
-    ![Premium User Teams](readme_files/images/PermiumUser_TeamsPage.png|width=400)
-    <img src="https://github.com/josep-pujol/fsfd-tasking/blob/master/readme_files/images/PermiumUser_TeamsPage.png" alt="Premium User Teams" width="400"/>
+    <img src="https://github.com/josep-pujol/fsfd-tasking/blob/master/readme_files/images/PermiumUser_TeamsPage.png" alt="Premium User Teams" width="500"/>
 
 ##### back to [top](#tasking)
 
