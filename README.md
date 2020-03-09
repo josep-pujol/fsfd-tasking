@@ -131,7 +131,8 @@ A Premium user has all the sections and features of a Free User plus the followi
 - User:
     - "Team": where a Team owner can add users in the Team
 
-    ![Premium User Account](readme_files/images/PermiumUser_Account.png) ![Premium User Teams](readme_files/images/PermiumUser_TeamsPage.png)
+    ![Premium User Account](readme_files/images/PermiumUser_Account.png) 
+    ![Premium User Teams](readme_files/images/PermiumUser_TeamsPage.png)
 
 
 ##### back to [top](#tasking)
@@ -145,7 +146,6 @@ A Premium user has all the sections and features of a Free User plus the followi
 
 - Main Page
     - Navigation links
-    - Display tasks that are not completed
     - Pagination, including dropdown menu to select number of items per page
     - Search and Sorting functionality for all fields in the Table
     - Fixed floating button with tooltip, to add tasks
@@ -159,9 +159,9 @@ A Premium user has all the sections and features of a Free User plus the followi
     - Pagination, including dropdown menu to select number of rows per page
     - Search and Sorting functionality for all fields in the Table
     
-- Add and Edit Task Pages
+- Add and Edit Tasks Pages
     - Navigation links
-    - Button to Cancel and go back to the Main Page
+    - Button to Cancel and go back to the previous page
     - Button to Add and Store the Task
     - Insert the "Task Name" field; with validation
     - Select a "Task Category" from the dropdown menu or leave default option
@@ -225,7 +225,8 @@ The main technologies used are:
 
 - All code used on this site has been manually tested to ensure everything is working as expected. Some tests include:
     - Site responsiveness from small mobile up to 17" desktop screens
-    - Content is displayed correctly for screens of small mobiles to 17" desktop screens
+        - Content is displayed correctly for screens of small mobiles to 17" desktop screens
+        - Content is overflowing for screens smaller than 330 px
     - Functionality:
         - Loading all pages
         - Links and buttons are working
@@ -233,15 +234,21 @@ The main technologies used are:
         - Popup windows are performing the intended actions
         - DataTables functionality like Search, Sort, Pagination and Table wrapping is working correctly
     - Data entry and editing
-        - Added several tasks using major browsers
+        - Added several tasks using most popular browsers
         - Added tasks with empty fields for validation
         - Added tasks with empty fields to test default values
-- Site tested with the following browsers and devices
+
+- Site tested with the following browsers
     - Google Chrome v80 (mobile and desktop version)
     - Microsoft Edge v44 (desktop version)
     - Mozilla Firefox v73 (mobile and desktop version)
+- Site tested on real devices
     - Dell Desktop PC model Precision T5810XL
     - Samsung Galaxy S8 SM-G950F
+    - see Matrix below for virtual devices used on Tests
+
+    ![Tests Matix](readme_files/matrix_tests.png)
+
 
 ### Unit Tests
 [![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
@@ -253,7 +260,7 @@ Automatic tests with over 90% coverage are included in this repository. A detail
 - User access to the site with different permissions
 - Helper functions
 
-Automaic Tests that are to be implemented:
+Automaic Tests to be implemented:
 - Stripe payments
 - User registration process
 
