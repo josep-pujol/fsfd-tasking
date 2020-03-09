@@ -20,6 +20,7 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 <br>
 
 ## Table of Contents
+
 1. [**UX**](#ux)
     - [**User Stories**](#user-stories)
     - [**App Overview**](#app-overview)
@@ -95,9 +96,7 @@ As a Premium User I want to ...
 
 ### App Overview
 
-
 #### Free User
-
 The app consists of three main sections: 
 
 - Non registered users: Landing page with Sign-in and Sign-up functionality
@@ -121,7 +120,6 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 
 
 #### Premium User
-
 A Premium user has all the sections and features of a Free User plus the following:
 - Tasks Pages: 
     - "Team's Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable
@@ -186,7 +184,7 @@ A Premium user has all the sections and features of a Free User plus the followi
     - Logout
     - Register as User in Tasking
     - Reset Password when forgotten by receving an email with instructions
-    - Permissions for Free and Premium User (see [**App Overview**](#app-overview) for more info):
+    - Permissions for Free and Premium Users (see [**App Overview**](#app-overview) for more info):
         - Free User 
             - can only create or edit Personal Tasks
             - doesn't have access to features to manage a Team
@@ -197,6 +195,7 @@ A Premium user has all the sections and features of a Free User plus the followi
 
 
 ### Features Left to Implement
+
 In the future, it could be nice to implement additional options to duplicate or delete tasks, and to allow a Team owner to remove a user from his/her Team.
 manage categories so users can add or remove the default ones. 
 
@@ -297,6 +296,7 @@ Additionally, [Travis-CI](https://travis-ci.org/) was used for Continuous Integr
 
 
 ### Chrome DevTools Audit
+
 - Files with the tests ran in Chrome DevTools Audit can be found in this repository in the folder [**test_files**](readme_files/test_files "Chrome DevTools Audit"). The tests were done on the [**Landing**](https://fsfd-tasking.herokuapp.com/) and the [**Tasks**](https://fsfd-tasking.herokuapp.com/) pages
 - As a summary:
     - Landing Page: results about 90 for Performance, Accessibility, Best Practices and SEO
@@ -314,6 +314,7 @@ Additionally, [Travis-CI](https://travis-ci.org/) was used for Continuous Integr
 ## Deployment
  
 ### Getting the code up and running
+
 0. The following instructions are meant for a Linux System running Python3
 1. First it is recommended to create a virtual environment
 2. Create your own repository
@@ -336,6 +337,7 @@ Additionally, [Travis-CI](https://travis-ci.org/) was used for Continuous Integr
 
 
 ### Deploy in Heroku
+
 0. If previous steps ran successfully, do the following to deploy the app in Heroku 
 1. Frist you need to create an account in Heroku
 2. Create an Heroku app
@@ -350,6 +352,7 @@ Additionally, [Travis-CI](https://travis-ci.org/) was used for Continuous Integr
 
 
 ### Database initial values
+
 The Database migrations automatically create a superuser and the following tables with default values:
 - ```superuser``` : the administrator user to access Django Admin, with credentials username  ```admin``` and password  ```admin``` 
 - ```team_team``` (table): table that stores information related to Teams
@@ -367,6 +370,7 @@ The Database migrations automatically create a superuser and the following table
         - For example, when the status ```started``` is selected, the Task start date is set to current date
         - When the status ```completed``` is selected, the Task completed date is set to current date
 
+
 ### Database Schema
 ![Database schema](readme_files/database_schema.png?raw=true "Database Schema")
 
@@ -377,6 +381,7 @@ The Database migrations automatically create a superuser and the following table
 <br>
 
 ## Credits
+
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/).
 Wallpaper images taken from [pixabay.com](https://pixabay.com/), and multidevice mockups, on this README file, were generated on [techsini.com](http://techsini.com/multi-mockup/).
 
