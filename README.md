@@ -22,7 +22,7 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 ## Table of Contents
 1. [**UX**](#ux)
     - [**User Stories**](#user-stories)
-    - [**App Overviewr**](#app-verview)
+    - [**App Overview**](#app-overview)
 
 2. [**Features**](#features)
     - [**Existing Features**](#existing-features)
@@ -186,7 +186,7 @@ A Premium user has all the sections and features of a Free User plus the followi
     - Logout
     - Register as User in Tasking
     - Reset Password when forgotten by receving an email with instructions
-    - Permissions for Free and Premium User ( see [**App Overview**](#app-overview) for more info):
+    - Permissions for Free and Premium User (see [**App Overview**](#app-overview) for more info):
         - Free User 
             - can only create or edit Personal Tasks
             - doesn't have access to features to manage a Team
