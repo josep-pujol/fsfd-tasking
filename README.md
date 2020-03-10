@@ -11,8 +11,8 @@ This repository contains a solution code for the milestone project of the *Full 
 
 Consists on a "Tasks List" or "To-Do" application in which users can organize their tasks or to-dos. Users not only can create and update tasks but as well search, filter or sort tasks.
 
-Most of the functionality is available for free, however users can get additional features by subscribing.
-Subscribed users can create a To-Do list with a list of users of his/her choice, and collaborate online from their PC or mobile phone.
+Most of the functionality is available for free however, users can get additional features by subscribing.
+Subscribed users can create a To-Do list with a list of users of their choice, and collaborate online from their PC or mobile phone.
 
 A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
@@ -54,7 +54,7 @@ A demo of the app can be viewed [HERE](https://fsfd-tasking.herokuapp.com/)
 
 ### User Stories
 
-User stories are divided between Free Users and Permium Users, and in function of the CRUD operation performed:
+User stories are divided between Free Users and Premium Users, and in function of the operation performed.
 
 
 #### Free User
@@ -93,7 +93,7 @@ As a Premium User I want to ...
     - edit tasks I create	
 	- edit Status fields of other tasks
 
-Mockup versions of the Design fase of this project are included in this repository in the [**readme_files**](readme_files/wireframes-mockups.pdf "Wireframes and Mockups") folder.
+Mock-up versions of the design phase of this project are included in this repository in the [**readme_files**](readme_files/wireframes-mockups.pdf "Wireframes and Mock-ups") folder.
 
 
 ### App Overview
@@ -105,13 +105,13 @@ The app consists of three main sections:
 - Tasks Pages: 
     - Section to manage different Task Lists or To-Do lists
     - The available Task Lists are:
-        - "Personal Tasks": Tasks aimed only at the owner of the account - all features avilable 
+        - "Personal Tasks": Tasks aimed only at the owner of the account - all features available 
         - "Assigned Tasks": Tasks assigned to the user from other registered users of Tasking - restricted features
-        - "Completed Tasks": all the tasks completed by the user
+        - "Completed Tasks": all the Tasks completed by the user
 
     ![Personal Tasks](readme_files/images/FreeUser_PersonalTasks.png)
 
-- User: section for the owner of the account in which the user profile can be updated and from where you can logout
+- User Pages: section for the owner of the account in which the user profile can be updated and from where users can logout
 
     ![Free User Account](readme_files/images/FreeUser_Account.png)
 
@@ -124,11 +124,11 @@ These actions can be activated by clicking on the menu-dots item on the right-ha
 #### Premium User
 A Premium user has all the sections and features of a Free User plus the following:
 - Tasks Pages: 
-    - "Team's Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features avilable
+    - "Team's Tasks": Tasks that the Team Lead or Team Owner assign to other users - all features available
 
     ![Team's Tasks](readme_files/images/PremiumUser_TeamsTasks.png)
 
-- User:
+- User Pages:
     - "Team": where a Team owner can add users in the Team
 
     ![Premium User Account](readme_files/images/PermiumUser_Account.png) 
@@ -150,7 +150,7 @@ A Premium user has all the sections and features of a Free User plus the followi
 - Tasks tables 
     - Pagination, including dropdown menu to select the number of items per page
     - Search and Sorting functionality for most fields in the Table
-    - Expand icon per Task, left side, which allows a user to see additional fields of a Task. Specially useful when using a device with small screen.
+    - Expand icon per Task, left side, which allows a user to see additional fields of a Task. Especially useful when using a device with small screen.
     - Menu-dots per Task, right side, with options to
         - Edit the Status of a Task. Opens a pop-up window with options
         - Edit any of the fields of a Task. Redirect to Edit Tasks page
@@ -163,12 +163,12 @@ A Premium user has all the sections and features of a Free User plus the followi
     - The Selection of any of the other options will not affect the start or end time of a Task, unless the "Started" option was not previously selected
     
 - Pages to Add or Edit Tasks
-    - Insert the "Task Name" field; with validation, mandatory field
+    - Add the "Task Name"; with validation, mandatory field
     - Select a "Task Owner" from the dropdown; or leave default option, current user
     - Select a "Task Category" from the dropdown; or leave default option "Undefined"
     - Select a "Task Status" from the dropdown; or leave default option "Not Started"
-    - Add a text description; optional
-    - Select the "Due Date" of the Task from a Calendar popup window; with validation or leave current day as default
+    - Add a "Task Description"; optional field
+    - Select the "Due Date" of the Task from a Calendar popup window; with validation or leave current date as default
     - Select the "Task Importance" from the dropdown; or leave default option "Low"
 
 - Profile Page
@@ -185,7 +185,7 @@ A Premium user has all the sections and features of a Free User plus the followi
     - Login
     - Logout
     - Register as User in Tasking
-    - Reset Password when forgotten by receving an email with instructions
+    - Reset Password, when forgotten, by receiving an email with instructions
     - Permissions for Free and Premium Users (see [**App Overview**](#app-overview) for more info):
         - Free User 
             - can only create or edit Personal Tasks
@@ -198,10 +198,9 @@ A Premium user has all the sections and features of a Free User plus the followi
 
 ### Features Left to Implement
 
-In the future, it could be nice to implement additional options to duplicate or delete tasks, and to allow a Team owner to remove a user from his/her Team.
-manage categories so users can add or remove the default ones. 
+In the future, it could be nice to implement additional options to duplicate or delete tasks, and to allow a Team owner to remove a user from a Team.
 
-As well, the posibility to manage categories or to get alerts and notifications could be nice features to implement.
+As well, the possibility to manage categories or to get alerts and notifications could be nice features to implement.
 
 ##### back to [top](#tasking)
 
@@ -217,7 +216,7 @@ The main technologies used are:
     - Main language used to build the application
 - [Django](https://https://docs.djangoproject.com/en/2.2/)
     - Web application framework for **Python**
-- **HTML**, **CSS** and **Javascript**
+- **HTML**, **CSS** and **JavaScript**
     - Base languages used to create the site frontend
 - [Materialize](https://materializecss.com)
     - Used **Materialize 1.0.0** for a responsive layout and styling
@@ -225,7 +224,7 @@ The main technologies used are:
     - Plugin for **jQuery** that adds interactive features to data stored in **HTML** tables
 - [JQuery](https://jquery.com)
     - **JQuery** as a dependency for **DataTables**
-- [Github](https://github.com)
+- [GitHub](https://github.com)
     - Used as repository of the project 
 - [ElephantSQL](https://www.elephantsql.com/)
     - PostgreSQL as a service used during development
@@ -240,7 +239,7 @@ The main technologies used are:
 - [SendGrid](https://sendgrid.com/)
     - SendGrid API is used to email users that request a password reset
 - [Stripe](https://stripe.com/docs/api)
-    - Stripe API to process payments in users subscritions 
+    - Stripe API to process payments when users subscribe 
 
 ##### back to [top](#tasking)
 
@@ -251,7 +250,7 @@ The main technologies used are:
 
 ### Manual Testing
 
-- All code used on this site has been manually tested to ensure everything is working as expected. Some tests include:
+- All code used on this site has been manually tested to ensure everything is working as expected. Tests include:
     - Site responsiveness from small mobile up to 17" desktop screens
         - Content is displayed correctly for screens of small mobiles to 17" desktop screens
         - Content is overflowing for screens smaller than 330 px
@@ -275,7 +274,7 @@ The main technologies used are:
     - Samsung Galaxy S8 SM-G950F
     - see Matrix below for virtual devices used on Tests
 
-    ![Tests Matix](readme_files/matrix_tests.png)
+    ![Tests Matrix](readme_files/matrix_tests.png)
 
 
 ### Unit Tests
@@ -288,7 +287,7 @@ Automatic tests with over 90% coverage are included in this repository. A detail
 - User access to the site with different permissions
 - Helper functions
 
-Automaic Tests to be implemented:
+Automatic Tests to be implemented:
 - Stripe payments
 - User registration process
 
@@ -320,17 +319,17 @@ Additionally, [Travis-CI](https://travis-ci.org/) was used for Continuous Integr
 0. The following instructions are meant for a Linux System running Python3
 1. First it is recommended to create a virtual environment
 2. Create your own repository
-3. Download or clone this repository by running the ```git clone <project's Github URL>``` command
+3. Download or clone this repository by running the ```git clone <project's GitHub URL>``` command
 4. Install Python packages from ```requirements.txt``` file - from Terminal type ```pip install -r requirements.txt```
 5. Add the following environmental variables in your environment:
-    - ```DATABASE_URL```: conection string to your Database. [elephantsql](https://www.elephantsql.com/) was used in this project
+    - ```DATABASE_URL```: connection string to your Database. [elephantsql](https://www.elephantsql.com/) was used in this project
     - ```IP```: set to ```0.0.0.0```
     - ```PORT```: set to ```8080```
     - ```SECRET_KEY```: Django secret key. You can generate one on the site [djecrety](https://djecrety.ir/)
     - ```SENDGRID_API_KEY```: create a SendGrid account to get a key
     - ```STRIPE_PUBLIC_KEY```: create a Stripe account to get a key
     - ```STRIPE_SECRET_KEY```: create a Stripe account to get a key
-6. To have the Database ready to run the app do the following in your Terminal (see below*):
+6. To have the Database ready to run the app do the following in your Terminal (see section [**Database initial values**](#database-initial-values)):
     - Make migrations typing ```python3 manage.py makemigrations```
     - Migrate typing ```python3 manage.py migrate```
     - Notice a default superuser is created with username and password ```admin```
@@ -348,8 +347,8 @@ Additionally, [Travis-CI](https://travis-ci.org/) was used for Continuous Integr
 5. In the "Deploy" section: 
     - Select "GitHub" as a source in the "Deployment method" subsection 
     - Click the "Deploy Branch" button in the "Manual Deploy" subsection
-6. Open the given Heroku url to test that the application is up and running
-7. Go to Django Admin and change the default Superuser password
+6. Open the given Heroku URL to test that the application is up and running
+7. Go to Django Admin and change the default superuser password
 8. If issues, please have a look at the deployment logs in Heroku
 
 
@@ -358,19 +357,19 @@ Additionally, [Travis-CI](https://travis-ci.org/) was used for Continuous Integr
 The Database migrations automatically create a superuser and the following tables with default values:
 - ```superuser``` : the administrator user to access Django Admin, with credentials username  ```admin``` and password  ```admin``` 
 - ```team_team``` (table): table that stores information related to Teams
-    - A default Team called ````tasking``` is set for all users
+    - A default Team called ```tasking``` is set for all users
 - ```team_userteam``` (table): table to store the relationship of a User with a Team. In other words, which Users belong to each Teams
     - A relationship between the default Team ```tasking``` and all users is created by default
-    - The superuser ```àdmin``` is the Team Owner of ```tasking``` Team
-- ```task_category``` (table): used in dropdown menus to classify the tasks in different category groups 
+    - The superuser ```admin``` is the Team Owner of the ```tasking``` Team
+- ```task_category``` (table): used in dropdown menus to classify tasks in different category groups 
     - The category groups are:  ```undefined```,  ```admin```, ```meetings```, ```other```, ```planning```, ```projects```, ```training``` and ```travel```   
 - ```task_importance``` (table): with values to define the importance or urgency of a Task to be completed
     - A Task can be labelled with Importance values: ```low```, ```medium``` and ```high```
 - ```task_status``` (table): provide information to the user about the degree of completion of a Task, and sets the start and completed date of a Task
     - The status available are: ```not started```, ```started```, ```25%```, ```50%```, ```75%``` and ```completed```
     - Notice that some status modify the start or completed date of a Task:
-        - For example, when the status ```started``` is selected, the Task start date is set to current date
-        - When the status ```completed``` is selected, the Task completed date is set to current date
+        - For example, when the status ```started``` is selected, the Task start date is set to the current date
+        - When the status ```completed``` is selected, the Task completed date is set to the current date
 
 
 ### Database Schema
@@ -385,8 +384,9 @@ The Database migrations automatically create a superuser and the following table
 ## Credits
 
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/).
-Wallpaper images taken from [pixabay.com](https://pixabay.com/), and multidevice mockups, on this README file, were generated on [techsini.com](http://techsini.com/multi-mockup/).
+Wallpaper images taken from [pixabay.com](https://pixabay.com/), and multidevice mock-ups, on this README file, were generated on [techsini.com](http://techsini.com/multi-mockup/).
 
 Many thanks to my mentor [Sindhu Kolli](https://github.com/itssindhu13) for her great advise and suggestions.
+
 
 ##### back to [top](#tasking)
