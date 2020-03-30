@@ -2,8 +2,8 @@
 
 # Tasking
 
-![Python](https://img.shields.io/static/v1?label=python&message=3.7.6&color=blue)
-![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)
+[![Python](https://img.shields.io/static/v1?label=python&message=3.7.6&color=blue)](https://docs.python.org/3.7/)
+[![Django](https://img.shields.io/static/v1?label=django&message=2.2.10&color=092E20)](https://docs.djangoproject.com/en/2.2/)
 [![Build Status](https://travis-ci.org/josep-pujol/fsfd-tasking.svg?branch=master)](https://travis-ci.org/josep-pujol/fsfd-tasking)
 [![codecov](https://codecov.io/gh/josep-pujol/fsfd-tasking/branch/master/graph/badge.svg)](https://codecov.io/gh/josep-pujol/fsfd-tasking)
 
