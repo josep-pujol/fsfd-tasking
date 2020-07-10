@@ -386,7 +386,7 @@ The Database migrations automatically create a superuser and the following table
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/).
 Wallpaper images taken from [pixabay.com](https://pixabay.com/), and multidevice mock-ups, on this README file, were generated on [techsini.com](http://techsini.com/multi-mockup/).
 
-Many thanks to my mentor [Sindhu Kolli](https://github.com/itssindhu13) for her great advise and suggestions.
+Many thanks to my mentor [Sindhu Kolli](https://github.com/itssindhu13) for her great advice and suggestions.
 
 
 ##### back to [top](#tasking)
